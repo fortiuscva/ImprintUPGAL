@@ -1,0 +1,36 @@
+{
+  "id": "12468ed0-f760-4839-93ee-69f8b07c19e2",
+  "name": "ImprintUPGAL",
+  "publisher": "Default publisher",
+  "version": "1.0.0.56",
+  "runtime": "10.0",
+  "target": "Cloud",
+  "application": "21.0.0.0",
+  "platform": "21.0.0.0",
+  "contextSensitiveHelpUrl": "https://ImprintUPGAL.com/help/",
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "idRanges": [
+    {
+      "from": 50000,
+      "to": 99999
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "f8750ab4-1d72-455d-b773-5b487a0ac106",
+      "publisher": "Lanham Associate",
+      "name": "Lanham E-Ship and E-Receive",
+      "version": "21.1.11.15"
+    },
+    {
+      "id": "069f3d48-1c17-459e-bbc6-3f00693bb507",
+      "name": "Zetadocs Delivery and Zetadocs Capture",
+      "publisher": "Equisys",
+      "version": "3.0.22250.18000"
+    }
+  ]
+}

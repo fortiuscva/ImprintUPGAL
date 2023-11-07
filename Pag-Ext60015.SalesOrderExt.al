@@ -1,7 +1,12 @@
 pageextension 60015 "SalesOrderExt" extends "Sales Order"
 {
+    //IMP1.01, 11/07/23,SK: Making "Sell-to E-Mail" non-editable in General tab
     layout
     {
+        modify("Sell-to E-Mail")
+        {
+            Editable = false;
+        }
         addafter("Responsibility Center")
         {
             field("Profit (LCY)"; Rec."Profit (LCY)")
@@ -160,35 +165,39 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
                                                 OnBeforeValidateShipToOptionsCust(Rec, ShipToOptionsCust, IsHandled);
                                                 if IsHandled then
                                                     exit; */
-                        case ShipToOptionsCust of ShipToOptionsCust::"Default (Sell-to Address)": begin
-                            Rec.Validate("Ship-to Code", '');
-                            Rec.CopySellToAddressToShipToAddress;
+                        case ShipToOptionsCust of
+                            ShipToOptionsCust::"Default (Sell-to Address)":
+                                begin
+                                    Rec.Validate("Ship-to Code", '');
+                                    Rec.CopySellToAddressToShipToAddress;
+                                end;
+                            ShipToOptionsCust::"Alternate Shipping Address":
+                                begin
+                                    ShipToAddress.SetRange("Customer No.", rec."Sell-to Customer No.");
+                                    ShipToAddressList.LookupMode := true;
+                                    ShipToAddressList.SetTableView(ShipToAddress);
+                                    if ShipToAddressList.RunModal = ACTION::LookupOK then begin
+                                        ShipToAddressList.GetRecord(ShipToAddress);
+                                        // OnValidateShipToOptionsCustOnAfterShipToAddressListGetRecord(ShipToAddress, Rec);
+                                        Rec.Validate("Ship-to Code", ShipToAddress.Code);
+                                        IsShipToCountyVisible := FormatAddress.UseCounty(ShipToAddress."Country/Region Code");
+                                    end
+                                    else
+                                        ShipToOptionsCust := ShipToOptionsCust::"Custom Address";
+                                end;
+                            ShipToOptionsCust::"Custom Address":
+                                begin
+                                    Rec.Validate("Ship-to Code", '');
+                                    IsShipToCountyVisible := FormatAddress.UseCounty(rec."Ship-to Country/Region Code");
+                                end;
                         end;
-                        ShipToOptionsCust::"Alternate Shipping Address": begin
-                            ShipToAddress.SetRange("Customer No.", rec."Sell-to Customer No.");
-                            ShipToAddressList.LookupMode:=true;
-                            ShipToAddressList.SetTableView(ShipToAddress);
-                            if ShipToAddressList.RunModal = ACTION::LookupOK then begin
-                                ShipToAddressList.GetRecord(ShipToAddress);
-                                // OnValidateShipToOptionsCustOnAfterShipToAddressListGetRecord(ShipToAddress, Rec);
-                                Rec.Validate("Ship-to Code", ShipToAddress.Code);
-                                IsShipToCountyVisible:=FormatAddress.UseCounty(ShipToAddress."Country/Region Code");
-                            end
-                            else
-                                ShipToOptionsCust:=ShipToOptionsCust::"Custom Address";
-                        end;
-                        ShipToOptionsCust::"Custom Address": begin
-                            Rec.Validate("Ship-to Code", '');
-                            IsShipToCountyVisible:=FormatAddress.UseCounty(rec."Ship-to Country/Region Code");
-                        end;
-                        end;
-                    //OnAfterValidateShippingOptions(Rec, ShipToOptionsCust);
+                        //OnAfterValidateShippingOptions(Rec, ShipToOptionsCust);
                     end;
                 }
                 group(Control4Cust)
                 {
                     ShowCaption = false;
-                    Visible = NOT(ShipToOptionsCust = ShipToOptionsCust::"Default (Sell-to Address)");
+                    Visible = NOT (ShipToOptionsCust = ShipToOptionsCust::"Default (Sell-to Address)");
 
                     field("ShiptoCode"; Rec."Ship-to Code")
                     {
@@ -202,13 +211,13 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
                         var
                             ShipToAddress: Record "Ship-to Address";
                         begin
-                            if(xRec."Ship-to Code" <> '') and (Rec."Ship-to Code" = '')then Error(EmptyShipToCodeErr);
+                            if (xRec."Ship-to Code" <> '') and (Rec."Ship-to Code" = '') then Error(EmptyShipToCodeErr);
                             if Rec."Ship-to Code" <> '' then begin
                                 ShipToAddress.Get(Rec."Sell-to Customer No.", Rec."Ship-to Code");
-                                IsShipToCountyVisible:=FormatAddress.UseCounty(ShipToAddress."Country/Region Code");
+                                IsShipToCountyVisible := FormatAddress.UseCounty(ShipToAddress."Country/Region Code");
                             end
                             else
-                                IsShipToCountyVisible:=false;
+                                IsShipToCountyVisible := false;
                         end;
                     }
                     field("ShiptoName"; Rec."Ship-to Name")
@@ -275,7 +284,7 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
 
                         trigger OnValidate()
                         begin
-                            IsShipToCountyVisible:=FormatAddress.UseCounty(Rec."Ship-to Country/Region Code");
+                            IsShipToCountyVisible := FormatAddress.UseCounty(Rec."Ship-to Country/Region Code");
                         end;
                     }
                     field("ShiptoUPSZone"; Rec."Ship-to UPS Zone")
@@ -305,7 +314,7 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
                 {
                     ApplicationArea = All;
                     RunObject = Page "Tracking Shipments";
-                    RunPageLink = "Sales Order Number"=FIELD("No.");
+                    RunPageLink = "Sales Order Number" = FIELD("No.");
                 }
                 action("Calculate Shipping Cost")
                 {
@@ -318,26 +327,28 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
                         GLAcc: Record "G/L Account";
                     begin
                         tempshiprec.DeleteAll;
-                        shipcost:=0;
-                        shipprice:=0;
-                        CostInt:=0;
-                        PriceInt:=0;
-                        shipweight:=0;
+                        shipcost := 0;
+                        shipprice := 0;
+                        CostInt := 0;
+                        PriceInt := 0;
+                        shipweight := 0;
                         shipmentrec.Reset;
                         shipmentrec.SetRange(shipmentrec."Sales Order Number", Rec."No.");
                         shipmentrec.SetRange(Processed, false);
-                        if shipmentrec.Find('-')then repeat if(shipmentrec.Void = '') or (shipmentrec.Void = 'N')then begin
+                        if shipmentrec.Find('-') then
+                            repeat
+                                if (shipmentrec.Void = '') or (shipmentrec.Void = 'N') then begin
                                     //   shipcost+=shipmentrec."Shipping Cost";
                                     //   shipprice+=shipmentrec."Shipping Price";
                                     Evaluate(CostInt, shipmentrec.UPS_ShipCost);
                                     Evaluate(PriceInt, shipmentrec.UPS_ShipPrice);
-                                    shipcost+=CostInt;
-                                    shipprice+=PriceInt;
+                                    shipcost += CostInt;
+                                    shipprice += PriceInt;
                                     // shipcost += shipmentrec.UPS_ShipCost;      //Update to use more specific costs.
                                     // shipprice += shipmentrec.UPS_ShipPrice;
-                                    numberofcartoons+=1;
-                                    shipweight+=shipmentrec.Weight;
-                                    ptrack:=shipmentrec."Tracking Number";
+                                    numberofcartoons += 1;
+                                    shipweight += shipmentrec.Weight;
+                                    ptrack := shipmentrec."Tracking Number";
                                 end;
                                 tempshiprec.TransferFields(shipmentrec);
                                 tempshiprec.Insert;
@@ -347,32 +358,34 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
                             salesLine1.Reset;
                             salesLine1.SetRange("Document Type", Rec."Document Type");
                             salesLine1.SetRange("Document No.", Rec."No.");
-                            if salesLine1.Find('+')then lineno:=salesLine1."Line No.";
+                            if salesLine1.Find('+') then lineno := salesLine1."Line No.";
                             salesLine1.Reset;
                             Clear(salesLine1);
-                            salesLine1."Document Type":=salesLine1."Document Type"::Order;
-                            salesLine1."Document No.":=Rec."No.";
-                            salesLine1."Line No.":=lineno + 10000;
+                            salesLine1."Document Type" := salesLine1."Document Type"::Order;
+                            salesLine1."Document No." := Rec."No.";
+                            salesLine1."Line No." := lineno + 10000;
                             salesLine1.Insert(true);
-                            salesLine1.Type:=salesLine1.Type::"G/L Account";
+                            salesLine1.Type := salesLine1.Type::"G/L Account";
                             //salesLine1."No.":=salesset."G/L Freight Account No.";//B2BUPG
                             //  salesLine1."Allow Qty Change":=TRUE;
                             salesLine1.Validate(salesLine1."No.");
                             salesLine1.Validate(Quantity, 1);
-                            salesLine1."Unit Cost (LCY)":=shipcost;
+                            salesLine1."Unit Cost (LCY)" := shipcost;
                             salesLine1.Validate("Unit Cost (LCY)");
-                            salesLine1."Unit Price":=shipprice;
+                            salesLine1."Unit Price" := shipprice;
                             salesLine1.Validate("Unit Price");
                             //GLAcc.GET(salesset."G/L Freight Account No.");//B2BUPG
                             salesLine1.Validate("Tax Group Code", GLAcc."Tax Group Code");
                             salesLine1.Modify;
                             tempshiprec.Reset;
-                            if tempshiprec.Find('-')then repeat shipmentrec.Get(tempshiprec."Sales Order Number", tempshiprec."Tracking Number", tempshiprec.Void);
-                                    shipmentrec.Processed:=true;
+                            if tempshiprec.Find('-') then
+                                repeat
+                                    shipmentrec.Get(tempshiprec."Sales Order Number", tempshiprec."Tracking Number", tempshiprec.Void);
+                                    shipmentrec.Processed := true;
                                     shipmentrec.Modify;
                                 until tempshiprec.Next = 0;
                         end;
-                        Rec."Package Tracking No.":=ptrack;
+                        Rec."Package Tracking No." := ptrack;
                         Rec.Modify;
                         CurrPage.Update(false);
                     end;
@@ -398,7 +411,7 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
                     //IMP1.04 End
                     // ISS2.00 09.06.13 DFP ===========================================================================\
                     CreatePurchOrders(FALSE);
-                // End ============================================================================================/
+                    // End ============================================================================================/
                 end;
             }
             action("Create Purchase Orders (Specify No.)")
@@ -409,7 +422,7 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
                 begin
                     // ISS2.00 09.06.13 DFP ===========================================================================\
                     CreatePurchOrders(TRUE);
-                // End ============================================================================================/
+                    // End ============================================================================================/
                 end;
             }
             action("Check Purchase Order Links")
@@ -420,7 +433,7 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
                 begin
                     // ISS2.00 12.05.13 DFP ===================================================\
                     Rec.RepairPurchLink(FALSE);
-                // End ====================================================================/
+                    // End ====================================================================/
                 end;
             }
         }
@@ -432,24 +445,26 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
         // ISS2.00 09.06.13 DFP ===========================================================================\
         CLEAR(POCreationMgt);
         POCreationMgt.CreatePurchOrders(Rec."No.", OverridePONo, FALSE);
-    //DP
-    //PurchResoCU.CreateDirectandSpecialPO(Rec);
-    // End ============================================================================================/
+        //DP
+        //PurchResoCU.CreateDirectandSpecialPO(Rec);
+        // End ============================================================================================/
     end;
-    var tempshiprec: Record SHIPMENTS_ALL temporary;
-    shipcost: Decimal;
-    shipprice: Decimal;
-    shipweight: Decimal;
-    shipmentrec: Record SHIPMENTS_ALL;
-    numberofcartoons: Integer;
-    ptrack: Text[50];
-    salesset: Record "Sales & Receivables Setup";
-    salesLine1: Record "Sales Line";
-    lineno: Integer;
-    IsShipToCountyVisible: Boolean;
-    FormatAddress: Codeunit "Format Address";
-    EmptyShipToCodeErr: Label 'The Code field can only be empty if you select Custom Address in the Ship-to field.';
-    ShipToOptionsCust: Option "Alternate Shipping Address", "Default (Sell-to Address)", "Custom Address";
-//Unsupported feature: InsertAfter on "Documentation". Please convert manually.
-//Unsupported feature: PropertyChange. Please convert manually.
+
+    var
+        tempshiprec: Record SHIPMENTS_ALL temporary;
+        shipcost: Decimal;
+        shipprice: Decimal;
+        shipweight: Decimal;
+        shipmentrec: Record SHIPMENTS_ALL;
+        numberofcartoons: Integer;
+        ptrack: Text[50];
+        salesset: Record "Sales & Receivables Setup";
+        salesLine1: Record "Sales Line";
+        lineno: Integer;
+        IsShipToCountyVisible: Boolean;
+        FormatAddress: Codeunit "Format Address";
+        EmptyShipToCodeErr: Label 'The Code field can only be empty if you select Custom Address in the Ship-to field.';
+        ShipToOptionsCust: Option "Alternate Shipping Address","Default (Sell-to Address)","Custom Address";
+    //Unsupported feature: InsertAfter on "Documentation". Please convert manually.
+    //Unsupported feature: PropertyChange. Please convert manually.
 }

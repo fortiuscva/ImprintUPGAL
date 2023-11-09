@@ -112,4 +112,10 @@ page 50020 "Recent Sales Invoice Lines"
             }
         }
     }
+    trigger OnOpenPage()
+    begin
+        Rec.Setcurrentkey("Posting Date");
+        Rec.Ascending(false);
+        if Rec.FindFirst() then;
+    end;
 }

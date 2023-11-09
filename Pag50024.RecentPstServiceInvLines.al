@@ -8,6 +8,7 @@ page 50024 "Recent Pst. Service Inv. Lines"
     ModifyAllowed = false;
     PageType = List;
     SourceTable = "Service Invoice Line";
+    SourceTableView = sorting("Posting Date") order(descending);
     ApplicationArea = All;
     UsageCategory = Lists;
 
@@ -123,5 +124,6 @@ page 50024 "Recent Pst. Service Inv. Lines"
     actions
     {
     }
-    var ServInvHeader: Record "Service Invoice Header";
+    var
+        ServInvHeader: Record "Service Invoice Header";
 }

@@ -15,4 +15,9 @@ tableextension 60048 "ServiceInvoiceLineExt" extends "Service Invoice Line"
             TableRelation = Resource;
         }
     }
+    keys
+    {
+        key(Posting_date; "Posting Date")
+        { }
+    }
 }

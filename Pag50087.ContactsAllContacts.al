@@ -50,6 +50,22 @@ page 50087 "Contacts - All Contacts"
                     StyleExpr = StyleIsStrong;
                     ApplicationArea = All;
                 }
+                field(Extension; Rec.Extension)
+                {
+                    ApplicationArea = All;
+                }
+                field("Job Title"; Rec."Job Title")
+                {
+                    ApplicationArea = All;
+                }
+                field("Accounts Payable Contact"; Rec."Accounts Payable Contact")
+                {
+                    ApplicationArea = All;
+                }
+                field("E-Mail"; Rec."E-Mail")
+                {
+                    ApplicationArea = All;
+                }
                 field("Customer No."; Rec."Customer No.")
                 {
                     Caption = 'NAV Customer ID#';
@@ -133,12 +149,14 @@ page 50087 "Contacts - All Contacts"
     trigger OnAfterGetRecord()
     begin
         EnableFields;
-        StyleIsStrong:=Rec.Type = Rec.Type::Company;
-        NameIndent:=0;
+        StyleIsStrong := Rec.Type = Rec.Type::Company;
+        NameIndent := 0;
         if Rec.Type <> Rec.Type::Company then begin
             Cont.SetCurrentKey("Company Name", "Company No.", Type, Name);
-            if(Rec."Company No." <> '') and (not Rec.HasFilter) and (not Rec.MarkedOnly) and (Rec.CurrentKey = Cont.CurrentKey)then NameIndent:=1 end;
+            if (Rec."Company No." <> '') and (not Rec.HasFilter) and (not Rec.MarkedOnly) and (Rec.CurrentKey = Cont.CurrentKey) then NameIndent := 1
+        end;
     end;
+
     trigger OnOpenPage()
     begin
         /*
@@ -147,22 +165,25 @@ page 50087 "Contacts - All Contacts"
         // End =================================================================/
         */
         //IMP1.01 Start
-        UserNameVarGbl:=CopyStr(UserId, 7);
-    //SETRANGE("Salesperson Code",UserNameVarGbl);
-    //IMP1.01 Emd
+        UserNameVarGbl := CopyStr(UserId, 7);
+        //SETRANGE("Salesperson Code",UserNameVarGbl);
+        //IMP1.01 Emd
     end;
-    var Cont: Record Contact;
-    [InDataSet]
-    StyleIsStrong: Boolean;
-    [InDataSet]
-    NameIndent: Integer;
-    CompanyGroupEnabled: Boolean;
-    PersonGroupEnabled: Boolean;
-    "-IMP1.01-": Integer;
-    UserNameVarGbl: Text;
+
+    var
+        Cont: Record Contact;
+        [InDataSet]
+        StyleIsStrong: Boolean;
+        [InDataSet]
+        NameIndent: Integer;
+        CompanyGroupEnabled: Boolean;
+        PersonGroupEnabled: Boolean;
+        "-IMP1.01-": Integer;
+        UserNameVarGbl: Text;
+
     local procedure EnableFields()
     begin
-        CompanyGroupEnabled:=Rec.Type = Rec.Type::Company;
-        PersonGroupEnabled:=Rec.Type = Rec.Type::Person;
+        CompanyGroupEnabled := Rec.Type = Rec.Type::Company;
+        PersonGroupEnabled := Rec.Type = Rec.Type::Person;
     end;
 }

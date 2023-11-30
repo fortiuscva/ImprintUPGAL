@@ -3,9 +3,18 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
     //IMP1.01, 11/07/23,SK: Making "Sell-to E-Mail" non-editable in General tab
     layout
     {
+        modify("Sell-to Contact No.")
+        {
+            Caption = 'Confirm Contact No.';
+        }
+        modify("Sell-to Contact")
+        {
+            Caption = 'Confirm Contact Name';
+        }
         modify("Sell-to E-Mail")
         {
             Editable = false;
+            Caption = 'Confirm E-Mail';
         }
         addafter("Responsibility Center")
         {
@@ -298,7 +307,7 @@ pageextension 60015 "SalesOrderExt" extends "Sales Order"
                 field("ShiptoContact"; Rec."Ship-to Contact")
                 {
                     ApplicationArea = Basic, Suite;
-                    Caption = 'Contact';
+                    Caption = 'Shipping Contact';
                     ToolTip = 'Specifies the name of the contact person at the address that products on the sales document will be shipped to.';
                 }
             }

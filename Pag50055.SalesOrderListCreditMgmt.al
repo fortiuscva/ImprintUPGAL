@@ -10,7 +10,7 @@ page 50055 "Sales Order List - Credit Mgmt"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Sales Header";
-    SourceTableView = WHERE("Document Type"=CONST(Order), "On Hold"=FILTER(<>''), "Override Credit"=FILTER(false));
+    SourceTableView = WHERE("Document Type" = CONST(Order), "On Hold" = FILTER(<> ''), "Override Credit" = FILTER(false));
 
     layout
     {
@@ -223,19 +223,23 @@ page 50055 "Sales Order List - Credit Mgmt"
                     ApplicationArea = All;
                     Visible = JobQueueActive;
                 }
+                field("No. Printed"; Rec."No. Printed")
+                {
+                    ApplicationArea = All;
+                }
             }
         }
         area(factboxes)
         {
             part(Control1902018507; "Customer Statistics FactBox")
             {
-                SubPageLink = "No."=FIELD("Bill-to Customer No.");
+                SubPageLink = "No." = FIELD("Bill-to Customer No.");
                 Visible = true;
                 ApplicationArea = All;
             }
             part(Control1900316107; "Customer Details FactBox")
             {
-                SubPageLink = "No."=FIELD("Sell-to Customer No.");
+                SubPageLink = "No." = FIELD("Sell-to Customer No.");
                 Visible = true;
                 ApplicationArea = All;
             }
@@ -285,9 +289,11 @@ page 50055 "Sales Order List - Credit Mgmt"
                     begin
                         Rec.CalcInvDiscForHeader;
                         Commit;
-                        if Rec."Tax Area Code" = '' then PAGE.RunModal(PAGE::"Sales Order Statistics", Rec)
+                        if Rec."Tax Area Code" = '' then
+                            PAGE.RunModal(PAGE::"Sales Order Statistics", Rec)
                         else
-                            PAGE.RunModal(PAGE::"Sales Order Stats.", Rec)end;
+                            PAGE.RunModal(PAGE::"Sales Order Stats.", Rec)
+                    end;
                 }
                 action("A&pprovals")
                 {
@@ -310,7 +316,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                     Caption = 'Co&mments';
                     Image = ViewComments;
                     RunObject = Page "Sales Comment Sheet";
-                    RunPageLink = "Document Type"=FIELD("Document Type"), "No."=FIELD("No."), "Document Line No."=CONST(0);
+                    RunPageLink = "Document Type" = FIELD("Document Type"), "No." = FIELD("No."), "Document Line No." = CONST(0);
                 }
             }
             group(Documents)
@@ -324,7 +330,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                     Caption = 'S&hipments';
                     Image = Shipment;
                     RunObject = Page "Posted Sales Shipments";
-                    RunPageLink = "Order No."=FIELD("No.");
+                    RunPageLink = "Order No." = FIELD("No.");
                     RunPageView = SORTING("Order No.");
                 }
                 action(Invoices)
@@ -333,7 +339,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                     Caption = 'Invoices';
                     Image = Invoice;
                     RunObject = Page "Posted Sales Invoices";
-                    RunPageLink = "Order No."=FIELD("No.");
+                    RunPageLink = "Order No." = FIELD("No.");
                     RunPageView = SORTING("Order No.");
                 }
                 action("Prepa&yment Invoices")
@@ -342,7 +348,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                     Caption = 'Prepa&yment Invoices';
                     Image = PrepaymentInvoice;
                     RunObject = Page "Posted Sales Invoices";
-                    RunPageLink = "Prepayment Order No."=FIELD("No.");
+                    RunPageLink = "Prepayment Order No." = FIELD("No.");
                     RunPageView = SORTING("Prepayment Order No.");
                 }
                 action("Prepayment Credi&t Memos")
@@ -351,7 +357,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                     Caption = 'Prepayment Credi&t Memos';
                     Image = PrepaymentCreditMemo;
                     RunObject = Page "Posted Sales Credit Memos";
-                    RunPageLink = "Prepayment Order No."=FIELD("No.");
+                    RunPageLink = "Prepayment Order No." = FIELD("No.");
                     RunPageView = SORTING("Prepayment Order No.");
                 }
             }
@@ -366,7 +372,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                     Caption = 'Whse. Shipment Lines';
                     Image = ShipmentLines;
                     RunObject = Page "Whse. Shipment Lines";
-                    RunPageLink = "Source Type"=CONST(37), "Source Subtype"=FIELD("Document Type"), "Source No."=FIELD("No.");
+                    RunPageLink = "Source Type" = CONST(37), "Source Subtype" = FIELD("Document Type"), "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Type", "Source Subtype", "Source No.", "Source Line No.");
                 }
                 action("In&vt. Put-away/Pick Lines")
@@ -375,7 +381,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                     Caption = 'In&vt. Put-away/Pick Lines';
                     Image = PickLines;
                     RunObject = Page "Warehouse Activity List";
-                    RunPageLink = "Source Document"=CONST("Sales Order"), "Source No."=FIELD("No.");
+                    RunPageLink = "Source Document" = CONST("Sales Order"), "Source No." = FIELD("No.");
                     RunPageView = SORTING("Source Document", "Source No.", "Location Code");
                 }
             }
@@ -461,7 +467,7 @@ page 50055 "Sales Order List - Credit Mgmt"
 
                     trigger OnAction()
                     begin
-                    //IF ApprovalMgt.SendSalesApprovalRequest(Rec) THEN;
+                        //IF ApprovalMgt.SendSalesApprovalRequest(Rec) THEN;
                     end;
                 }
                 action("Cancel Approval Re&quest")
@@ -472,7 +478,7 @@ page 50055 "Sales Order List - Credit Mgmt"
 
                     trigger OnAction()
                     begin
-                    //IF ApprovalMgt.CancelSalesApprovalRequest(Rec,TRUE,TRUE) THEN;
+                        //IF ApprovalMgt.CancelSalesApprovalRequest(Rec,TRUE,TRUE) THEN;
                     end;
                 }
                 action("Send IC Sales Order Cnfmn.")
@@ -486,9 +492,9 @@ page 50055 "Sales Order List - Credit Mgmt"
                         ICInOutboxMgt: Codeunit ICInboxOutboxMgt;
                         PurchaseHeader: Record "Purchase Header";
                     begin
-                    /*IF ApprovalMgt.PrePostApprovalCheck(Rec,PurchaseHeader) THEN
-                          ICInOutboxMgt.SendSalesDoc(Rec,FALSE);
-                          */
+                        /*IF ApprovalMgt.PrePostApprovalCheck(Rec,PurchaseHeader) THEN
+                              ICInOutboxMgt.SendSalesDoc(Rec,FALSE);
+                              */
                     end;
                 }
             }
@@ -507,7 +513,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                     trigger OnAction()
                     begin
                         Rec.CreateInvtPutAwayPick;
-                        if not Rec.Find('=><')then Rec.Init;
+                        if not Rec.Find('=><') then Rec.Init;
                     end;
                 }
                 action("Create &Whse. Shipment")
@@ -521,7 +527,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                         GetSourceDocOutbound: Codeunit "Get Source Doc. Outbound";
                     begin
                         GetSourceDocOutbound.CreateFromSalesOrder(Rec);
-                        if not Rec.Find('=><')then Rec.Init;
+                        if not Rec.Find('=><') then Rec.Init;
                     end;
                 }
             }
@@ -622,7 +628,7 @@ page 50055 "Sales Order List - Credit Mgmt"
                         SalesHeadGRec.SetRange("Document Type", Rec."Document Type");
                         SalesHeadGRec.SetRange("No.", Rec."No.");
                         if SalesHeadGRec.FindFirst then;
-                    //REPORT.RUNMODAL(REPORT::"Sales Order - Proforma Invoice",TRUE,FALSE,SalesHeadGRec);
+                        //REPORT.RUNMODAL(REPORT::"Sales Order - Proforma Invoice",TRUE,FALSE,SalesHeadGRec);
                     end;
                 }
                 action("Order Confirmation")
@@ -687,17 +693,19 @@ page 50055 "Sales Order List - Credit Mgmt"
             Rec.FilterGroup(0);
         end;
         Rec.SetRange("Date Filter", 0D, WorkDate - 1);
-        JobQueueActive:=SalesSetup.JobQueueActive;
-    // ISS2.00 DFP =========================================================\
-    //FilterSalesperson;
-    // End =================================================================/
+        JobQueueActive := SalesSetup.JobQueueActive;
+        // ISS2.00 DFP =========================================================\
+        //FilterSalesperson;
+        // End =================================================================/
     end;
-    var DocPrint: Codeunit "Document-Print";
-    ReportPrint: Codeunit "Test Report-Print";
-    UserMgt: Codeunit "User Setup Management";
-    Usage: Option "Order Confirmation", "Work Order", "Pick Instruction";
-    [InDataSet]
-    JobQueueActive: Boolean;
-    "-IMP1.01-": Integer;
-    SalesHeadGRec: Record "Sales Header";
+
+    var
+        DocPrint: Codeunit "Document-Print";
+        ReportPrint: Codeunit "Test Report-Print";
+        UserMgt: Codeunit "User Setup Management";
+        Usage: Option "Order Confirmation","Work Order","Pick Instruction";
+        [InDataSet]
+        JobQueueActive: Boolean;
+        "-IMP1.01-": Integer;
+        SalesHeadGRec: Record "Sales Header";
 }

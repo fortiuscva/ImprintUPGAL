@@ -520,8 +520,9 @@ report 50035 "ZD-Sales Shipment - Copy"
                 begin
                     //CurrReport.PageNo := 1;
                     if CopyNo = NoLoops then begin
-                        if not CurrReport.Preview then //SalesInvPrinted.RUN("Sales Invoice Header");//upg  Zetadocs  report
-                            CurrReport.Break;
+                        if not CurrReport.Preview then
+                            SalesShipmentPrinted.Run("Sales Shipment Header");
+                        CurrReport.Break;
                     end;
                     CopyNo := CopyNo + 1;
                     if CopyNo = 1 then // Original
@@ -727,6 +728,9 @@ report 50035 "ZD-Sales Shipment - Copy"
                     CompanyInfo2.CalcFields(Picture);
                 end;
         end;
+
+        PrintCompany := true;
+        PrintLogo := true;
     end;
 
     trigger OnPreReport()

@@ -23,7 +23,11 @@ page 50031 "Imprint Salesperson Processor"
             group(Control1900724708)
             {
                 ShowCaption = false;
-
+                part(PowerBIEmbeddedReportPart; "Power BI Embedded Report Part")
+                {
+                    AccessByPermission = TableData "Power BI User Configuration" = I;
+                    ApplicationArea = Basic, Suite;
+                }
                 part(Control1; "Trailing Sales Orders Chart")
                 {
                     ApplicationArea = All;
@@ -110,14 +114,14 @@ page 50031 "Imprint Salesperson Processor"
                 ApplicationArea = All;
                 Caption = 'Shipped Not Invoiced';
                 RunObject = Page "Sales Order List";
-                RunPageView = WHERE("Shipped Not Invoiced"=CONST(true));
+                RunPageView = WHERE("Shipped Not Invoiced" = CONST(true));
             }
             action("Completely Shipped Not Invoiced")
             {
                 ApplicationArea = All;
                 Caption = 'Completely Shipped Not Invoiced';
                 RunObject = Page "Sales Order List";
-                RunPageView = WHERE("Completely Shipped"=CONST(true), Invoice=CONST(false));
+                RunPageView = WHERE("Completely Shipped" = CONST(true), Invoice = CONST(false));
             }
             action("Sales Quotes")
             {
@@ -320,8 +324,8 @@ page 50031 "Imprint Salesperson Processor"
         {
             separator(Tasks)
             {
-            Caption = 'Tasks';
-            IsHeader = true;
+                Caption = 'Tasks';
+                IsHeader = true;
             }
             action("Sales &Prices")
             {
@@ -339,8 +343,8 @@ page 50031 "Imprint Salesperson Processor"
             }
             separator(History)
             {
-            Caption = 'History';
-            IsHeader = true;
+                Caption = 'History';
+                IsHeader = true;
             }
             action("Navi&gate")
             {
@@ -351,8 +355,8 @@ page 50031 "Imprint Salesperson Processor"
             }
             separator(Customer)
             {
-            Caption = 'Customer';
-            IsHeader = true;
+                Caption = 'Customer';
+                IsHeader = true;
             }
             action("Credit Management")
             {

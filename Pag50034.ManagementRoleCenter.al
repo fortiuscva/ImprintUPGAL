@@ -23,7 +23,11 @@ page 50034 "Management  Role Center"
             group(Control1900724708)
             {
                 ShowCaption = false;
-
+                part(PowerBIEmbeddedReportPart; "Power BI Embedded Report Part")
+                {
+                    AccessByPermission = TableData "Power BI User Configuration" = I;
+                    ApplicationArea = Basic, Suite;
+                }
                 part(Control1; "Trailing Sales Orders Chart")
                 {
                     ApplicationArea = All;
@@ -148,14 +152,14 @@ page 50034 "Management  Role Center"
                 ApplicationArea = All;
                 Caption = 'Shipped Not Invoiced';
                 RunObject = Page "Sales Order List";
-                RunPageView = WHERE("Shipped Not Invoiced"=CONST(true));
+                RunPageView = WHERE("Shipped Not Invoiced" = CONST(true));
             }
             action("Completely Shipped Not Invoiced")
             {
                 ApplicationArea = All;
                 Caption = 'Completely Shipped Not Invoiced';
                 RunObject = Page "Sales Order List";
-                RunPageView = WHERE("Completely Shipped"=CONST(true), Invoice=CONST(false));
+                RunPageView = WHERE("Completely Shipped" = CONST(true), Invoice = CONST(false));
             }
             action("Sales Quotes")
             {
@@ -260,14 +264,14 @@ page 50034 "Management  Role Center"
                 ApplicationArea = All;
                 Caption = 'Item Journals';
                 RunObject = Page "Item Journal Batches";
-                RunPageView = WHERE("Template Type"=CONST(Item), Recurring=CONST(false));
+                RunPageView = WHERE("Template Type" = CONST(Item), Recurring = CONST(false));
             }
             action("Sales Journals")
             {
                 ApplicationArea = All;
                 Caption = 'Sales Journals';
                 RunObject = Page "General Journal Batches";
-                RunPageView = WHERE("Template Type"=CONST(Sales), Recurring=CONST(false));
+                RunPageView = WHERE("Template Type" = CONST(Sales), Recurring = CONST(false));
             }
             action("Cash Receipt Journals")
             {
@@ -275,7 +279,7 @@ page 50034 "Management  Role Center"
                 Caption = 'Cash Receipt Journals';
                 Image = Journals;
                 RunObject = Page "General Journal Batches";
-                RunPageView = WHERE("Template Type"=CONST("Cash Receipts"), Recurring=CONST(false));
+                RunPageView = WHERE("Template Type" = CONST("Cash Receipts"), Recurring = CONST(false));
             }
             action("<Page Item Reclass. Journal>")
             {
@@ -549,8 +553,8 @@ page 50034 "Management  Role Center"
         {
             separator(Tasks)
             {
-            Caption = 'Tasks';
-            IsHeader = true;
+                Caption = 'Tasks';
+                IsHeader = true;
             }
             action("Sales &Journal")
             {
@@ -585,8 +589,8 @@ page 50034 "Management  Role Center"
             }
             separator(History)
             {
-            Caption = 'History';
-            IsHeader = true;
+                Caption = 'History';
+                IsHeader = true;
             }
             action("Navi&gate")
             {
@@ -597,8 +601,8 @@ page 50034 "Management  Role Center"
             }
             separator(Customer)
             {
-            Caption = 'Customer';
-            IsHeader = true;
+                Caption = 'Customer';
+                IsHeader = true;
             }
             action(Action1020001)
             {

@@ -7,6 +7,10 @@ page 50034 "Management  Role Center"
     {
         area(rolecenter)
         {
+            part(Control139; "Headline RC Business Manager")
+            {
+                ApplicationArea = Basic, Suite;
+            }
             group(Control1900724808)
             {
                 ShowCaption = false;

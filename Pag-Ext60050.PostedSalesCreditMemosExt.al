@@ -2,6 +2,13 @@ pageextension 60050 "PostedSalesCreditMemosExt" extends "Posted Sales Credit Mem
 {
     layout
     {
+        addlast(Control1)
+        {
+            field("Campaign No."; Rec."Campaign No.")
+            {
+                ApplicationArea = All;
+            }
+        }
         addafter("Sell-to Customer Name")
         {
             field("Ship-to County"; Rec."Ship-to County")
@@ -31,7 +38,8 @@ pageextension 60050 "PostedSalesCreditMemosExt" extends "Posted Sales Credit Mem
                 ApplicationArea = All;
             }
         }
+
     }
-//Unsupported feature: InsertAfter on "Documentation". Please convert manually.
-//Unsupported feature: PropertyChange. Please convert manually.
+    //Unsupported feature: InsertAfter on "Documentation". Please convert manually.
+    //Unsupported feature: PropertyChange. Please convert manually.
 }

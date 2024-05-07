@@ -260,7 +260,7 @@ page 50010 "Sales Statistics Chart"
 
                 trigger OnAction()
                 begin
-                    NeedsUpdate:=true;
+                    NeedsUpdate := true;
                     UpdateStatus;
                 end;
             }
@@ -280,85 +280,93 @@ page 50010 "Sales Statistics Chart"
             }
         }
     }
-    trigger OnFindRecord(Which: Text): Boolean begin
-        UpdateChart;
+    trigger OnFindRecord(Which: Text): Boolean
+    begin
+        IMPUpdateChart;
     end;
+
     trigger OnOpenPage()
     begin
         SalesStatMgt.OnOpenPage(SalesStatSetup);
         SetActionsEnabled;
     end;
-    var SalesStatSetup: Record "Sales Statistics Chart Setup";
-    OldSalesStatSetup: Record "Sales Statistics Chart Setup";
-    SalesStatMgt: Codeunit "Sales Statistics Chart Mgt.";
-    StatusText: Text[250];
-    NeedsUpdate: Boolean;
-    [InDataSet]
-    BothEnabled: Boolean;
-    [InDataSet]
-    PostedEnabled: Boolean;
-    [InDataSet]
-    ExpectedEnabled: Boolean;
-    [InDataSet]
-    DayEnabled: Boolean;
-    [InDataSet]
-    WeekEnabled: Boolean;
-    [InDataSet]
-    MonthEnabled: Boolean;
-    [InDataSet]
-    QuarterEnabled: Boolean;
-    [InDataSet]
-    YearEnabled: Boolean;
-    [InDataSet]
-    SalesEnabled: Boolean;
-    [InDataSet]
-    CostEnabled: Boolean;
-    ProfitEnabled: Boolean;
-    [InDataSet]
-    StackedAreaEnabled: Boolean;
-    [InDataSet]
-    StackedAreaPctEnabled: Boolean;
-    [InDataSet]
-    StackedColumnEnabled: Boolean;
-    [InDataSet]
-    StackedColumnPctEnabled: Boolean;
-    local procedure UpdateChart()
+
+    var
+        SalesStatSetup: Record "Sales Statistics Chart Setup";
+        OldSalesStatSetup: Record "Sales Statistics Chart Setup";
+        SalesStatMgt: Codeunit "Sales Statistics Chart Mgt.";
+        StatusText: Text[250];
+        NeedsUpdate: Boolean;
+        [InDataSet]
+        BothEnabled: Boolean;
+        [InDataSet]
+        PostedEnabled: Boolean;
+        [InDataSet]
+        ExpectedEnabled: Boolean;
+        [InDataSet]
+        DayEnabled: Boolean;
+        [InDataSet]
+        WeekEnabled: Boolean;
+        [InDataSet]
+        MonthEnabled: Boolean;
+        [InDataSet]
+        QuarterEnabled: Boolean;
+        [InDataSet]
+        YearEnabled: Boolean;
+        [InDataSet]
+        SalesEnabled: Boolean;
+        [InDataSet]
+        CostEnabled: Boolean;
+        ProfitEnabled: Boolean;
+        [InDataSet]
+        StackedAreaEnabled: Boolean;
+        [InDataSet]
+        StackedAreaPctEnabled: Boolean;
+        [InDataSet]
+        StackedColumnEnabled: Boolean;
+        [InDataSet]
+        StackedColumnPctEnabled: Boolean;
+
+    local procedure IMPUpdateChart()
     begin
         if not NeedsUpdate then exit;
         SalesStatMgt.UpdateData(Rec);
         Rec.Update(CurrPage.BusinessChart);
         UpdateStatus;
-        NeedsUpdate:=false;
+        NeedsUpdate := false;
     end;
+
     procedure UpdateStatus()
     begin
-        NeedsUpdate:=NeedsUpdate or (OldSalesStatSetup."Period Length" <> SalesStatSetup."Period Length") or (OldSalesStatSetup."Use Work Date as Base" <> SalesStatSetup."Use Work Date as Base") or (OldSalesStatSetup."Value to Calculate" <> SalesStatSetup."Value to Calculate") or (OldSalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type") or (OldSalesStatSetup."Salesperson Filter" <> SalesStatSetup."Salesperson Filter") or (OldSalesStatSetup."Show Sales" <> SalesStatSetup."Show Sales");
-        OldSalesStatSetup:=SalesStatSetup;
-        if NeedsUpdate then StatusText:=SalesStatSetup.GetCurrentSelectionText;
+        NeedsUpdate := NeedsUpdate or (OldSalesStatSetup."Period Length" <> SalesStatSetup."Period Length") or (OldSalesStatSetup."Use Work Date as Base" <> SalesStatSetup."Use Work Date as Base") or (OldSalesStatSetup."Value to Calculate" <> SalesStatSetup."Value to Calculate") or (OldSalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type") or (OldSalesStatSetup."Salesperson Filter" <> SalesStatSetup."Salesperson Filter") or (OldSalesStatSetup."Show Sales" <> SalesStatSetup."Show Sales");
+        OldSalesStatSetup := SalesStatSetup;
+        if NeedsUpdate then StatusText := SalesStatSetup.GetCurrentSelectionText;
         SetActionsEnabled;
     end;
+
     procedure RunSetup()
     begin
         PAGE.RunModal(PAGE::"Sales Statistics Chart Setup", SalesStatSetup);
         SalesStatSetup.Get(UserId);
         UpdateStatus;
     end;
+
     procedure SetActionsEnabled()
     begin
-        BothEnabled:=SalesStatSetup."Show Sales" <> SalesStatSetup."Show Sales"::All;
-        PostedEnabled:=SalesStatSetup."Show Sales" <> SalesStatSetup."Show Sales"::Posted;
-        ExpectedEnabled:=SalesStatSetup."Show Sales" <> SalesStatSetup."Show Sales"::Expected;
-        DayEnabled:=SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Day;
-        WeekEnabled:=SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Week;
-        MonthEnabled:=SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Month;
-        QuarterEnabled:=SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Quarter;
-        YearEnabled:=SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Year;
-        SalesEnabled:=SalesStatSetup."Value to Calculate" <> SalesStatSetup."Value to Calculate"::Sales;
-        CostEnabled:=SalesStatSetup."Value to Calculate" <> SalesStatSetup."Value to Calculate"::Cost;
-        ProfitEnabled:=SalesStatSetup."Value to Calculate" <> SalesStatSetup."Value to Calculate"::Profit;
-        StackedAreaEnabled:=SalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type"::"Stacked Area";
-        StackedAreaPctEnabled:=SalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type"::"Stacked Area (%)";
-        StackedColumnEnabled:=SalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type"::"Stacked Column";
-        StackedColumnPctEnabled:=SalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type"::"Stacked Column (%)";
+        BothEnabled := SalesStatSetup."Show Sales" <> SalesStatSetup."Show Sales"::All;
+        PostedEnabled := SalesStatSetup."Show Sales" <> SalesStatSetup."Show Sales"::Posted;
+        ExpectedEnabled := SalesStatSetup."Show Sales" <> SalesStatSetup."Show Sales"::Expected;
+        DayEnabled := SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Day;
+        WeekEnabled := SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Week;
+        MonthEnabled := SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Month;
+        QuarterEnabled := SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Quarter;
+        YearEnabled := SalesStatSetup."Period Length" <> SalesStatSetup."Period Length"::Year;
+        SalesEnabled := SalesStatSetup."Value to Calculate" <> SalesStatSetup."Value to Calculate"::Sales;
+        CostEnabled := SalesStatSetup."Value to Calculate" <> SalesStatSetup."Value to Calculate"::Cost;
+        ProfitEnabled := SalesStatSetup."Value to Calculate" <> SalesStatSetup."Value to Calculate"::Profit;
+        StackedAreaEnabled := SalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type"::"Stacked Area";
+        StackedAreaPctEnabled := SalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type"::"Stacked Area (%)";
+        StackedColumnEnabled := SalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type"::"Stacked Column";
+        StackedColumnPctEnabled := SalesStatSetup."Chart Type" <> SalesStatSetup."Chart Type"::"Stacked Column (%)";
     end;
 }

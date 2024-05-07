@@ -814,11 +814,8 @@ page 50059 "Item Card-RO"
                         ApplicationArea = All;
                         Caption = 'Timeline';
                         Image = Timeline;
+                        Visible = false;
 
-                        trigger OnAction()
-                        begin
-                            Rec.ShowTimelineFromItem(Rec);
-                        end;
                     }
                 }
             }

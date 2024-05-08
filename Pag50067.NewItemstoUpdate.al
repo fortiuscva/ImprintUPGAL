@@ -98,25 +98,25 @@ page 50067 "New Items to Update"
         {
             part(Control1901314507; "Item Invoicing FactBox")
             {
-                SubPageLink = "No."=FIELD("No."), "Date Filter"=FIELD("Date Filter"), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 1 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Bin Filter"=FIELD("Bin Filter"), "Variant Filter"=FIELD("Variant Filter"), "Lot No. Filter"=FIELD("Lot No. Filter"), "Serial No. Filter"=FIELD("Serial No. Filter");
+                SubPageLink = "No." = FIELD("No."), "Date Filter" = FIELD("Date Filter"), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 1 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Bin Filter" = FIELD("Bin Filter"), "Variant Filter" = FIELD("Variant Filter"), "Lot No. Filter" = FIELD("Lot No. Filter"), "Serial No. Filter" = FIELD("Serial No. Filter");
                 Visible = true;
                 ApplicationArea = All;
             }
             part(Control1903326807; "Item Replenishment FactBox")
             {
-                SubPageLink = "No."=FIELD("No."), "Date Filter"=FIELD("Date Filter"), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 1 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Bin Filter"=FIELD("Bin Filter"), "Variant Filter"=FIELD("Variant Filter"), "Lot No. Filter"=FIELD("Lot No. Filter"), "Serial No. Filter"=FIELD("Serial No. Filter");
+                SubPageLink = "No." = FIELD("No."), "Date Filter" = FIELD("Date Filter"), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 1 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Bin Filter" = FIELD("Bin Filter"), "Variant Filter" = FIELD("Variant Filter"), "Lot No. Filter" = FIELD("Lot No. Filter"), "Serial No. Filter" = FIELD("Serial No. Filter");
                 Visible = false;
                 ApplicationArea = All;
             }
             part(Control1906840407; "Item Planning FactBox")
             {
-                SubPageLink = "No."=FIELD("No."), "Date Filter"=FIELD("Date Filter"), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 1 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Bin Filter"=FIELD("Bin Filter"), "Variant Filter"=FIELD("Variant Filter"), "Lot No. Filter"=FIELD("Lot No. Filter"), "Serial No. Filter"=FIELD("Serial No. Filter");
+                SubPageLink = "No." = FIELD("No."), "Date Filter" = FIELD("Date Filter"), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 1 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Bin Filter" = FIELD("Bin Filter"), "Variant Filter" = FIELD("Variant Filter"), "Lot No. Filter" = FIELD("Lot No. Filter"), "Serial No. Filter" = FIELD("Serial No. Filter");
                 Visible = true;
                 ApplicationArea = All;
             }
             part(Control1901796907; "Item Warehouse FactBox")
             {
-                SubPageLink = "No."=FIELD("No."), "Date Filter"=FIELD("Date Filter"), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 1 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Bin Filter"=FIELD("Bin Filter"), "Variant Filter"=FIELD("Variant Filter"), "Lot No. Filter"=FIELD("Lot No. Filter"), "Serial No. Filter"=FIELD("Serial No. Filter");
+                SubPageLink = "No." = FIELD("No."), "Date Filter" = FIELD("Date Filter"), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 1 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Bin Filter" = FIELD("Bin Filter"), "Variant Filter" = FIELD("Variant Filter"), "Lot No. Filter" = FIELD("Lot No. Filter"), "Serial No. Filter" = FIELD("Serial No. Filter");
                 Visible = false;
                 ApplicationArea = All;
             }
@@ -176,7 +176,7 @@ page 50067 "New Items to Update"
                         Caption = 'Period';
                         Image = Period;
                         RunObject = Page "Item Availability by Periods";
-                        RunPageLink = "No."=FIELD("No."), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 2 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Variant Filter"=FIELD("Variant Filter");
+                        RunPageLink = "No." = FIELD("No."), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
                     }
                     action(Variant)
@@ -184,7 +184,7 @@ page 50067 "New Items to Update"
                         Caption = 'Variant';
                         Image = ItemVariant;
                         RunObject = Page "Item Availability by Variant";
-                        RunPageLink = "No."=FIELD("No."), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 2 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Variant Filter"=FIELD("Variant Filter");
+                        RunPageLink = "No." = FIELD("No."), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
                     }
                     action(Location)
@@ -192,7 +192,7 @@ page 50067 "New Items to Update"
                         Caption = 'Location';
                         Image = Warehouse;
                         RunObject = Page "Item Availability by Location";
-                        RunPageLink = "No."=FIELD("No."), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 2 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Variant Filter"=FIELD("Variant Filter");
+                        RunPageLink = "No." = FIELD("No."), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
                     }
                     action("BOM Level")
@@ -211,11 +211,8 @@ page 50067 "New Items to Update"
                         Caption = 'Timeline';
                         Image = Timeline;
                         ApplicationArea = All;
+                        Visible = false;
 
-                        trigger OnAction()
-                        begin
-                            Rec.ShowTimelineFromItem(Rec);
-                        end;
                     }
                 }
             }
@@ -229,7 +226,7 @@ page 50067 "New Items to Update"
                     Caption = '&Units of Measure';
                     Image = UnitOfMeasure;
                     RunObject = Page "Item Units of Measure";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
                 }
                 action("Va&riants")
@@ -237,7 +234,7 @@ page 50067 "New Items to Update"
                     Caption = 'Va&riants';
                     Image = ItemVariant;
                     RunObject = Page "Item Variants";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
                 }
                 group(Dimensions)
@@ -250,7 +247,7 @@ page 50067 "New Items to Update"
                         Caption = 'Dimensions-Single';
                         Image = Dimensions;
                         RunObject = Page "Default Dimensions";
-                        RunPageLink = "Table ID"=CONST(27), "No."=FIELD("No.");
+                        RunPageLink = "Table ID" = CONST(27), "No." = FIELD("No.");
                         ShortCutKey = 'Shift+Ctrl+D';
                         ApplicationArea = All;
                     }
@@ -274,7 +271,7 @@ page 50067 "New Items to Update"
                     Caption = 'Substituti&ons';
                     Image = ItemSubstitution;
                     RunObject = Page "Item Substitution Entry";
-                    RunPageLink = Type=CONST(Item), "No."=FIELD("No.");
+                    RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                     ApplicationArea = All;
                 }
                 action("Cross Re&ferences")
@@ -282,7 +279,7 @@ page 50067 "New Items to Update"
                     Caption = 'Cross Re&ferences';
                     Image = Change;
                     RunObject = Page "Item References";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
                 }
                 action("E&xtended Text")
@@ -290,7 +287,7 @@ page 50067 "New Items to Update"
                     Caption = 'E&xtended Text';
                     Image = Text;
                     RunObject = Page "Extended Text List";
-                    RunPageLink = "Table Name"=CONST(Item), "No."=FIELD("No.");
+                    RunPageLink = "Table Name" = CONST(Item), "No." = FIELD("No.");
                     RunPageView = SORTING("Table Name", "No.", "Language Code", "All Language Codes", "Starting Date", "Ending Date");
                     ApplicationArea = All;
                 }
@@ -299,7 +296,7 @@ page 50067 "New Items to Update"
                     Caption = 'Translations';
                     Image = Translations;
                     RunObject = Page "Item Translations";
-                    RunPageLink = "Item No."=FIELD("No."), "Variant Code"=CONST('');
+                    RunPageLink = "Item No." = FIELD("No."), "Variant Code" = CONST('');
                     ApplicationArea = All;
                 }
                 action("&Picture")
@@ -307,7 +304,7 @@ page 50067 "New Items to Update"
                     Caption = '&Picture';
                     Image = Picture;
                     RunObject = Page "Item Picture";
-                    RunPageLink = "No."=FIELD("No."), "Date Filter"=FIELD("Date Filter"), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 2 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Variant Filter"=FIELD("Variant Filter");
+                    RunPageLink = "No." = FIELD("No."), "Date Filter" = FIELD("Date Filter"), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                     ApplicationArea = All;
                 }
                 action(Identifiers)
@@ -315,7 +312,7 @@ page 50067 "New Items to Update"
                     Caption = 'Identifiers';
                     Image = BarCode;
                     RunObject = Page "Item Identifiers";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.", "Variant Code", "Unit of Measure Code");
                     ApplicationArea = All;
                 }
@@ -363,7 +360,7 @@ page 50067 "New Items to Update"
                         Caption = 'Assembly BOM';
                         Image = BOM;
                         RunObject = Page "Assembly BOM";
-                        RunPageLink = "Parent Item No."=FIELD("No.");
+                        RunPageLink = "Parent Item No." = FIELD("No.");
                         ApplicationArea = All;
                     }
                     action("Where-Used")
@@ -371,7 +368,7 @@ page 50067 "New Items to Update"
                         Caption = 'Where-Used';
                         Image = Track;
                         RunObject = Page "Where-Used List";
-                        RunPageLink = Type=CONST(Item), "No."=FIELD("No.");
+                        RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                         RunPageView = SORTING(Type, "No.");
                         ApplicationArea = All;
                     }
@@ -408,7 +405,7 @@ page 50067 "New Items to Update"
                         Caption = 'Production BOM';
                         Image = BOM;
                         RunObject = Page "Production BOM";
-                        RunPageLink = "No."=FIELD("No.");
+                        RunPageLink = "No." = FIELD("No.");
                         ApplicationArea = All;
                     }
                     action(Action29)
@@ -456,7 +453,7 @@ page 50067 "New Items to Update"
                         //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
                         //PromotedCategory = Process;
                         RunObject = Page "Item Ledger Entries";
-                        RunPageLink = "Item No."=FIELD("No.");
+                        RunPageLink = "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.");
                         ShortCutKey = 'Ctrl+F7';
                         ApplicationArea = All;
@@ -466,7 +463,7 @@ page 50067 "New Items to Update"
                         Caption = '&Reservation Entries';
                         Image = ReservationLedger;
                         RunObject = Page "Reservation Entries";
-                        RunPageLink = "Reservation Status"=CONST(Reservation), "Item No."=FIELD("No.");
+                        RunPageLink = "Reservation Status" = CONST(Reservation), "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.", "Variant Code", "Location Code", "Reservation Status");
                         ApplicationArea = All;
                     }
@@ -475,7 +472,7 @@ page 50067 "New Items to Update"
                         Caption = '&Phys. Inventory Ledger Entries';
                         Image = PhysicalInventoryLedger;
                         RunObject = Page "Phys. Inventory Ledger Entries";
-                        RunPageLink = "Item No."=FIELD("No.");
+                        RunPageLink = "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.");
                         ApplicationArea = All;
                     }
@@ -484,7 +481,7 @@ page 50067 "New Items to Update"
                         Caption = '&Value Entries';
                         Image = ValueLedger;
                         RunObject = Page "Value Entries";
-                        RunPageLink = "Item No."=FIELD("No.");
+                        RunPageLink = "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.");
                         ApplicationArea = All;
                     }
@@ -498,7 +495,7 @@ page 50067 "New Items to Update"
                         var
                             ItemTrackingMgt: Codeunit 6500;
                         begin
-                        //ItemTrackingMgt.CallItemTrackingEntryForm(3,'',"No.",'','','','');
+                            //ItemTrackingMgt.CallItemTrackingEntryForm(3,'',"No.",'','','','');
                         end;
                     }
                     action("&Warehouse Entries")
@@ -506,7 +503,7 @@ page 50067 "New Items to Update"
                         Caption = '&Warehouse Entries';
                         Image = BinLedger;
                         RunObject = Page "Warehouse Entries";
-                        RunPageLink = "Item No."=FIELD("No.");
+                        RunPageLink = "Item No." = FIELD("No.");
                         RunPageView = SORTING("Item No.", "Bin Code", "Location Code", "Variant Code", "Unit of Measure Code", "Lot No.", "Serial No.", "Entry Type", Dedicated);
                         ApplicationArea = All;
                     }
@@ -519,8 +516,8 @@ page 50067 "New Items to Update"
                         Promoted = true;
                         PromotedCategory = Process;
                         RunObject = Page "Recent Sales Invoice Lines";
-                        RunPageLink = "No."=FIELD("No.");
-                        RunPageView = WHERE(Type=CONST(Item));
+                        RunPageLink = "No." = FIELD("No.");
+                        RunPageView = WHERE(Type = CONST(Item));
                         ApplicationArea = All;
                     }
                     action("Recent Posted Cr. Memo Lines")
@@ -529,8 +526,8 @@ page 50067 "New Items to Update"
                         Promoted = true;
                         PromotedCategory = Process;
                         RunObject = Page "Recent Sales Cr. Memo Lines";
-                        RunPageLink = "No."=FIELD("No.");
-                        RunPageView = WHERE(Type=CONST(Item));
+                        RunPageLink = "No." = FIELD("No.");
+                        RunPageView = WHERE(Type = CONST(Item));
                         ApplicationArea = All;
                     }
                 }
@@ -561,7 +558,7 @@ page 50067 "New Items to Update"
                         Caption = 'Entry Statistics';
                         Image = EntryStatistics;
                         RunObject = Page "Item Entry Statistics";
-                        RunPageLink = "No."=FIELD("No."), "Date Filter"=FIELD("Date Filter"), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 2 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Variant Filter"=FIELD("Variant Filter");
+                        RunPageLink = "No." = FIELD("No."), "Date Filter" = FIELD("Date Filter"), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
                     }
                     action("T&urnover")
@@ -569,7 +566,7 @@ page 50067 "New Items to Update"
                         Caption = 'T&urnover';
                         Image = Turnover;
                         RunObject = Page "Item Turnover";
-                        RunPageLink = "No."=FIELD("No."), "Global Dimension 1 Filter"=FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter"=FIELD("Global Dimension 2 Filter"), "Location Filter"=FIELD("Location Filter"), "Drop Shipment Filter"=FIELD("Drop Shipment Filter"), "Variant Filter"=FIELD("Variant Filter");
+                        RunPageLink = "No." = FIELD("No."), "Global Dimension 1 Filter" = FIELD("Global Dimension 1 Filter"), "Global Dimension 2 Filter" = FIELD("Global Dimension 2 Filter"), "Location Filter" = FIELD("Location Filter"), "Drop Shipment Filter" = FIELD("Drop Shipment Filter"), "Variant Filter" = FIELD("Variant Filter");
                         ApplicationArea = All;
                     }
                 }
@@ -578,7 +575,7 @@ page 50067 "New Items to Update"
                     Caption = 'Co&mments';
                     Image = ViewComments;
                     RunObject = Page "Comment Sheet";
-                    RunPageLink = "Table Name"=CONST(Item), "No."=FIELD("No.");
+                    RunPageLink = "Table Name" = CONST(Item), "No." = FIELD("No.");
                     ApplicationArea = All;
                 }
             }
@@ -592,7 +589,7 @@ page 50067 "New Items to Update"
                     Caption = 'Prices';
                     Image = Price;
                     RunObject = Page "Sales Prices";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
                 }
@@ -601,7 +598,7 @@ page 50067 "New Items to Update"
                     Caption = 'Line Discounts';
                     Image = LineDiscount;
                     RunObject = Page "Sales Line Discounts";
-                    RunPageLink = Type=CONST(Item), Code=FIELD("No.");
+                    RunPageLink = Type = CONST(Item), Code = FIELD("No.");
                     RunPageView = SORTING(Type, Code);
                     ApplicationArea = All;
                 }
@@ -610,7 +607,7 @@ page 50067 "New Items to Update"
                     Caption = 'Prepa&yment Percentages';
                     Image = PrepaymentPercentages;
                     RunObject = Page "Sales Prepayment Percentages";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
                 }
                 action(Orders)
@@ -618,7 +615,7 @@ page 50067 "New Items to Update"
                     Caption = 'Orders';
                     Image = Document;
                     RunObject = Page "Sales Orders";
-                    RunPageLink = Type=CONST(Item), "No."=FIELD("No.");
+                    RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                     RunPageView = SORTING("Document Type", Type, "No.");
                     ApplicationArea = All;
                 }
@@ -627,7 +624,7 @@ page 50067 "New Items to Update"
                     Caption = 'Returns Orders';
                     Image = ReturnOrder;
                     RunObject = Page "Sales Return Orders";
-                    RunPageLink = Type=CONST(Item), "No."=FIELD("No.");
+                    RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                     RunPageView = SORTING("Document Type", Type, "No.");
                     ApplicationArea = All;
                 }
@@ -642,7 +639,7 @@ page 50067 "New Items to Update"
                     Caption = 'Ven&dors';
                     Image = Vendor;
                     RunObject = Page "Item Vendor Catalog";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
                 }
@@ -651,7 +648,7 @@ page 50067 "New Items to Update"
                     Caption = 'Prices';
                     Image = Price;
                     RunObject = Page "Purchase Prices";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
                 }
@@ -660,7 +657,7 @@ page 50067 "New Items to Update"
                     Caption = 'Line Discounts';
                     Image = LineDiscount;
                     RunObject = Page "Purchase Line Discounts";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
                 }
@@ -669,7 +666,7 @@ page 50067 "New Items to Update"
                     Caption = 'Prepa&yment Percentages';
                     Image = PrepaymentPercentages;
                     RunObject = Page "Purchase Prepmt. Percentages";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     ApplicationArea = All;
                 }
                 action(Action40)
@@ -677,7 +674,7 @@ page 50067 "New Items to Update"
                     Caption = 'Orders';
                     Image = Document;
                     RunObject = Page "Purchase Orders";
-                    RunPageLink = Type=CONST(Item), "No."=FIELD("No.");
+                    RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                     RunPageView = SORTING("Document Type", Type, "No.");
                     ApplicationArea = All;
                 }
@@ -686,7 +683,7 @@ page 50067 "New Items to Update"
                     Caption = 'Return Orders';
                     Image = ReturnOrder;
                     RunObject = Page "Purchase Return Orders";
-                    RunPageLink = Type=CONST(Item), "No."=FIELD("No.");
+                    RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                     RunPageView = SORTING("Document Type", Type, "No.");
                     ApplicationArea = All;
                 }
@@ -708,7 +705,7 @@ page 50067 "New Items to Update"
                     Caption = '&Bin Contents';
                     Image = BinContent;
                     RunObject = Page "Item Bin Contents";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
                 }
@@ -717,7 +714,7 @@ page 50067 "New Items to Update"
                     Caption = 'Stockkeepin&g Units';
                     Image = SKU;
                     RunObject = Page "Stockkeeping Unit List";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
                 }
@@ -732,7 +729,7 @@ page 50067 "New Items to Update"
                     Caption = 'Ser&vice Items';
                     Image = ServiceItem;
                     RunObject = Page "Service Items";
-                    RunPageLink = "Item No."=FIELD("No.");
+                    RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;
                 }
@@ -754,7 +751,7 @@ page 50067 "New Items to Update"
                     Caption = 'Troubleshooting Setup';
                     Image = Troubleshoot;
                     RunObject = Page "Troubleshooting Setup";
-                    RunPageLink = Type=CONST(Item), "No."=FIELD("No.");
+                    RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                     ApplicationArea = All;
                 }
             }
@@ -773,7 +770,7 @@ page 50067 "New Items to Update"
                         Caption = 'Resource &Skills';
                         Image = ResourceSkills;
                         RunObject = Page "Resource Skills";
-                        RunPageLink = Type=CONST(Item), "No."=FIELD("No.");
+                        RunPageLink = Type = CONST(Item), "No." = FIELD("No.");
                         ApplicationArea = All;
                     }
                     action("Skilled R&esources")
@@ -836,7 +833,7 @@ page 50067 "New Items to Update"
                 Promoted = true;
                 PromotedCategory = Process;
                 RunObject = Page "Sales Prices";
-                RunPageLink = "Item No."=FIELD("No.");
+                RunPageLink = "Item No." = FIELD("No.");
                 RunPageView = SORTING("Item No.");
                 ApplicationArea = All;
             }
@@ -848,7 +845,7 @@ page 50067 "New Items to Update"
                 //The property 'PromotedCategory' can only be set if the property 'Promoted' is set to 'true'
                 //PromotedCategory = Process;
                 RunObject = Page "Sales Line Discounts";
-                RunPageLink = Type=CONST(Item), Code=FIELD("No.");
+                RunPageLink = Type = CONST(Item), Code = FIELD("No.");
                 RunPageView = SORTING(Type, Code);
                 ApplicationArea = All;
             }
@@ -1329,16 +1326,20 @@ page 50067 "New Items to Update"
             }
         }
     }
-    var SkilledResourceList: Page "Skilled Resource List";
-    CalculateStdCost: Codeunit "Calculate Standard Cost";
-    ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
-    procedure GetSelectionFilter(): Text var
+    var
+        SkilledResourceList: Page "Skilled Resource List";
+        CalculateStdCost: Codeunit "Calculate Standard Cost";
+        ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
+
+    procedure GetSelectionFilter(): Text
+    var
         Item: Record Item;
         SelectionFilterManagement: Codeunit SelectionFilterManagement;
     begin
         CurrPage.SetSelectionFilter(Item);
         exit(SelectionFilterManagement.GetSelectionFilterForItem(Item));
     end;
+
     procedure SetSelection(var Item: Record Item)
     begin
         CurrPage.SetSelectionFilter(Item);

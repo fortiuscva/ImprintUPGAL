@@ -1654,11 +1654,11 @@ table 50028 "Temp - Item"
     begin
     end;
 
-    procedure ShowTimelineFromItem(var Item: Record Item)
+    /*procedure ShowTimelineFromItem(var Item: Record Item)
     var
         ItemAvailTimeline: Page "Item Availability by Timeline";
     begin
-    end;
+    end;*/
 
     procedure ShowTimelineFromSKU(ItemNo: Code[20]; LocationCode: Code[10]; VariantCode: Code[10])
     var

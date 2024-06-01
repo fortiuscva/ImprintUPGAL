@@ -283,7 +283,13 @@ tableextension 60005 "SalesLineExt" extends "Sales Line"
         Vendor: Record 23;
         PurchPriceCalcMgt: Codeunit 7010;
         SalesHeader: Record 36;
+        IsHandled: Boolean;
     BEGIN
+        IsHandled := false;
+        OnBeforeGetBestCost(Rec, IsHandled, CurrFieldNo);
+        if IsHandled then
+            exit;
+
         // ISS2.00 09.06.13 DFP ===========================================================================\
         IF "No." = '' THEN EXIT;
         IF NOT Vendor.GET("Vendor No.") THEN CLEAR(Vendor);
@@ -359,6 +365,13 @@ tableextension 60005 "SalesLineExt" extends "Sales Line"
             "Salesperson Code" := UserSetup."Salespers./Purch. Code";
         // End =========================================================/
     END;
+
+    [IntegrationEvent(true, false)]
+    local procedure OnBeforeGetBestCost(var SalesLine: Record "Sales Line"; var IsHandled: Boolean; CurrFieldNo: Integer)
+    begin
+    end;
+
+
 
     var
         SavePONo: Code[20];

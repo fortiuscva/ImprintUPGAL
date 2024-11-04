@@ -852,7 +852,8 @@ report 50035 "ZD-Sales Shipment - Copy"
 
     procedure InitLogInteraction()
     begin
-        LogInteraction := SegManagement.FindInteractTmplCode(5) <> '';
+        //LogInteraction := SegManagement.FindInteractTmplCode(5) <> '';
+        LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Shpt. Note") <> '';
     end;
 
     procedure GetUnitOfMeasureDescr(UOMCode: Code[10]): Text[10]

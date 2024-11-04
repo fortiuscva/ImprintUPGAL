@@ -851,7 +851,7 @@ page 50058 "Item List - RO"
                     ApplicationArea = All;
                     Caption = '&Bin Contents';
                     Image = BinContent;
-                    RunObject = Page "Item Bin Contents";
+                    RunObject = Page "Bin Content";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                 }

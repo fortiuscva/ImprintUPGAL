@@ -21,13 +21,13 @@ report 60020 "Sales Shipment"
             }
             dataitem("Sales Shipment Line"; "Sales Shipment Line")
             {
-                DataItemLink = "Document No."=FIELD("No.");
+                DataItemLink = "Document No." = FIELD("No.");
                 DataItemTableView = SORTING("Document No.", "Line No.");
 
                 dataitem(SalesLineComments; "Sales Comment Line")
                 {
-                    DataItemLink = "No."=FIELD("Document No."), "Document Line No."=FIELD("Line No.");
-                    DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.")WHERE("Document Type"=CONST(Shipment), "Print On Shipment"=CONST(true));
+                    DataItemLink = "No." = FIELD("Document No."), "Document Line No." = FIELD("Line No.");
+                    DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.") WHERE("Document Type" = CONST(Shipment), "Print On Shipment" = CONST(true));
 
                     trigger OnAfterGetRecord();
                     begin
@@ -36,12 +36,13 @@ report 60020 "Sales Shipment"
                 }
                 trigger OnAfterGetRecord();
                 begin
-                    TempSalesShipmentLine:="Sales Shipment Line";
+                    TempSalesShipmentLine := "Sales Shipment Line";
                     TempSalesShipmentLine.Insert;
-                    TempSalesShipmentLineAsm:="Sales Shipment Line";
+                    TempSalesShipmentLineAsm := "Sales Shipment Line";
                     TempSalesShipmentLineAsm.Insert;
-                    HighestLineNo:="Line No.";
+                    HighestLineNo := "Line No.";
                 end;
+
                 trigger OnPreDataItem();
                 begin
                     TempSalesShipmentLine.Reset;
@@ -52,19 +53,20 @@ report 60020 "Sales Shipment"
             }
             dataitem("Sales Comment Line"; "Sales Comment Line")
             {
-                DataItemLink = "No."=FIELD("No.");
-                DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.")WHERE("Document Type"=CONST(Shipment), "Print On Shipment"=CONST(true), "Document Line No."=CONST(0));
+                DataItemLink = "No." = FIELD("No.");
+                DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.") WHERE("Document Type" = CONST(Shipment), "Print On Shipment" = CONST(true), "Document Line No." = CONST(0));
 
                 trigger OnAfterGetRecord();
                 begin
                     InsertTempLine(Comment, 1000);
                 end;
+
                 trigger OnPreDataItem();
                 begin
                     TempSalesShipmentLine.Init;
-                    TempSalesShipmentLine."Document No.":="Sales Shipment Header"."No.";
-                    TempSalesShipmentLine."Line No.":=HighestLineNo + 1000;
-                    HighestLineNo:=TempSalesShipmentLine."Line No.";
+                    TempSalesShipmentLine."Document No." := "Sales Shipment Header"."No.";
+                    TempSalesShipmentLine."Line No." := HighestLineNo + 1000;
+                    HighestLineNo := TempSalesShipmentLine."Line No.";
                     TempSalesShipmentLine.Insert;
                 end;
             }
@@ -74,7 +76,7 @@ report 60020 "Sales Shipment"
 
                 dataitem(PageLoop; "Integer")
                 {
-                    DataItemTableView = SORTING(Number)WHERE(Number=CONST(1));
+                    DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
 
                     column(CompanyInfo2Picture; CompanyInfo2.Picture)
                     {
@@ -268,15 +270,15 @@ report 60020 "Sales Shipment"
                         }
                         column(TempSalesShptLineQy; TempSalesShipmentLine.Quantity)
                         {
-                        DecimalPlaces = 0: 5;
+                            DecimalPlaces = 0 : 5;
                         }
                         column(OrderedQuantity; OrderedQuantity)
                         {
-                        DecimalPlaces = 0: 5;
+                            DecimalPlaces = 0 : 5;
                         }
                         column(BackOrderedQuantity; BackOrderedQuantity)
                         {
-                        DecimalPlaces = 0: 5;
+                            DecimalPlaces = 0 : 5;
                         }
                         column(TempSalesShptLineDesc; TempSalesShipmentLine.Description + ' ' + TempSalesShipmentLine."Description 2")
                         {
@@ -320,17 +322,19 @@ report 60020 "Sales Shipment"
                             }
                             column(PostedAsmLineQuantity; PostedAsmLine.Quantity)
                             {
-                            DecimalPlaces = 0: 5;
+                                DecimalPlaces = 0 : 5;
                             }
                             column(PostedAsmLineUOMCode; GetUnitOfMeasureDescr(PostedAsmLine."Unit of Measure Code"))
                             {
                             }
                             trigger OnAfterGetRecord();
                             begin
-                                if Number = 1 then PostedAsmLine.FindSet
+                                if Number = 1 then
+                                    PostedAsmLine.FindSet
                                 else
                                     PostedAsmLine.Next;
                             end;
+
                             trigger OnPreDataItem();
                             begin
                                 if not DisplayAssemblyInformation then CurrReport.Break;
@@ -343,54 +347,58 @@ report 60020 "Sales Shipment"
                         var
                             SalesShipmentLine: Record "Sales Shipment Line";
                         begin
-                            OnLineNumber:=OnLineNumber + 1;
-                            if OnLineNumber = 1 then TempSalesShipmentLine.Find('-')
+                            OnLineNumber := OnLineNumber + 1;
+                            if OnLineNumber = 1 then
+                                TempSalesShipmentLine.Find('-')
                             else
                                 TempSalesShipmentLine.Next;
-                            OrderedQuantity:=0;
-                            BackOrderedQuantity:=0;
-                            if TempSalesShipmentLine."Order No." = '' then OrderedQuantity:=TempSalesShipmentLine.Quantity
-                            else if OrderLine.Get(1, TempSalesShipmentLine."Order No.", TempSalesShipmentLine."Order Line No.")then begin
-                                    OrderedQuantity:=OrderLine.Quantity;
-                                    BackOrderedQuantity:=OrderLine."Outstanding Quantity";
-                                end
-                                else
-                                begin
-                                    ReceiptLine.SetCurrentKey("Order No.", "Order Line No.");
-                                    ReceiptLine.SetRange("Order No.", TempSalesShipmentLine."Order No.");
-                                    ReceiptLine.SetRange("Order Line No.", TempSalesShipmentLine."Order Line No.");
-                                    ReceiptLine.Find('-');
-                                    repeat OrderedQuantity:=OrderedQuantity + ReceiptLine.Quantity;
-                                    until 0 = ReceiptLine.Next;
-                                end;
-                            if TempSalesShipmentLine.Type.AsInteger() = 0 then begin
-                                OrderedQuantity:=0;
-                                BackOrderedQuantity:=0;
-                                TempSalesShipmentLine."No.":='';
-                                TempSalesShipmentLine."Unit of Measure":='';
-                                TempSalesShipmentLine.Quantity:=0;
+                            OrderedQuantity := 0;
+                            BackOrderedQuantity := 0;
+                            if TempSalesShipmentLine."Order No." = '' then
+                                OrderedQuantity := TempSalesShipmentLine.Quantity
+                            else if OrderLine.Get(1, TempSalesShipmentLine."Order No.", TempSalesShipmentLine."Order Line No.") then begin
+                                OrderedQuantity := OrderLine.Quantity;
+                                BackOrderedQuantity := OrderLine."Outstanding Quantity";
                             end
-                            else if TempSalesShipmentLine.Type = TempSalesShipmentLine.Type::"G/L Account" then TempSalesShipmentLine."No.":='';
+                            else begin
+                                ReceiptLine.SetCurrentKey("Order No.", "Order Line No.");
+                                ReceiptLine.SetRange("Order No.", TempSalesShipmentLine."Order No.");
+                                ReceiptLine.SetRange("Order Line No.", TempSalesShipmentLine."Order Line No.");
+                                ReceiptLine.Find('-');
+                                repeat
+                                    OrderedQuantity := OrderedQuantity + ReceiptLine.Quantity;
+                                until 0 = ReceiptLine.Next;
+                            end;
+                            if TempSalesShipmentLine.Type.AsInteger() = 0 then begin
+                                OrderedQuantity := 0;
+                                BackOrderedQuantity := 0;
+                                TempSalesShipmentLine."No." := '';
+                                TempSalesShipmentLine."Unit of Measure" := '';
+                                TempSalesShipmentLine.Quantity := 0;
+                            end
+                            else if TempSalesShipmentLine.Type = TempSalesShipmentLine.Type::"G/L Account" then TempSalesShipmentLine."No." := '';
                             //IMP1.01 Start
                             if TempSalesShipmentLine.Type = TempSalesShipmentLine.Type::Item then begin
-                            /*                                     if "Cross-Reference No." <> '' then
-                                                                        "No." := "Cross-Reference No."; */
+                                /*                                     if "Cross-Reference No." <> '' then
+                                                                            "No." := "Cross-Reference No."; */
                             end;
                             //IMP1.01 End
-                            PackageTrackingText:='';
-                            if(TempSalesShipmentLine."Package Tracking No." <> "Sales Shipment Header"."Package Tracking No.") and (TempSalesShipmentLine."Package Tracking No." <> '') and PrintPackageTrackingNos then PackageTrackingText:=Text002 + ' ' + TempSalesShipmentLine."Package Tracking No.";
-                            if DisplayAssemblyInformation then if TempSalesShipmentLineAsm.Get(TempSalesShipmentLine."Document No.", TempSalesShipmentLine."Line No.")then begin
+                            PackageTrackingText := '';
+                            if (TempSalesShipmentLine."Package Tracking No." <> "Sales Shipment Header"."Package Tracking No.") and (TempSalesShipmentLine."Package Tracking No." <> '') and PrintPackageTrackingNos then PackageTrackingText := Text002 + ' ' + TempSalesShipmentLine."Package Tracking No.";
+                            if DisplayAssemblyInformation then
+                                if TempSalesShipmentLineAsm.Get(TempSalesShipmentLine."Document No.", TempSalesShipmentLine."Line No.") then begin
                                     SalesShipmentLine.Get(TempSalesShipmentLine."Document No.", TempSalesShipmentLine."Line No.");
-                                    AsmHeaderExists:=SalesShipmentLine.AsmToShipmentExists(PostedAsmHeader);
+                                    AsmHeaderExists := SalesShipmentLine.AsmToShipmentExists(PostedAsmHeader);
                                 end;
-                            if OnLineNumber = NumberOfLines then PrintFooter:=true;
+                            if OnLineNumber = NumberOfLines then PrintFooter := true;
                         end;
+
                         trigger OnPreDataItem();
                         begin
-                            NumberOfLines:=TempSalesShipmentLine.Count;
+                            NumberOfLines := TempSalesShipmentLine.Count;
                             SetRange(Number, 1, NumberOfLines);
-                            OnLineNumber:=0;
-                            PrintFooter:=false;
+                            OnLineNumber := 0;
+                            PrintFooter := false;
                         end;
                     }
                 }
@@ -401,61 +409,68 @@ report 60020 "Sales Shipment"
                         if not CurrReport.Preview then SalesShipmentPrinted.Run("Sales Shipment Header");
                         CurrReport.Break;
                     end;
-                    CopyNo:=CopyNo + 1;
+                    CopyNo := CopyNo + 1;
                     if CopyNo = 1 then // Original
- Clear(CopyTxt)
+                        Clear(CopyTxt)
                     else
-                        CopyTxt:=Text000;
+                        CopyTxt := Text000;
                 end;
+
                 trigger OnPreDataItem();
                 begin
-                    NoLoops:=1 + Abs(NoCopies);
-                    if NoLoops <= 0 then NoLoops:=1;
-                    CopyNo:=0;
+                    NoLoops := 1 + Abs(NoCopies);
+                    if NoLoops <= 0 then NoLoops := 1;
+                    CopyNo := 0;
                 end;
             }
             trigger OnAfterGetRecord();
             begin
-                if PrintCompany then if RespCenter.Get("Responsibility Center")then begin
+                if PrintCompany then
+                    if RespCenter.Get("Responsibility Center") then begin
                         FormatAddress.RespCenter(CompanyAddress, RespCenter);
-                        CompanyInformation."Phone No.":=RespCenter."Phone No.";
-                        CompanyInformation."Fax No.":=RespCenter."Fax No.";
+                        CompanyInformation."Phone No." := RespCenter."Phone No.";
+                        CompanyInformation."Fax No." := RespCenter."Fax No.";
                     end;
                 //CurrReport.Language := Language.GetLanguageID("Language Code");
-                CurrReport.Language:=Language.GetLanguageIdOrDefault("Language Code");
-                if "Salesperson Code" = '' then Clear(SalesPurchPerson)
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
+                if "Salesperson Code" = '' then
+                    Clear(SalesPurchPerson)
                 else
                     SalesPurchPerson.Get("Salesperson Code");
-                if "Shipment Method Code" = '' then Clear(ShipmentMethod)
+                if "Shipment Method Code" = '' then
+                    Clear(ShipmentMethod)
                 else
                     ShipmentMethod.Get("Shipment Method Code");
                 if "Sell-to Customer No." = '' then begin
-                    "Bill-to Name":=Text009;
-                    "Ship-to Name":=Text009;
+                    "Bill-to Name" := Text009;
+                    "Ship-to Name" := Text009;
                 end;
-                if not Cust.Get("Sell-to Customer No.")then Clear(Cust);
+                if not Cust.Get("Sell-to Customer No.") then Clear(Cust);
                 FormatAddress.SalesShptBillTo(BillToAddress, BillToAddress, "Sales Shipment Header");
                 FormatAddress.SalesShptShipTo(ShipToAddress, "Sales Shipment Header");
-                ShippingAgentCodeLabel:='';
-                ShippingAgentCodeText:='';
-                PackageTrackingNoLabel:='';
-                PackageTrackingNoText:='';
+                ShippingAgentCodeLabel := '';
+                ShippingAgentCodeText := '';
+                PackageTrackingNoLabel := '';
+                PackageTrackingNoText := '';
                 if PrintPackageTrackingNos then begin
-                    ShippingAgentCodeLabel:=Text003;
-                    ShippingAgentCodeText:="Sales Shipment Header"."Shipping Agent Code";
-                    PackageTrackingNoLabel:=Text001;
-                    PackageTrackingNoText:="Sales Shipment Header"."Package Tracking No.";
+                    ShippingAgentCodeLabel := Text003;
+                    ShippingAgentCodeText := "Sales Shipment Header"."Shipping Agent Code";
+                    PackageTrackingNoLabel := Text001;
+                    PackageTrackingNoText := "Sales Shipment Header"."Package Tracking No.";
                 end;
                 if LogInteraction then if not CurrReport.Preview then SegManagement.LogDocument(5, "No.", 0, 0, DATABASE::Customer, "Sell-to Customer No.", "Salesperson Code", "Campaign No.", "Posting Description", '');
-                TaxRegNo:='';
-                TaxRegLabel:='';
+                TaxRegNo := '';
+                TaxRegLabel := '';
                 if "Tax Area Code" <> '' then begin
                     TaxArea.Get("Tax Area Code");
-                    case TaxArea."Country/Region" of TaxArea."Country/Region"::US: ;
-                    TaxArea."Country/Region"::CA: begin
-                        TaxRegNo:=CompanyInformation."VAT Registration No.";
-                        TaxRegLabel:=CompanyInformation.FieldCaption("VAT Registration No.");
-                    end;
+                    case TaxArea."Country/Region" of
+                        TaxArea."Country/Region"::US:
+                            ;
+                        TaxArea."Country/Region"::CA:
+                            begin
+                                TaxRegNo := CompanyInformation."VAT Registration No.";
+                                TaxRegLabel := CompanyInformation.FieldCaption("VAT Registration No.");
+                            end;
                     end;
                 end;
             end;
@@ -512,12 +527,13 @@ report 60020 "Sales Shipment"
         }
         trigger OnInit();
         begin
-            LogInteractionEnable:=true;
+            LogInteractionEnable := true;
         end;
+
         trigger OnOpenPage();
         begin
             InitLogInteraction;
-            LogInteractionEnable:=LogInteraction;
+            LogInteractionEnable := LogInteraction;
         end;
     }
     labels
@@ -527,126 +543,144 @@ report 60020 "Sales Shipment"
     begin
         CompanyInfo.Get;
         SalesSetup.Get;
-        case SalesSetup."Logo Position on Documents" of SalesSetup."Logo Position on Documents"::"No Logo": ;
-        SalesSetup."Logo Position on Documents"::Left: begin
-            CompanyInfo3.Get;
-            CompanyInfo3.CalcFields(Picture);
-        end;
-        SalesSetup."Logo Position on Documents"::Center: begin
-            CompanyInfo1.Get;
-            CompanyInfo1.CalcFields(Picture);
-        end;
-        SalesSetup."Logo Position on Documents"::Right: begin
-            CompanyInfo2.Get;
-            CompanyInfo2.CalcFields(Picture);
-        end;
+        case SalesSetup."Logo Position on Documents" of
+            SalesSetup."Logo Position on Documents"::"No Logo":
+                ;
+            SalesSetup."Logo Position on Documents"::Left:
+                begin
+                    CompanyInfo3.Get;
+                    CompanyInfo3.CalcFields(Picture);
+                end;
+            SalesSetup."Logo Position on Documents"::Center:
+                begin
+                    CompanyInfo1.Get;
+                    CompanyInfo1.CalcFields(Picture);
+                end;
+            SalesSetup."Logo Position on Documents"::Right:
+                begin
+                    CompanyInfo2.Get;
+                    CompanyInfo2.CalcFields(Picture);
+                end;
         end;
     end;
+
     trigger OnPreReport();
     begin
         if not CurrReport.UseRequestPage then InitLogInteraction;
         CompanyInformation.Get;
         SalesSetup.Get;
-        case SalesSetup."Logo Position on Documents" of SalesSetup."Logo Position on Documents"::"No Logo": ;
-        SalesSetup."Logo Position on Documents"::Left: CompanyInformation.CalcFields(Picture);
-        SalesSetup."Logo Position on Documents"::Center: begin
-            CompanyInfo1.Get;
-            CompanyInfo1.CalcFields(Picture);
+        case SalesSetup."Logo Position on Documents" of
+            SalesSetup."Logo Position on Documents"::"No Logo":
+                ;
+            SalesSetup."Logo Position on Documents"::Left:
+                CompanyInformation.CalcFields(Picture);
+            SalesSetup."Logo Position on Documents"::Center:
+                begin
+                    CompanyInfo1.Get;
+                    CompanyInfo1.CalcFields(Picture);
+                end;
+            SalesSetup."Logo Position on Documents"::Right:
+                begin
+                    CompanyInfo2.Get;
+                    CompanyInfo2.CalcFields(Picture);
+                end;
         end;
-        SalesSetup."Logo Position on Documents"::Right: begin
-            CompanyInfo2.Get;
-            CompanyInfo2.CalcFields(Picture);
-        end;
-        end;
-        if PrintCompany then FormatAddress.Company(CompanyAddress, CompanyInformation)
+        if PrintCompany then
+            FormatAddress.Company(CompanyAddress, CompanyInformation)
         else
             Clear(CompanyAddress);
     end;
-    var OrderedQuantity: Decimal;
-    BackOrderedQuantity: Decimal;
-    ShipmentMethod: Record "Shipment Method";
-    ReceiptLine: Record "Sales Shipment Line";
-    OrderLine: Record "Sales Line";
-    SalesPurchPerson: Record "Salesperson/Purchaser";
-    CompanyInformation: Record "Company Information";
-    CompanyInfo1: Record "Company Information";
-    CompanyInfo2: Record "Company Information";
-    CompanyInfo3: Record "Company Information";
-    CompanyInfo: Record "Company Information";
-    SalesSetup: Record "Sales & Receivables Setup";
-    TempSalesShipmentLine: Record "Sales Shipment Line" temporary;
-    TempSalesShipmentLineAsm: Record "Sales Shipment Line" temporary;
-    RespCenter: Record "Responsibility Center";
-    Language: Codeunit Language;
-    TaxArea: Record "Tax Area";
-    Cust: Record Customer;
-    PostedAsmHeader: Record "Posted Assembly Header";
-    PostedAsmLine: Record "Posted Assembly Line";
-    SalesShipmentPrinted: Codeunit "Sales Shpt.-Printed";
-    FormatAddress: Codeunit "Format Address";
-    FormatDocument: Codeunit "Format Document";
-    SegManagement: Codeunit SegManagement;
-    CompanyAddress: array[8]of Text[100];
-    BillToAddress: array[8]of Text[100];
-    ShipToAddress: array[8]of Text[100];
-    CopyTxt: Text;
-    PrintCompany: Boolean;
-    PrintFooter: Boolean;
-    NoCopies: Integer;
-    NoLoops: Integer;
-    CopyNo: Integer;
-    NumberOfLines: Integer;
-    OnLineNumber: Integer;
-    HighestLineNo: Integer;
-    PackageTrackingText: Text;
-    PrintPackageTrackingNos: Boolean;
-    PackageTrackingNoText: Text;
-    PackageTrackingNoLabel: Text;
-    ShippingAgentCodeText: Text;
-    ShippingAgentCodeLabel: Text;
-    LogInteraction: Boolean;
-    Text000: TextConst ENU = 'COPY', ESM = 'COPIA', FRC = 'COPIER', ENC = 'COPY';
-    Text001: TextConst ENU = 'Tracking No.', ESM = 'Nº seguim.', FRC = 'N° de traçabilité', ENC = 'Tracking No.';
-    Text002: TextConst ENU = 'Specific Tracking No.', ESM = 'Nº seguim. específico', FRC = 'N° de traçabilité spécifique', ENC = 'Specific Tracking No.';
-    Text003: TextConst ENU = 'Shipping Agent', ESM = 'Transportista', FRC = 'Agent de livraison', ENC = 'Shipping Agent';
-    TaxRegNo: Text;
-    TaxRegLabel: Text;
-    Text009: TextConst ENU = 'VOID SHIPMENT', ESM = 'ANULAR ENV´O', FRC = 'ANNULER LIVRAISON', ENC = 'VOID SHIPMENT';
-    [InDataSet]
-    LogInteractionEnable: Boolean;
-    DisplayAssemblyInformation: Boolean;
-    AsmHeaderExists: Boolean;
-    BillCaptionLbl: TextConst ENU = 'Bill', ESM = 'Facturar', FRC = 'Facturer', ENC = 'Bill';
-    ToCaptionLbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
-    CustomerIDCaptionLbl: TextConst ENU = 'Customer ID', ESM = 'Id. cliente', FRC = 'Code de client', ENC = 'Customer ID';
-    PONumberCaptionLbl: TextConst ENU = 'P.O. Number', ESM = 'Número pedido compra', FRC = 'N° de bon de commande', ENC = 'P.O. Number';
-    SalesPersonCaptionLbl: TextConst ENU = 'SalesPerson', ESM = 'Vendedor', FRC = 'Représentant', ENC = 'SalesPerson';
-    ShipCaptionLbl: TextConst ENU = 'Ship', ESM = 'Enviar', FRC = 'Livrer', ENC = 'Ship';
-    ShipmentCaptionLbl: TextConst ENU = 'SHIPMENT', ESM = 'ENV´O', FRC = 'LIVRAISON', ENC = 'SHIPMENT';
-    ShipmentNumberCaptionLbl: TextConst ENU = 'Shipment Number:', ESM = 'Número envío:', FRC = 'Numéro de livraison :', ENC = 'Shipment Number:';
-    ShipmentDateCaptionLbl: TextConst ENU = 'Shipment Date:', ESM = 'Fecha envío:', FRC = 'Date de livraison :', ENC = 'Shipment Date:';
-    PageCaptionLbl: TextConst ENU = 'Page:', ESM = 'Pág.:', FRC = 'Page :', ENC = 'Page:';
-    ShipViaCaptionLbl: TextConst ENU = 'Ship Via', ESM = 'Envío a través de', FRC = 'Livrer par', ENC = 'Ship Via';
-    PODateCaptionLbl: TextConst ENU = 'P.O. Date', ESM = 'Fecha pedido compra', FRC = 'Date du bon de commande', ENC = 'P.O. Date';
-    OurOrderNoCaptionLbl: TextConst ENU = 'Our Order No.', ESM = 'Nuestro pedido N°', FRC = 'Notre n° de commande', ENC = 'Our Order No.';
-    ItemNoCaptionLbl: TextConst ENU = 'Item No.', ESM = 'Nº producto', FRC = 'N° d''article', ENC = 'Item No.';
-    UnitCaptionLbl: TextConst ENU = 'Unit', ESM = 'Unidad', FRC = 'Unité', ENC = 'Unit';
-    DescriptionCaptionLbl: TextConst ENU = 'Description', ESM = 'Descripción', FRC = 'Description', ENC = 'Description';
-    ShippedCaptionLbl: TextConst ENU = 'Shipped', ESM = 'Enviado', FRC = 'Livré', ENC = 'Shipped';
-    OrderedCaptionLbl: TextConst ENU = 'Ordered', ESM = 'Pedido', FRC = 'Commandé', ENC = 'Ordered';
-    BackOrderedCaptionLbl: TextConst ENU = 'Back Ordered', ESM = 'Pedido pendiente', FRC = 'Commandé en retard', ENC = 'Back Ordered';
-    ThirdPartyShipLbl: Label '3rd Party Ship Acnt';
+
+    var
+        OrderedQuantity: Decimal;
+        BackOrderedQuantity: Decimal;
+        ShipmentMethod: Record "Shipment Method";
+        ReceiptLine: Record "Sales Shipment Line";
+        OrderLine: Record "Sales Line";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        CompanyInformation: Record "Company Information";
+        CompanyInfo1: Record "Company Information";
+        CompanyInfo2: Record "Company Information";
+        CompanyInfo3: Record "Company Information";
+        CompanyInfo: Record "Company Information";
+        SalesSetup: Record "Sales & Receivables Setup";
+        TempSalesShipmentLine: Record "Sales Shipment Line" temporary;
+        TempSalesShipmentLineAsm: Record "Sales Shipment Line" temporary;
+        RespCenter: Record "Responsibility Center";
+        Language: Codeunit Language;
+        TaxArea: Record "Tax Area";
+        Cust: Record Customer;
+        PostedAsmHeader: Record "Posted Assembly Header";
+        PostedAsmLine: Record "Posted Assembly Line";
+        SalesShipmentPrinted: Codeunit "Sales Shpt.-Printed";
+        FormatAddress: Codeunit "Format Address";
+        FormatDocument: Codeunit "Format Document";
+        SegManagement: Codeunit SegManagement;
+        CompanyAddress: array[8] of Text[100];
+        BillToAddress: array[8] of Text[100];
+        ShipToAddress: array[8] of Text[100];
+        CopyTxt: Text;
+        PrintCompany: Boolean;
+        PrintFooter: Boolean;
+        NoCopies: Integer;
+        NoLoops: Integer;
+        CopyNo: Integer;
+        NumberOfLines: Integer;
+        OnLineNumber: Integer;
+        HighestLineNo: Integer;
+        PackageTrackingText: Text;
+        PrintPackageTrackingNos: Boolean;
+        PackageTrackingNoText: Text;
+        PackageTrackingNoLabel: Text;
+        ShippingAgentCodeText: Text;
+        ShippingAgentCodeLabel: Text;
+        LogInteraction: Boolean;
+        Text000: TextConst ENU = 'COPY', ESM = 'COPIA', FRC = 'COPIER', ENC = 'COPY';
+        Text001: TextConst ENU = 'Tracking No.', ESM = 'Nº seguim.', FRC = 'N° de traçabilité', ENC = 'Tracking No.';
+        Text002: TextConst ENU = 'Specific Tracking No.', ESM = 'Nº seguim. específico', FRC = 'N° de traçabilité spécifique', ENC = 'Specific Tracking No.';
+        Text003: TextConst ENU = 'Shipping Agent', ESM = 'Transportista', FRC = 'Agent de livraison', ENC = 'Shipping Agent';
+        TaxRegNo: Text;
+        TaxRegLabel: Text;
+        Text009: TextConst ENU = 'VOID SHIPMENT', ESM = 'ANULAR ENV´O', FRC = 'ANNULER LIVRAISON', ENC = 'VOID SHIPMENT';
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        DisplayAssemblyInformation: Boolean;
+        AsmHeaderExists: Boolean;
+        BillCaptionLbl: TextConst ENU = 'Bill', ESM = 'Facturar', FRC = 'Facturer', ENC = 'Bill';
+        ToCaptionLbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
+        CustomerIDCaptionLbl: TextConst ENU = 'Customer ID', ESM = 'Id. cliente', FRC = 'Code de client', ENC = 'Customer ID';
+        PONumberCaptionLbl: TextConst ENU = 'P.O. Number', ESM = 'Número pedido compra', FRC = 'N° de bon de commande', ENC = 'P.O. Number';
+        SalesPersonCaptionLbl: TextConst ENU = 'SalesPerson', ESM = 'Vendedor', FRC = 'Représentant', ENC = 'SalesPerson';
+        ShipCaptionLbl: TextConst ENU = 'Ship', ESM = 'Enviar', FRC = 'Livrer', ENC = 'Ship';
+        ShipmentCaptionLbl: TextConst ENU = 'SHIPMENT', ESM = 'ENV´O', FRC = 'LIVRAISON', ENC = 'SHIPMENT';
+        ShipmentNumberCaptionLbl: TextConst ENU = 'Shipment Number:', ESM = 'Número envío:', FRC = 'Numéro de livraison :', ENC = 'Shipment Number:';
+        ShipmentDateCaptionLbl: TextConst ENU = 'Shipment Date:', ESM = 'Fecha envío:', FRC = 'Date de livraison :', ENC = 'Shipment Date:';
+        PageCaptionLbl: TextConst ENU = 'Page:', ESM = 'Pág.:', FRC = 'Page :', ENC = 'Page:';
+        ShipViaCaptionLbl: TextConst ENU = 'Ship Via', ESM = 'Envío a través de', FRC = 'Livrer par', ENC = 'Ship Via';
+        PODateCaptionLbl: TextConst ENU = 'P.O. Date', ESM = 'Fecha pedido compra', FRC = 'Date du bon de commande', ENC = 'P.O. Date';
+        OurOrderNoCaptionLbl: TextConst ENU = 'Our Order No.', ESM = 'Nuestro pedido N°', FRC = 'Notre n° de commande', ENC = 'Our Order No.';
+        ItemNoCaptionLbl: TextConst ENU = 'Item No.', ESM = 'Nº producto', FRC = 'N° d''article', ENC = 'Item No.';
+        UnitCaptionLbl: TextConst ENU = 'Unit', ESM = 'Unidad', FRC = 'Unité', ENC = 'Unit';
+        DescriptionCaptionLbl: TextConst ENU = 'Description', ESM = 'Descripción', FRC = 'Description', ENC = 'Description';
+        ShippedCaptionLbl: TextConst ENU = 'Shipped', ESM = 'Enviado', FRC = 'Livré', ENC = 'Shipped';
+        OrderedCaptionLbl: TextConst ENU = 'Ordered', ESM = 'Pedido', FRC = 'Commandé', ENC = 'Ordered';
+        BackOrderedCaptionLbl: TextConst ENU = 'Back Ordered', ESM = 'Pedido pendiente', FRC = 'Commandé en retard', ENC = 'Back Ordered';
+        ThirdPartyShipLbl: Label '3rd Party Ship Acnt';
+
     procedure InitLogInteraction();
     begin
-        LogInteraction:=SegManagement.FindInteractTmplCode(5) <> '';
+        //LogInteraction:=SegManagement.FindInteractTmplCode(5) <> '';
+        LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Shpt. Note") <> '';
     end;
+
     procedure GetUnitOfMeasureDescr(UOMCode: Code[10]): Text[10];
     var
         UnitOfMeasure: Record "Unit of Measure";
     begin
-        if not UnitOfMeasure.Get(UOMCode)then exit(UOMCode);
+        if not UnitOfMeasure.Get(UOMCode) then exit(UOMCode);
         exit(UnitOfMeasure.Description);
     end;
+
     procedure BlanksForIndent(): Text[10];
     begin
         exit(PadStr('', 2, ' '));
@@ -655,9 +689,9 @@ report 60020 "Sales Shipment"
     local procedure InsertTempLine(Comment: Text[80]; IncrNo: Integer);
     begin
         TempSalesShipmentLine.Init;
-        TempSalesShipmentLine."Document No.":="Sales Shipment Header"."No.";
-        TempSalesShipmentLine."Line No.":=HighestLineNo + IncrNo;
-        HighestLineNo:=TempSalesShipmentLine."Line No.";
+        TempSalesShipmentLine."Document No." := "Sales Shipment Header"."No.";
+        TempSalesShipmentLine."Line No." := HighestLineNo + IncrNo;
+        HighestLineNo := TempSalesShipmentLine."Line No.";
         FormatDocument.ParseComment(Comment, TempSalesShipmentLine.Description, TempSalesShipmentLine."Description 2");
         TempSalesShipmentLine.Insert;
     end;

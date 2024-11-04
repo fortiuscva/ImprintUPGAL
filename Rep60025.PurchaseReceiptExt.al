@@ -25,7 +25,7 @@ report 60025 "Purchase Receipt Ext"
 
                 dataitem(PageLoop; "Integer")
                 {
-                    DataItemTableView = SORTING(Number)WHERE(Number=CONST(1));
+                    DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
 
                     column(CompanyAddr1; CompanyAddress[1])
                     {
@@ -185,7 +185,7 @@ report 60025 "Purchase Receipt Ext"
                     }
                     dataitem("Purch. Rcpt. Line"; "Purch. Rcpt. Line")
                     {
-                        DataItemLink = "Document No."=FIELD("No.");
+                        DataItemLink = "Document No." = FIELD("No.");
                         DataItemLinkReference = "Purch. Rcpt. Header";
                         DataItemTableView = SORTING("Document No.", "Line No.");
 
@@ -200,11 +200,11 @@ report 60025 "Purchase Receipt Ext"
                         }
                         column(OrderedQty_PurchRcptLine; OrderedQuantity)
                         {
-                        DecimalPlaces = 0: 5;
+                            DecimalPlaces = 0 : 5;
                         }
                         column(BackOrderedQty_PurchRcptLine; BackOrderedQuantity)
                         {
-                        DecimalPlaces = 0: 5;
+                            DecimalPlaces = 0 : 5;
                         }
                         column(Desc_PurchRcptLine; Description)
                         {
@@ -241,40 +241,43 @@ report 60025 "Purchase Receipt Ext"
                         }
                         trigger OnAfterGetRecord();
                         begin
-                            OnLineNumber:=OnLineNumber + 1;
-                            OrderedQuantity:=0;
-                            BackOrderedQuantity:=0;
-                            if "Order No." = '' then OrderedQuantity:=Quantity
-                            else if OrderLine.Get(1, "Order No.", "Order Line No.")then begin
-                                    OrderedQuantity:=OrderLine.Quantity;
-                                    BackOrderedQuantity:=OrderLine."Outstanding Quantity";
-                                end
-                                else
-                                begin
-                                    ReceiptLine.SetCurrentKey("Order No.", "Order Line No.");
-                                    ReceiptLine.SetRange("Order No.", "Order No.");
-                                    ReceiptLine.SetRange("Order Line No.", "Order Line No.");
-                                    ReceiptLine.Find('-');
-                                    repeat OrderedQuantity:=OrderedQuantity + ReceiptLine.Quantity;
-                                    until 0 = ReceiptLine.Next;
-                                end;
-                            if Type.AsInteger() = 0 then begin
-                                ItemNumberToPrint:='';
-                                "Unit of Measure":='';
-                                OrderedQuantity:=0;
-                                BackOrderedQuantity:=0;
-                                Quantity:=0;
+                            OnLineNumber := OnLineNumber + 1;
+                            OrderedQuantity := 0;
+                            BackOrderedQuantity := 0;
+                            if "Order No." = '' then
+                                OrderedQuantity := Quantity
+                            else if OrderLine.Get(1, "Order No.", "Order Line No.") then begin
+                                OrderedQuantity := OrderLine.Quantity;
+                                BackOrderedQuantity := OrderLine."Outstanding Quantity";
                             end
-                            else if Type = Type::"G/L Account" then ItemNumberToPrint:="Vendor Item No."
-                                else
-                                    ItemNumberToPrint:="No.";
-                            if OnLineNumber = NumberOfLines then PrintFooter:=true;
+                            else begin
+                                ReceiptLine.SetCurrentKey("Order No.", "Order Line No.");
+                                ReceiptLine.SetRange("Order No.", "Order No.");
+                                ReceiptLine.SetRange("Order Line No.", "Order Line No.");
+                                ReceiptLine.Find('-');
+                                repeat
+                                    OrderedQuantity := OrderedQuantity + ReceiptLine.Quantity;
+                                until 0 = ReceiptLine.Next;
+                            end;
+                            if Type.AsInteger() = 0 then begin
+                                ItemNumberToPrint := '';
+                                "Unit of Measure" := '';
+                                OrderedQuantity := 0;
+                                BackOrderedQuantity := 0;
+                                Quantity := 0;
+                            end
+                            else if Type = Type::"G/L Account" then
+                                ItemNumberToPrint := "Vendor Item No."
+                            else
+                                ItemNumberToPrint := "No.";
+                            if OnLineNumber = NumberOfLines then PrintFooter := true;
                         end;
+
                         trigger OnPreDataItem();
                         begin
-                            NumberOfLines:=Count;
-                            OnLineNumber:=0;
-                            PrintFooter:=false;
+                            NumberOfLines := Count;
+                            OnLineNumber := 0;
+                            PrintFooter := false;
                         end;
                     }
                 }
@@ -285,45 +288,51 @@ report 60025 "Purchase Receipt Ext"
                         if not CurrReport.Preview then PurchaseRcptPrinted.Run("Purch. Rcpt. Header");
                         CurrReport.Break;
                     end;
-                    CopyNo:=CopyNo + 1;
+                    CopyNo := CopyNo + 1;
                     if CopyNo = 1 then // Original
- Clear(CopyTxt)
+                        Clear(CopyTxt)
                     else
-                        CopyTxt:=Text000;
+                        CopyTxt := Text000;
                 end;
+
                 trigger OnPreDataItem();
                 begin
-                    NoLoops:=1 + Abs(NoCopies);
-                    if NoLoops <= 0 then NoLoops:=1;
-                    CopyNo:=0;
+                    NoLoops := 1 + Abs(NoCopies);
+                    if NoLoops <= 0 then NoLoops := 1;
+                    CopyNo := 0;
                 end;
             }
             trigger OnAfterGetRecord();
             begin
-                if PrintCompany then if RespCenter.Get("Responsibility Center")then begin
+                if PrintCompany then
+                    if RespCenter.Get("Responsibility Center") then begin
                         FormatAddress.RespCenter(CompanyAddress, RespCenter);
-                        CompanyInformation."Phone No.":=RespCenter."Phone No.";
-                        CompanyInformation."Fax No.":=RespCenter."Fax No.";
+                        CompanyInformation."Phone No." := RespCenter."Phone No.";
+                        CompanyInformation."Fax No." := RespCenter."Fax No.";
                     end;
                 //CurrReport.Language := Language.GetLanguageID("Language Code");
-                CurrReport.Language:=Language.GetLanguageIdOrDefault("Language Code");
-                if "Purchaser Code" = '' then Clear(SalesPurchPerson)
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
+                if "Purchaser Code" = '' then
+                    Clear(SalesPurchPerson)
                 else
                     SalesPurchPerson.Get("Purchaser Code");
-                if "Shipment Method Code" = '' then Clear(ShipmentMethod)
+                if "Shipment Method Code" = '' then
+                    Clear(ShipmentMethod)
                 else
                     ShipmentMethod.Get("Shipment Method Code");
                 if "Buy-from Vendor No." = '' then begin
-                    "Buy-from Vendor Name":=Text009;
-                    "Ship-to Name":=Text009;
+                    "Buy-from Vendor Name" := Text009;
+                    "Ship-to Name" := Text009;
                 end;
                 FormatAddress.PurchRcptBuyFrom(BuyFromAddress, "Purch. Rcpt. Header");
                 FormatAddress.PurchRcptShipTo(ShipToAddress, "Purch. Rcpt. Header");
                 if LogInteraction then if not CurrReport.Preview then SegManagement.LogDocument(15, "No.", 0, 0, DATABASE::Vendor, "Buy-from Vendor No.", "Purchaser Code", '', "Posting Description", '');
             end;
+
             trigger OnPreDataItem();
             begin
-                if PrintCompany then FormatAddress.Company(CompanyAddress, CompanyInformation)
+                if PrintCompany then
+                    FormatAddress.Company(CompanyAddress, CompanyInformation)
                 else
                     Clear(CompanyAddress);
             end;
@@ -368,12 +377,14 @@ report 60025 "Purchase Receipt Ext"
         }
         trigger OnInit();
         begin
-            LogInteractionEnable:=true;
+            LogInteractionEnable := true;
         end;
+
         trigger OnOpenPage();
         begin
-            LogInteraction:=SegManagement.FindInteractTmplCode(15) <> '';
-            LogInteractionEnable:=LogInteraction;
+            //LogInteraction:=SegManagement.FindInteractTmplCode(15) <> '';
+            LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Purch. Rcpt.") <> '';
+            LogInteractionEnable := LogInteraction;
         end;
     }
     labels
@@ -383,56 +394,58 @@ report 60025 "Purchase Receipt Ext"
     begin
         CompanyInformation.Get('');
     end;
-    var ShipmentMethod: Record "Shipment Method";
-    SalesPurchPerson: Record "Salesperson/Purchaser";
-    CompanyInformation: Record "Company Information";
-    ReceiptLine: Record "Purch. Rcpt. Line";
-    OrderLine: Record "Purchase Line";
-    RespCenter: Record "Responsibility Center";
-    Language: Codeunit Language;
-    CompanyAddress: array[8]of Text[100];
-    BuyFromAddress: array[8]of Text[100];
-    ShipToAddress: array[8]of Text[100];
-    CopyTxt: Text[10];
-    ItemNumberToPrint: Text[20];
-    PrintCompany: Boolean;
-    PrintFooter: Boolean;
-    NoCopies: Integer;
-    NoLoops: Integer;
-    CopyNo: Integer;
-    NumberOfLines: Integer;
-    OnLineNumber: Integer;
-    PurchaseRcptPrinted: Codeunit "Purch.Rcpt.-Printed";
-    FormatAddress: Codeunit "Format Address";
-    OrderedQuantity: Decimal;
-    BackOrderedQuantity: Decimal;
-    SegManagement: Codeunit SegManagement;
-    LogInteraction: Boolean;
-    Text000: TextConst ENU = 'COPY', ESM = 'COPIA', FRC = 'COPIER', ENC = 'COPY';
-    Text009: TextConst ENU = 'VOID RECEIPT', ESM = 'ANULAR RECEPCIÊN', FRC = 'ANNULER RÉCEPTION', ENC = 'VOID RECEIPT';
-    [InDataSet]
-    LogInteractionEnable: Boolean;
-    FromCaptionLbl: TextConst ENU = 'From:', ESM = 'De:', FRC = 'De :', ENC = 'From:';
-    ReceiveByCaptionLbl: TextConst ENU = 'Receive By', ESM = 'Recibir por', FRC = 'Recevoir par', ENC = 'Receive By';
-    VendorIDCaptionLbl: TextConst ENU = 'Vendor ID', ESM = 'Id. proveedor', FRC = 'Code de fournisseur', ENC = 'Vendor ID';
-    ConfirmToCaptionLbl: TextConst ENU = 'Confirm To', ESM = 'Confirmar a', FRC = 'Confirmer à', ENC = 'Confirm To';
-    BuyerCaptionLbl: TextConst ENU = 'Buyer', ESM = 'Comprador', FRC = 'Acheteur', ENC = 'Buyer';
-    ShipCaptionLbl: TextConst ENU = 'Ship', ESM = 'Enviar', FRC = 'Livrer', ENC = 'Ship';
-    ToCaptionLbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
-    PurchaseReceiptCaptionLbl: TextConst ENU = 'Purchase Receipt', ESM = 'Recepción de compra', FRC = 'Réception d''achat', ENC = 'Purchase Receipt';
-    PurchaseReceiptNumberCaptionLbl: TextConst ENU = 'Purchase Receipt Number:', ESM = 'Número recepción de compra:', FRC = 'N° de réception d''achat :', ENC = 'Purchase Receipt Number:';
-    PurchaseReceiptDateCaptionLbl: TextConst ENU = 'Purchase Receipt Date:', ESM = 'Fecha recepción de compra:', FRC = 'Date de réception d''achat :', ENC = 'Purchase Receipt Date:';
-    PageCaptionLbl: TextConst ENU = 'Page:', ESM = 'Pág.:', FRC = 'Page :', ENC = 'Page:';
-    ShipViaCaptionLbl: TextConst ENU = 'Ship Via', ESM = 'Envío a través de', FRC = 'Livrer par', ENC = 'Ship Via';
-    PONumberCaptionLbl: TextConst ENU = 'P.O. Number', ESM = 'Número pedido compra', FRC = 'N° de bon de commande', ENC = 'P.O. Number';
-    PurchaseCaptionLbl: TextConst ENU = 'Purchase', ESM = 'Compra', FRC = 'Achat', ENC = 'Purchase';
-    PODateCaptionLbl: TextConst ENU = 'P.O. Date', ESM = 'Fecha pedido compra', FRC = 'Date du bon de commande', ENC = 'P.O. Date';
-    ItemNoCaptionLbl: TextConst ENU = 'Item No.', ESM = 'Nº producto', FRC = 'N° d''article', ENC = 'Item No.';
-    UnitCaptionLbl: TextConst ENU = 'Unit', ESM = 'Unidad', FRC = 'Unité', ENC = 'Unit';
-    DescriptionCaptionLbl: TextConst ENU = 'Description', ESM = 'Descripción', FRC = 'Description', ENC = 'Description';
-    ReceivedCaptionLbl: TextConst ENU = 'Received', ESM = 'Recibido', FRC = 'Reçu', ENC = 'Received';
-    OrderedCaptionLbl: TextConst ENU = 'Ordered', ESM = 'Pedido', FRC = 'Commandé', ENC = 'Ordered';
-    BackOrderedCaptionLbl: TextConst ENU = 'Back Ordered', ESM = 'Pedido pendiente', FRC = 'Commandé en retard', ENC = 'Back Ordered';
-    LocationCodeCaptionLbl: Label 'Location Code';
-    BinCodeCaptionLbl: Label 'Bin';
+
+    var
+        ShipmentMethod: Record "Shipment Method";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        CompanyInformation: Record "Company Information";
+        ReceiptLine: Record "Purch. Rcpt. Line";
+        OrderLine: Record "Purchase Line";
+        RespCenter: Record "Responsibility Center";
+        Language: Codeunit Language;
+        CompanyAddress: array[8] of Text[100];
+        BuyFromAddress: array[8] of Text[100];
+        ShipToAddress: array[8] of Text[100];
+        CopyTxt: Text[10];
+        ItemNumberToPrint: Text[20];
+        PrintCompany: Boolean;
+        PrintFooter: Boolean;
+        NoCopies: Integer;
+        NoLoops: Integer;
+        CopyNo: Integer;
+        NumberOfLines: Integer;
+        OnLineNumber: Integer;
+        PurchaseRcptPrinted: Codeunit "Purch.Rcpt.-Printed";
+        FormatAddress: Codeunit "Format Address";
+        OrderedQuantity: Decimal;
+        BackOrderedQuantity: Decimal;
+        SegManagement: Codeunit SegManagement;
+        LogInteraction: Boolean;
+        Text000: TextConst ENU = 'COPY', ESM = 'COPIA', FRC = 'COPIER', ENC = 'COPY';
+        Text009: TextConst ENU = 'VOID RECEIPT', ESM = 'ANULAR RECEPCIÊN', FRC = 'ANNULER RÉCEPTION', ENC = 'VOID RECEIPT';
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        FromCaptionLbl: TextConst ENU = 'From:', ESM = 'De:', FRC = 'De :', ENC = 'From:';
+        ReceiveByCaptionLbl: TextConst ENU = 'Receive By', ESM = 'Recibir por', FRC = 'Recevoir par', ENC = 'Receive By';
+        VendorIDCaptionLbl: TextConst ENU = 'Vendor ID', ESM = 'Id. proveedor', FRC = 'Code de fournisseur', ENC = 'Vendor ID';
+        ConfirmToCaptionLbl: TextConst ENU = 'Confirm To', ESM = 'Confirmar a', FRC = 'Confirmer à', ENC = 'Confirm To';
+        BuyerCaptionLbl: TextConst ENU = 'Buyer', ESM = 'Comprador', FRC = 'Acheteur', ENC = 'Buyer';
+        ShipCaptionLbl: TextConst ENU = 'Ship', ESM = 'Enviar', FRC = 'Livrer', ENC = 'Ship';
+        ToCaptionLbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
+        PurchaseReceiptCaptionLbl: TextConst ENU = 'Purchase Receipt', ESM = 'Recepción de compra', FRC = 'Réception d''achat', ENC = 'Purchase Receipt';
+        PurchaseReceiptNumberCaptionLbl: TextConst ENU = 'Purchase Receipt Number:', ESM = 'Número recepción de compra:', FRC = 'N° de réception d''achat :', ENC = 'Purchase Receipt Number:';
+        PurchaseReceiptDateCaptionLbl: TextConst ENU = 'Purchase Receipt Date:', ESM = 'Fecha recepción de compra:', FRC = 'Date de réception d''achat :', ENC = 'Purchase Receipt Date:';
+        PageCaptionLbl: TextConst ENU = 'Page:', ESM = 'Pág.:', FRC = 'Page :', ENC = 'Page:';
+        ShipViaCaptionLbl: TextConst ENU = 'Ship Via', ESM = 'Envío a través de', FRC = 'Livrer par', ENC = 'Ship Via';
+        PONumberCaptionLbl: TextConst ENU = 'P.O. Number', ESM = 'Número pedido compra', FRC = 'N° de bon de commande', ENC = 'P.O. Number';
+        PurchaseCaptionLbl: TextConst ENU = 'Purchase', ESM = 'Compra', FRC = 'Achat', ENC = 'Purchase';
+        PODateCaptionLbl: TextConst ENU = 'P.O. Date', ESM = 'Fecha pedido compra', FRC = 'Date du bon de commande', ENC = 'P.O. Date';
+        ItemNoCaptionLbl: TextConst ENU = 'Item No.', ESM = 'Nº producto', FRC = 'N° d''article', ENC = 'Item No.';
+        UnitCaptionLbl: TextConst ENU = 'Unit', ESM = 'Unidad', FRC = 'Unité', ENC = 'Unit';
+        DescriptionCaptionLbl: TextConst ENU = 'Description', ESM = 'Descripción', FRC = 'Description', ENC = 'Description';
+        ReceivedCaptionLbl: TextConst ENU = 'Received', ESM = 'Recibido', FRC = 'Reçu', ENC = 'Received';
+        OrderedCaptionLbl: TextConst ENU = 'Ordered', ESM = 'Pedido', FRC = 'Commandé', ENC = 'Ordered';
+        BackOrderedCaptionLbl: TextConst ENU = 'Back Ordered', ESM = 'Pedido pendiente', FRC = 'Commandé en retard', ENC = 'Back Ordered';
+        LocationCodeCaptionLbl: Label 'Location Code';
+        BinCodeCaptionLbl: Label 'Bin';
 }

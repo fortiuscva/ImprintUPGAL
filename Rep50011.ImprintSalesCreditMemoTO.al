@@ -614,7 +614,8 @@ report 50011 "Imprint Sales Credit Memo - TO"
 
         trigger OnOpenPage()
         begin
-            LogInteraction := SegManagement.FindInteractTmplCode(6) <> '';
+            //LogInteraction := SegManagement.FindInteractTmplCode(6) <> '';
+            LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Cr. Memo") <> '';
             LogInteractionEnable := LogInteraction;
         end;
     }

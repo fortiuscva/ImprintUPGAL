@@ -21,13 +21,13 @@ report 60022 "Return Receipt Ext"
             }
             dataitem("Return Receipt Line"; "Return Receipt Line")
             {
-                DataItemLink = "Document No."=FIELD("No.");
+                DataItemLink = "Document No." = FIELD("No.");
                 DataItemTableView = SORTING("Document No.", "Line No.");
 
                 dataitem(SalesLineComments; "Sales Comment Line")
                 {
-                    DataItemLink = "No."=FIELD("Document No."), "Document Line No."=FIELD("Line No.");
-                    DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.")WHERE("Document Type"=CONST("Posted Return Receipt"), "Print On Return Receipt"=CONST(true));
+                    DataItemLink = "No." = FIELD("Document No."), "Document Line No." = FIELD("Line No.");
+                    DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.") WHERE("Document Type" = CONST("Posted Return Receipt"), "Print On Return Receipt" = CONST(true));
 
                     trigger OnAfterGetRecord();
                     begin
@@ -36,10 +36,11 @@ report 60022 "Return Receipt Ext"
                 }
                 trigger OnAfterGetRecord();
                 begin
-                    TempReturnReceiptLine:="Return Receipt Line";
+                    TempReturnReceiptLine := "Return Receipt Line";
                     TempReturnReceiptLine.Insert;
-                    HighestLineNo:="Line No.";
+                    HighestLineNo := "Line No.";
                 end;
+
                 trigger OnPreDataItem();
                 begin
                     TempReturnReceiptLine.Reset;
@@ -48,19 +49,20 @@ report 60022 "Return Receipt Ext"
             }
             dataitem("Sales Comment Line"; "Sales Comment Line")
             {
-                DataItemLink = "No."=FIELD("No.");
-                DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.")WHERE("Document Type"=CONST("Posted Return Receipt"), "Print On Return Receipt"=CONST(true), "Document Line No."=CONST(0));
+                DataItemLink = "No." = FIELD("No.");
+                DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.") WHERE("Document Type" = CONST("Posted Return Receipt"), "Print On Return Receipt" = CONST(true), "Document Line No." = CONST(0));
 
                 trigger OnAfterGetRecord();
                 begin
                     InsertTempLine(Comment, 1000);
                 end;
+
                 trigger OnPreDataItem();
                 begin
                     TempReturnReceiptLine.Init;
-                    TempReturnReceiptLine."Document No.":="Return Receipt Header"."No.";
-                    TempReturnReceiptLine."Line No.":=HighestLineNo + 1000;
-                    HighestLineNo:=TempReturnReceiptLine."Line No.";
+                    TempReturnReceiptLine."Document No." := "Return Receipt Header"."No.";
+                    TempReturnReceiptLine."Line No." := HighestLineNo + 1000;
+                    HighestLineNo := TempReturnReceiptLine."Line No.";
                     TempReturnReceiptLine.Insert;
                 end;
             }
@@ -70,7 +72,7 @@ report 60022 "Return Receipt Ext"
 
                 dataitem(PageLoop; "Integer")
                 {
-                    DataItemTableView = SORTING(Number)WHERE(Number=CONST(1));
+                    DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
 
                     column(CompanyAddress1; CompanyAddress[1])
                     {
@@ -231,15 +233,15 @@ report 60022 "Return Receipt Ext"
                         }
                         column(TempReturnReceiptLineQuantity; TempReturnReceiptLine.Quantity)
                         {
-                        DecimalPlaces = 0: 5;
+                            DecimalPlaces = 0 : 5;
                         }
                         column(OrderedQuantity; OrderedQuantity)
                         {
-                        DecimalPlaces = 0: 5;
+                            DecimalPlaces = 0 : 5;
                         }
                         column(BackOrderedQuantity; BackOrderedQuantity)
                         {
-                        DecimalPlaces = 0: 5;
+                            DecimalPlaces = 0 : 5;
                         }
                         column(TempReturnReceiptLineDescription2; TempReturnReceiptLine.Description + ' ' + TempReturnReceiptLine."Description 2")
                         {
@@ -264,40 +266,43 @@ report 60022 "Return Receipt Ext"
                         }
                         trigger OnAfterGetRecord();
                         begin
-                            OnLineNumber:=OnLineNumber + 1;
-                            if OnLineNumber = 1 then TempReturnReceiptLine.Find('-')
+                            OnLineNumber := OnLineNumber + 1;
+                            if OnLineNumber = 1 then
+                                TempReturnReceiptLine.Find('-')
                             else
                                 TempReturnReceiptLine.Next;
-                            OrderedQuantity:=0;
-                            BackOrderedQuantity:=0;
-                            if TempReturnReceiptLine."Return Order No." = '' then OrderedQuantity:=TempReturnReceiptLine.Quantity
-                            else if OrderLine.Get(5, TempReturnReceiptLine."Return Order No.", TempReturnReceiptLine."Return Order Line No.")then begin
-                                    OrderedQuantity:=OrderLine.Quantity;
-                                    BackOrderedQuantity:=OrderLine."Outstanding Quantity";
-                                end
-                                else
-                                begin
-                                    ReceiptLine.SetCurrentKey("Return Order No.", "Return Order Line No.");
-                                    ReceiptLine.SetRange("Return Order No.", TempReturnReceiptLine."Return Order No.");
-                                    ReceiptLine.SetRange("Return Order Line No.", TempReturnReceiptLine."Return Order Line No.");
-                                    ReceiptLine.Find('-');
-                                    repeat OrderedQuantity:=OrderedQuantity + ReceiptLine.Quantity;
-                                    until 0 = ReceiptLine.Next;
-                                end;
-                            if TempReturnReceiptLine.Type.AsInteger() = 0 then begin
-                                OrderedQuantity:=0;
-                                BackOrderedQuantity:=0;
-                                TempReturnReceiptLine."No.":='';
-                                TempReturnReceiptLine."Unit of Measure":='';
-                                TempReturnReceiptLine.Quantity:=0;
+                            OrderedQuantity := 0;
+                            BackOrderedQuantity := 0;
+                            if TempReturnReceiptLine."Return Order No." = '' then
+                                OrderedQuantity := TempReturnReceiptLine.Quantity
+                            else if OrderLine.Get(5, TempReturnReceiptLine."Return Order No.", TempReturnReceiptLine."Return Order Line No.") then begin
+                                OrderedQuantity := OrderLine.Quantity;
+                                BackOrderedQuantity := OrderLine."Outstanding Quantity";
                             end
-                            else if TempReturnReceiptLine.Type = TempReturnReceiptLine.Type::"G/L Account" then TempReturnReceiptLine."No.":='';
+                            else begin
+                                ReceiptLine.SetCurrentKey("Return Order No.", "Return Order Line No.");
+                                ReceiptLine.SetRange("Return Order No.", TempReturnReceiptLine."Return Order No.");
+                                ReceiptLine.SetRange("Return Order Line No.", TempReturnReceiptLine."Return Order Line No.");
+                                ReceiptLine.Find('-');
+                                repeat
+                                    OrderedQuantity := OrderedQuantity + ReceiptLine.Quantity;
+                                until 0 = ReceiptLine.Next;
+                            end;
+                            if TempReturnReceiptLine.Type.AsInteger() = 0 then begin
+                                OrderedQuantity := 0;
+                                BackOrderedQuantity := 0;
+                                TempReturnReceiptLine."No." := '';
+                                TempReturnReceiptLine."Unit of Measure" := '';
+                                TempReturnReceiptLine.Quantity := 0;
+                            end
+                            else if TempReturnReceiptLine.Type = TempReturnReceiptLine.Type::"G/L Account" then TempReturnReceiptLine."No." := '';
                         end;
+
                         trigger OnPreDataItem();
                         begin
-                            NumberOfLines:=TempReturnReceiptLine.Count;
+                            NumberOfLines := TempReturnReceiptLine.Count;
                             SetRange(Number, 1, NumberOfLines);
-                            OnLineNumber:=0;
+                            OnLineNumber := 0;
                         end;
                     }
                 }
@@ -307,49 +312,56 @@ report 60022 "Return Receipt Ext"
                         if not CurrReport.Preview then ReturnReceiptPrinted.Run("Return Receipt Header");
                         CurrReport.Break;
                     end;
-                    CopyNo:=CopyNo + 1;
+                    CopyNo := CopyNo + 1;
                     if CopyNo = 1 then // Original
- Clear(CopyTxt)
+                        Clear(CopyTxt)
                     else
-                        CopyTxt:=Text000;
+                        CopyTxt := Text000;
                 end;
+
                 trigger OnPreDataItem();
                 begin
-                    NoLoops:=1 + Abs(NoCopies);
-                    if NoLoops <= 0 then NoLoops:=1;
-                    CopyNo:=0;
-                    CurrentCopiesNo:=CurrentCopiesNo + 1;
+                    NoLoops := 1 + Abs(NoCopies);
+                    if NoLoops <= 0 then NoLoops := 1;
+                    CopyNo := 0;
+                    CurrentCopiesNo := CurrentCopiesNo + 1;
                 end;
             }
             trigger OnAfterGetRecord();
             begin
                 //CurrReport.Language := Language.GetLanguageID("Language Code");
-                CurrReport.Language:=Language.GetLanguageIdOrDefault("Language Code");
-                if PrintCompany then if RespCenter.Get("Responsibility Center")then begin
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
+                if PrintCompany then
+                    if RespCenter.Get("Responsibility Center") then begin
                         FormatAddress.RespCenter(CompanyAddress, RespCenter);
-                        CompanyInformation."Phone No.":=RespCenter."Phone No.";
-                        CompanyInformation."Fax No.":=RespCenter."Fax No.";
+                        CompanyInformation."Phone No." := RespCenter."Phone No.";
+                        CompanyInformation."Fax No." := RespCenter."Fax No.";
                     end;
                 FormatDocumentFields("Return Receipt Header");
                 FormatAddress.SalesRcptBillTo(BillToAddress, BillToAddress, "Return Receipt Header");
                 FormatAddress.SalesRcptShipTo(ShipToAddress, "Return Receipt Header");
                 if LogInteraction then if not CurrReport.Preview then SegManagement.LogDocument(20, "No.", 0, 0, DATABASE::Customer, "Sell-to Customer No.", "Salesperson Code", "Campaign No.", "Posting Description", '');
-                TaxRegNo:='';
-                TaxRegLabel:='';
+                TaxRegNo := '';
+                TaxRegLabel := '';
                 if "Tax Area Code" <> '' then begin
                     TaxArea.Get("Tax Area Code");
-                    case TaxArea."Country/Region" of TaxArea."Country/Region"::US: ;
-                    TaxArea."Country/Region"::CA: begin
-                        TaxRegNo:=CompanyInformation."VAT Registration No.";
-                        TaxRegLabel:=CompanyInformation.FieldCaption("VAT Registration No.");
-                    end;
+                    case TaxArea."Country/Region" of
+                        TaxArea."Country/Region"::US:
+                            ;
+                        TaxArea."Country/Region"::CA:
+                            begin
+                                TaxRegNo := CompanyInformation."VAT Registration No.";
+                                TaxRegLabel := CompanyInformation.FieldCaption("VAT Registration No.");
+                            end;
                     end;
                 end;
             end;
+
             trigger OnPreDataItem();
             begin
                 CompanyInformation.Get;
-                if PrintCompany then FormatAddress.Company(CompanyAddress, CompanyInformation)
+                if PrintCompany then
+                    FormatAddress.Company(CompanyAddress, CompanyInformation)
                 else
                     Clear(CompanyAddress);
             end;
@@ -394,12 +406,13 @@ report 60022 "Return Receipt Ext"
         }
         trigger OnInit();
         begin
-            LogInteractionEnable:=true;
+            LogInteractionEnable := true;
         end;
+
         trigger OnOpenPage();
         begin
             InitLogInteraction;
-            LogInteractionEnable:=LogInteraction;
+            LogInteractionEnable := LogInteraction;
         end;
     }
     labels
@@ -407,77 +420,85 @@ report 60022 "Return Receipt Ext"
     }
     trigger OnInitReport();
     begin
-        CurrentCopiesNo:=0;
+        CurrentCopiesNo := 0;
     end;
+
     trigger OnPreReport();
     begin
         if not CurrReport.UseRequestPage then InitLogInteraction;
     end;
-    var OrderedQuantity: Decimal;
-    BackOrderedQuantity: Decimal;
-    ShipmentMethod: Record "Shipment Method";
-    ReceiptLine: Record "Return Receipt Line";
-    OrderLine: Record "Sales Line";
-    SalesPurchPerson: Record "Salesperson/Purchaser";
-    CompanyInformation: Record "Company Information";
-    TempReturnReceiptLine: Record "Return Receipt Line" temporary;
-    RespCenter: Record "Responsibility Center";
-    Language: Codeunit Language;
-    TaxArea: Record "Tax Area";
-    ReturnReceiptPrinted: Codeunit "Return Receipt - Printed";
-    FormatAddress: Codeunit "Format Address";
-    FormatDocument: Codeunit "Format Document";
-    SegManagement: Codeunit SegManagement;
-    CompanyAddress: array[8]of Text[100];
-    BillToAddress: array[8]of Text[100];
-    ShipToAddress: array[8]of Text[100];
-    CopyTxt: Text[10];
-    SalespersonText: Text[50];
-    PrintCompany: Boolean;
-    NoCopies: Integer;
-    NoLoops: Integer;
-    CopyNo: Integer;
-    NumberOfLines: Integer;
-    OnLineNumber: Integer;
-    HighestLineNo: Integer;
-    SpacePointer: Integer;
-    Text000: TextConst ENU = 'COPY', ESM = 'COPIA', FRC = 'COPIER', ENC = 'COPY';
-    LogInteraction: Boolean;
-    TaxRegNo: Text[30];
-    TaxRegLabel: Text[30];
-    CurrentCopiesNo: Integer;
-    [InDataSet]
-    LogInteractionEnable: Boolean;
-    BillCaptionLbl: TextConst ENU = 'Bill', ESM = 'Facturar', FRC = 'Facturer', ENC = 'Bill';
-    ToCaptionLbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
-    CustomerIDCaptionLbl: TextConst ENU = 'Customer ID', ESM = 'Id. cliente', FRC = 'Code de client', ENC = 'Customer ID';
-    PONumberCaptionLbl: TextConst ENU = 'P.O. Number', ESM = 'Número pedido compra', FRC = 'N° de bon de commande', ENC = 'P.O. Number';
-    SalesPersonCaptionLbl: TextConst ENU = 'SalesPerson', ESM = 'Vendedor', FRC = 'Représentant', ENC = 'SalesPerson';
-    ShipCaptionLbl: TextConst ENU = 'Ship', ESM = 'Enviar', FRC = 'Livrer', ENC = 'Ship';
-    ReturnReceiptCaptionLbl: TextConst ENU = 'RETURN RECEIPT', ESM = 'RECEP. DEVOLUCIÊN', FRC = 'RÉCEPTION DE RETOUR', ENC = 'RETURN RECEIPT';
-    ReturnReceiptNumberCaptionLbl: TextConst ENU = 'Return Receipt Number:', ESM = 'Número recep. dev.:', FRC = 'N° de réception de retour :', ENC = 'Return Receipt Number:';
-    ReturnReceiptDateCaptionLbl: TextConst ENU = 'Return Receipt Date:', ESM = 'Fecha recep. dev.:', FRC = 'Date de réception de retour :', ENC = 'Return Receipt Date:';
-    PageCaptionLbl: TextConst ENU = 'Page:', ESM = 'Pág.:', FRC = 'Page :', ENC = 'Page:';
-    ShipViaCaptionLbl: TextConst ENU = 'Ship Via', ESM = 'Envío a través de', FRC = 'Livrer par', ENC = 'Ship Via';
-    PODateCaptionLbl: TextConst ENU = 'P.O. Date', ESM = 'Fecha pedido compra', FRC = 'Date du bon de commande', ENC = 'P.O. Date';
-    RetAuthNoCaptionLbl: TextConst ENU = 'Ret. Auth. No.', ESM = 'N° autorización de dev.:', FRC = 'N° auto. du retour', ENC = 'Ret. Auth. No.';
-    ItemNoCaptionLbl: TextConst ENU = 'Item No.', ESM = 'Nº producto', FRC = 'N° d''article', ENC = 'Item No.';
-    UnitCaptionLbl: TextConst ENU = 'Unit', ESM = 'Unidad', FRC = 'Unité', ENC = 'Unit';
-    DescriptionCaptionLbl: TextConst ENU = 'Description', ESM = 'Descripción', FRC = 'Description', ENC = 'Description';
-    ReceivedCaptionLbl: TextConst ENU = 'Received', ESM = 'Recibido', FRC = 'Reçu', ENC = 'Received';
-    AuthorizedCaptionLbl: TextConst ENU = 'Authorized', ESM = 'Autorizado', FRC = 'Autorisé', ENC = 'Authorized';
-    RemainingExpectedCaptionLbl: TextConst ENU = 'Remaining Expected', ESM = 'Restante esperado', FRC = 'Restant prévu', ENC = 'Remaining Expected';
+
+    var
+        OrderedQuantity: Decimal;
+        BackOrderedQuantity: Decimal;
+        ShipmentMethod: Record "Shipment Method";
+        ReceiptLine: Record "Return Receipt Line";
+        OrderLine: Record "Sales Line";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        CompanyInformation: Record "Company Information";
+        TempReturnReceiptLine: Record "Return Receipt Line" temporary;
+        RespCenter: Record "Responsibility Center";
+        Language: Codeunit Language;
+        TaxArea: Record "Tax Area";
+        ReturnReceiptPrinted: Codeunit "Return Receipt - Printed";
+        FormatAddress: Codeunit "Format Address";
+        FormatDocument: Codeunit "Format Document";
+        SegManagement: Codeunit SegManagement;
+        CompanyAddress: array[8] of Text[100];
+        BillToAddress: array[8] of Text[100];
+        ShipToAddress: array[8] of Text[100];
+        CopyTxt: Text[10];
+        SalespersonText: Text[50];
+        PrintCompany: Boolean;
+        NoCopies: Integer;
+        NoLoops: Integer;
+        CopyNo: Integer;
+        NumberOfLines: Integer;
+        OnLineNumber: Integer;
+        HighestLineNo: Integer;
+        SpacePointer: Integer;
+        Text000: TextConst ENU = 'COPY', ESM = 'COPIA', FRC = 'COPIER', ENC = 'COPY';
+        LogInteraction: Boolean;
+        TaxRegNo: Text[30];
+        TaxRegLabel: Text[30];
+        CurrentCopiesNo: Integer;
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        BillCaptionLbl: TextConst ENU = 'Bill', ESM = 'Facturar', FRC = 'Facturer', ENC = 'Bill';
+        ToCaptionLbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
+        CustomerIDCaptionLbl: TextConst ENU = 'Customer ID', ESM = 'Id. cliente', FRC = 'Code de client', ENC = 'Customer ID';
+        PONumberCaptionLbl: TextConst ENU = 'P.O. Number', ESM = 'Número pedido compra', FRC = 'N° de bon de commande', ENC = 'P.O. Number';
+        SalesPersonCaptionLbl: TextConst ENU = 'SalesPerson', ESM = 'Vendedor', FRC = 'Représentant', ENC = 'SalesPerson';
+        ShipCaptionLbl: TextConst ENU = 'Ship', ESM = 'Enviar', FRC = 'Livrer', ENC = 'Ship';
+        ReturnReceiptCaptionLbl: TextConst ENU = 'RETURN RECEIPT', ESM = 'RECEP. DEVOLUCIÊN', FRC = 'RÉCEPTION DE RETOUR', ENC = 'RETURN RECEIPT';
+        ReturnReceiptNumberCaptionLbl: TextConst ENU = 'Return Receipt Number:', ESM = 'Número recep. dev.:', FRC = 'N° de réception de retour :', ENC = 'Return Receipt Number:';
+        ReturnReceiptDateCaptionLbl: TextConst ENU = 'Return Receipt Date:', ESM = 'Fecha recep. dev.:', FRC = 'Date de réception de retour :', ENC = 'Return Receipt Date:';
+        PageCaptionLbl: TextConst ENU = 'Page:', ESM = 'Pág.:', FRC = 'Page :', ENC = 'Page:';
+        ShipViaCaptionLbl: TextConst ENU = 'Ship Via', ESM = 'Envío a través de', FRC = 'Livrer par', ENC = 'Ship Via';
+        PODateCaptionLbl: TextConst ENU = 'P.O. Date', ESM = 'Fecha pedido compra', FRC = 'Date du bon de commande', ENC = 'P.O. Date';
+        RetAuthNoCaptionLbl: TextConst ENU = 'Ret. Auth. No.', ESM = 'N° autorización de dev.:', FRC = 'N° auto. du retour', ENC = 'Ret. Auth. No.';
+        ItemNoCaptionLbl: TextConst ENU = 'Item No.', ESM = 'Nº producto', FRC = 'N° d''article', ENC = 'Item No.';
+        UnitCaptionLbl: TextConst ENU = 'Unit', ESM = 'Unidad', FRC = 'Unité', ENC = 'Unit';
+        DescriptionCaptionLbl: TextConst ENU = 'Description', ESM = 'Descripción', FRC = 'Description', ENC = 'Description';
+        ReceivedCaptionLbl: TextConst ENU = 'Received', ESM = 'Recibido', FRC = 'Reçu', ENC = 'Received';
+        AuthorizedCaptionLbl: TextConst ENU = 'Authorized', ESM = 'Autorizado', FRC = 'Autorisé', ENC = 'Authorized';
+        RemainingExpectedCaptionLbl: TextConst ENU = 'Remaining Expected', ESM = 'Restante esperado', FRC = 'Restant prévu', ENC = 'Remaining Expected';
+
     procedure InitLogInteraction();
     begin
-        LogInteraction:=SegManagement.FindInteractTmplCode(5) <> '';
+        //LogInteraction:=SegManagement.FindInteractTmplCode(5) <> '';
+        LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Shpt. Note") <> '';
     end;
+
     local procedure FormatDocumentFields(ReturnReceiptHeader: Record "Return Receipt Header");
     begin
         FormatDocument.SetSalesPerson(SalesPurchPerson, ReturnReceiptHeader."Salesperson Code", SalespersonText);
-        if ReturnReceiptHeader."Salesperson Code" = '' then Clear(SalesPurchPerson)
+        if ReturnReceiptHeader."Salesperson Code" = '' then
+            Clear(SalesPurchPerson)
         else
             SalesPurchPerson.Get(ReturnReceiptHeader."Salesperson Code");
-        if ReturnReceiptHeader."Shipment Method Code" = '' then Clear(ShipmentMethod)
+        if ReturnReceiptHeader."Shipment Method Code" = '' then
+            Clear(ShipmentMethod)
         else
             ShipmentMethod.Get(ReturnReceiptHeader."Shipment Method Code");
     end;
@@ -485,20 +506,19 @@ report 60022 "Return Receipt Ext"
     local procedure InsertTempLine(Comment: Text[80]; IncrNo: Integer);
     begin
         TempReturnReceiptLine.Init;
-        TempReturnReceiptLine."Document No.":="Return Receipt Header"."No.";
-        TempReturnReceiptLine."Line No.":=HighestLineNo + IncrNo;
-        HighestLineNo:=TempReturnReceiptLine."Line No.";
-        if StrLen(Comment) <= MaxStrLen(TempReturnReceiptLine.Description)then begin
-            TempReturnReceiptLine.Description:=CopyStr(Comment, 1, MaxStrLen(TempReturnReceiptLine.Description));
-            TempReturnReceiptLine."Description 2":='';
+        TempReturnReceiptLine."Document No." := "Return Receipt Header"."No.";
+        TempReturnReceiptLine."Line No." := HighestLineNo + IncrNo;
+        HighestLineNo := TempReturnReceiptLine."Line No.";
+        if StrLen(Comment) <= MaxStrLen(TempReturnReceiptLine.Description) then begin
+            TempReturnReceiptLine.Description := CopyStr(Comment, 1, MaxStrLen(TempReturnReceiptLine.Description));
+            TempReturnReceiptLine."Description 2" := '';
         end
-        else
-        begin
-            SpacePointer:=MaxStrLen(TempReturnReceiptLine.Description) + 1;
-            while(SpacePointer > 1) and (Comment[SpacePointer] <> ' ')do SpacePointer:=SpacePointer - 1;
-            if SpacePointer = 1 then SpacePointer:=MaxStrLen(TempReturnReceiptLine.Description) + 1;
-            TempReturnReceiptLine.Description:=CopyStr(Comment, 1, SpacePointer - 1);
-            TempReturnReceiptLine."Description 2":=CopyStr(CopyStr(Comment, SpacePointer + 1), 1, MaxStrLen(TempReturnReceiptLine."Description 2"));
+        else begin
+            SpacePointer := MaxStrLen(TempReturnReceiptLine.Description) + 1;
+            while (SpacePointer > 1) and (Comment[SpacePointer] <> ' ') do SpacePointer := SpacePointer - 1;
+            if SpacePointer = 1 then SpacePointer := MaxStrLen(TempReturnReceiptLine.Description) + 1;
+            TempReturnReceiptLine.Description := CopyStr(Comment, 1, SpacePointer - 1);
+            TempReturnReceiptLine."Description 2" := CopyStr(CopyStr(Comment, SpacePointer + 1), 1, MaxStrLen(TempReturnReceiptLine."Description 2"));
         end;
         TempReturnReceiptLine.Insert;
     end;

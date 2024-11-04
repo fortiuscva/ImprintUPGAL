@@ -704,7 +704,7 @@ page 50067 "New Items to Update"
                 {
                     Caption = '&Bin Contents';
                     Image = BinContent;
-                    RunObject = Page "Item Bin Contents";
+                    RunObject = Page "Bin Content";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;

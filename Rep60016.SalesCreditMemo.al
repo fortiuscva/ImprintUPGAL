@@ -543,7 +543,8 @@ report 60016 "Sales Credit Memo"
 
         trigger OnOpenPage();
         begin
-            LogInteraction := SegManagement.FindInteractTmplCode(6) <> '';
+            //LogInteraction := SegManagement.FindInteractTmplCode(6) <> '';
+            LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Cr. Memo") <> '';
             LogInteractionEnable := LogInteraction;
         end;
     }

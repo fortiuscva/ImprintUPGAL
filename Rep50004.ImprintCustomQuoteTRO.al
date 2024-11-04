@@ -753,7 +753,8 @@ report 50004 "Imprint Custom Quote - TRO"
         trigger OnOpenPage()
         begin
             ArchiveDocument := ArchiveManagement.SalesDocArchiveGranule;
-            LogInteraction := SegManagement.FindInteractTmplCode(1) <> '';
+            //LogInteraction := SegManagement.FindInteractTmplCode(1) <> '';
+            LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Qte.") <> '';
             ArchiveDocumentEnable := ArchiveDocument;
             LogInteractionEnable := LogInteraction;
         end;

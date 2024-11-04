@@ -718,7 +718,8 @@ report 50012 "Imprint Custom Quote TEST"
         trigger OnOpenPage()
         begin
             ArchiveDocument := ArchiveManagement.SalesDocArchiveGranule;
-            LogInteraction := SegManagement.FindInteractTmplCode(1) <> '';
+            //LogInteraction := SegManagement.FindInteractTmplCode(1) <> '';
+            LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Qte.") <> '';
             ArchiveDocumentEnable := ArchiveDocument;
             LogInteractionEnable := LogInteraction;
         end;

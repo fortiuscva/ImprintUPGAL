@@ -763,7 +763,9 @@ report 50009 "Sales Order - Proforma Invoice"
         trigger OnOpenPage()
         begin
             ArchiveDocument := ArchiveManagement.SalesDocArchiveGranule;
-            LogInteraction := SegManagement.FindInteractTmplCode(3) <> '';
+            //LogInteraction := SegManagement.FindInteractTmplCode(3) <> '';
+            LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Ord. Cnfrmn.") <> '';
+
             ArchiveDocumentEnable := ArchiveDocument;
             LogInteractionEnable := LogInteraction;
         end;

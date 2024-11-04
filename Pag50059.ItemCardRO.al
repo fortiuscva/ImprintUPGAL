@@ -1219,7 +1219,7 @@ page 50059 "Item Card-RO"
                 {
                     Caption = '&Bin Contents';
                     Image = BinContent;
-                    RunObject = Page "Item Bin Contents";
+                    RunObject = Page "Bin Content";
                     RunPageLink = "Item No." = FIELD("No.");
                     RunPageView = SORTING("Item No.");
                     ApplicationArea = All;

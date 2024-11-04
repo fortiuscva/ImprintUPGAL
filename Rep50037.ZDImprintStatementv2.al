@@ -687,7 +687,8 @@ report 50037 "ZD-Imprint Statement v2"
         trigger OnOpenPage()
         begin
             if (not AllHavingEntries) and (not AllHavingBalance) then AllHavingBalance := true;
-            LogInteraction := SegManagement.FindInteractTmplCode(7) <> '';
+            //LogInteraction := SegManagement.FindInteractTmplCode(7) <> '';
+            LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Stmnt.") <> '';
             LogInteractionEnable := LogInteraction;
         end;
     }

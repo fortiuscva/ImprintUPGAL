@@ -43,43 +43,43 @@ report 50010 "Sales Credit Memo - Original"
             }
             dataitem("Sales Cr.Memo Line"; "Sales Cr.Memo Line")
             {
-                DataItemLink = "Document No."=FIELD("No.");
+                DataItemLink = "Document No." = FIELD("No.");
                 DataItemTableView = SORTING("Document No.", "Line No.");
 
                 dataitem(SalesLineComments; "Sales Comment Line")
                 {
-                    DataItemLink = "No."=FIELD("Document No."), "Document Line No."=FIELD("Line No.");
-                    DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.")WHERE("Document Type"=CONST("Posted Credit Memo"), "Print On Credit Memo"=CONST(true));
+                    DataItemLink = "No." = FIELD("Document No."), "Document Line No." = FIELD("Line No.");
+                    DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.") WHERE("Document Type" = CONST("Posted Credit Memo"), "Print On Credit Memo" = CONST(true));
 
                     trigger OnAfterGetRecord()
                     begin
                         //NA0005.begin
                         TempSalesCrMemoLine.Init;
-                        TempSalesCrMemoLine."Document No.":="Sales Cr.Memo Header"."No.";
-                        TempSalesCrMemoLine."Line No.":=HighestLineNo + 10;
-                        HighestLineNo:=TempSalesCrMemoLine."Line No.";
-                        if StrLen(Comment) <= MaxStrLen(TempSalesCrMemoLine.Description)then begin
-                            TempSalesCrMemoLine.Description:=Comment;
-                            TempSalesCrMemoLine."Description 2":='';
+                        TempSalesCrMemoLine."Document No." := "Sales Cr.Memo Header"."No.";
+                        TempSalesCrMemoLine."Line No." := HighestLineNo + 10;
+                        HighestLineNo := TempSalesCrMemoLine."Line No.";
+                        if StrLen(Comment) <= MaxStrLen(TempSalesCrMemoLine.Description) then begin
+                            TempSalesCrMemoLine.Description := Comment;
+                            TempSalesCrMemoLine."Description 2" := '';
                         end
-                        else
-                        begin
-                            SpacePointer:=MaxStrLen(TempSalesCrMemoLine.Description) + 1;
-                            while(SpacePointer > 1) and (Comment[SpacePointer] <> ' ')do SpacePointer:=SpacePointer - 1;
-                            if SpacePointer = 1 then SpacePointer:=MaxStrLen(TempSalesCrMemoLine.Description) + 1;
-                            TempSalesCrMemoLine.Description:=CopyStr(Comment, 1, SpacePointer - 1);
-                            TempSalesCrMemoLine."Description 2":=CopyStr(CopyStr(Comment, SpacePointer + 1), 1, MaxStrLen(TempSalesCrMemoLine."Description 2"));
+                        else begin
+                            SpacePointer := MaxStrLen(TempSalesCrMemoLine.Description) + 1;
+                            while (SpacePointer > 1) and (Comment[SpacePointer] <> ' ') do SpacePointer := SpacePointer - 1;
+                            if SpacePointer = 1 then SpacePointer := MaxStrLen(TempSalesCrMemoLine.Description) + 1;
+                            TempSalesCrMemoLine.Description := CopyStr(Comment, 1, SpacePointer - 1);
+                            TempSalesCrMemoLine."Description 2" := CopyStr(CopyStr(Comment, SpacePointer + 1), 1, MaxStrLen(TempSalesCrMemoLine."Description 2"));
                         end;
                         TempSalesCrMemoLine.Insert;
-                    //NA0005.end
+                        //NA0005.end
                     end;
                 }
                 trigger OnAfterGetRecord()
                 begin
-                    TempSalesCrMemoLine:="Sales Cr.Memo Line";
+                    TempSalesCrMemoLine := "Sales Cr.Memo Line";
                     TempSalesCrMemoLine.Insert;
-                    HighestLineNo:="Line No.";
+                    HighestLineNo := "Line No.";
                 end;
+
                 trigger OnPreDataItem()
                 begin
                     TempSalesCrMemoLine.Reset;
@@ -88,38 +88,38 @@ report 50010 "Sales Credit Memo - Original"
             }
             dataitem("Sales Comment Line"; "Sales Comment Line")
             {
-                DataItemLink = "No."=FIELD("No.");
-                DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.")WHERE("Document Type"=CONST("Posted Credit Memo"), "Print On Credit Memo"=CONST(true), "Document Line No."=CONST(0));
+                DataItemLink = "No." = FIELD("No.");
+                DataItemTableView = SORTING("Document Type", "No.", "Document Line No.", "Line No.") WHERE("Document Type" = CONST("Posted Credit Memo"), "Print On Credit Memo" = CONST(true), "Document Line No." = CONST(0));
 
                 trigger OnAfterGetRecord()
                 begin
                     TempSalesCrMemoLine.Init;
-                    TempSalesCrMemoLine."Document No.":="Sales Cr.Memo Header"."No.";
-                    TempSalesCrMemoLine."Line No.":=HighestLineNo + 1000;
-                    HighestLineNo:=TempSalesCrMemoLine."Line No.";
-                    if StrLen(Comment) <= MaxStrLen(TempSalesCrMemoLine.Description)then begin
-                        TempSalesCrMemoLine.Description:=Comment;
-                        TempSalesCrMemoLine."Description 2":='';
+                    TempSalesCrMemoLine."Document No." := "Sales Cr.Memo Header"."No.";
+                    TempSalesCrMemoLine."Line No." := HighestLineNo + 1000;
+                    HighestLineNo := TempSalesCrMemoLine."Line No.";
+                    if StrLen(Comment) <= MaxStrLen(TempSalesCrMemoLine.Description) then begin
+                        TempSalesCrMemoLine.Description := Comment;
+                        TempSalesCrMemoLine."Description 2" := '';
                     end
-                    else
-                    begin
-                        SpacePointer:=MaxStrLen(TempSalesCrMemoLine.Description) + 1;
-                        while(SpacePointer > 1) and (Comment[SpacePointer] <> ' ')do SpacePointer:=SpacePointer - 1;
-                        if SpacePointer = 1 then SpacePointer:=MaxStrLen(TempSalesCrMemoLine.Description) + 1;
-                        TempSalesCrMemoLine.Description:=CopyStr(Comment, 1, SpacePointer - 1);
-                        TempSalesCrMemoLine."Description 2":=CopyStr(CopyStr(Comment, SpacePointer + 1), 1, MaxStrLen(TempSalesCrMemoLine."Description 2"));
+                    else begin
+                        SpacePointer := MaxStrLen(TempSalesCrMemoLine.Description) + 1;
+                        while (SpacePointer > 1) and (Comment[SpacePointer] <> ' ') do SpacePointer := SpacePointer - 1;
+                        if SpacePointer = 1 then SpacePointer := MaxStrLen(TempSalesCrMemoLine.Description) + 1;
+                        TempSalesCrMemoLine.Description := CopyStr(Comment, 1, SpacePointer - 1);
+                        TempSalesCrMemoLine."Description 2" := CopyStr(CopyStr(Comment, SpacePointer + 1), 1, MaxStrLen(TempSalesCrMemoLine."Description 2"));
                     end;
                     TempSalesCrMemoLine.Insert;
                 end;
+
                 trigger OnPreDataItem()
                 begin
                     // NA0005- Begin
                     TempSalesCrMemoLine.Init;
-                    TempSalesCrMemoLine."Document No.":="Sales Cr.Memo Header"."No.";
-                    TempSalesCrMemoLine."Line No.":=HighestLineNo + 1000;
-                    HighestLineNo:=TempSalesCrMemoLine."Line No.";
+                    TempSalesCrMemoLine."Document No." := "Sales Cr.Memo Header"."No.";
+                    TempSalesCrMemoLine."Line No." := HighestLineNo + 1000;
+                    HighestLineNo := TempSalesCrMemoLine."Line No.";
                     TempSalesCrMemoLine.Insert;
-                // NA0005- End
+                    // NA0005- End
                 end;
             }
             dataitem(CopyLoop; "Integer")
@@ -128,7 +128,7 @@ report 50010 "Sales Credit Memo - Original"
 
                 dataitem(PageLoop; "Integer")
                 {
-                    DataItemTableView = SORTING(Number)WHERE(Number=CONST(1));
+                    DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
 
                     column(CompanyInfo3Picture; CompanyInfo3.Picture)
                     {
@@ -307,11 +307,11 @@ report 50010 "Sales Credit Memo - Original"
                         }
                         column(TempSalesCrMemoLineQty; TempSalesCrMemoLine.Quantity)
                         {
-                        DecimalPlaces = 0: 5;
+                            DecimalPlaces = 0 : 5;
                         }
                         column(UnitPriceToPrint; UnitPriceToPrint)
                         {
-                        DecimalPlaces = 2: 5;
+                            DecimalPlaces = 2 : 5;
                         }
                         column(TempSalesCrMemoLineDesc; TempSalesCrMemoLine.Description + ' ' + TempSalesCrMemoLine."Description 2")
                         {
@@ -396,43 +396,45 @@ report 50010 "Sales Credit Memo - Original"
                         }
                         trigger OnAfterGetRecord()
                         begin
-                            OnLineNumber:=OnLineNumber + 1;
-                            if OnLineNumber = 1 then TempSalesCrMemoLine.Find('-')
+                            OnLineNumber := OnLineNumber + 1;
+                            if OnLineNumber = 1 then
+                                TempSalesCrMemoLine.Find('-')
                             else
                                 TempSalesCrMemoLine.Next;
                             if TempSalesCrMemoLine.Type.AsInteger() = 0 then begin
-                                TempSalesCrMemoLine."No.":='';
-                                TempSalesCrMemoLine."Unit of Measure":='';
-                                TempSalesCrMemoLine.Amount:=0;
-                                TempSalesCrMemoLine."Amount Including VAT":=0;
-                                TempSalesCrMemoLine."Inv. Discount Amount":=0;
-                                TempSalesCrMemoLine.Quantity:=0;
+                                TempSalesCrMemoLine."No." := '';
+                                TempSalesCrMemoLine."Unit of Measure" := '';
+                                TempSalesCrMemoLine.Amount := 0;
+                                TempSalesCrMemoLine."Amount Including VAT" := 0;
+                                TempSalesCrMemoLine."Inv. Discount Amount" := 0;
+                                TempSalesCrMemoLine.Quantity := 0;
                             end
-                            else if TempSalesCrMemoLine.Type = TempSalesCrMemoLine.Type::"G/L Account" then TempSalesCrMemoLine."No.":='';
+                            else if TempSalesCrMemoLine.Type = TempSalesCrMemoLine.Type::"G/L Account" then TempSalesCrMemoLine."No." := '';
                             if TempSalesCrMemoLine.Amount <> TempSalesCrMemoLine."Amount Including VAT" then begin
-                                TaxFlag:=true;
-                                TaxLiable:=TempSalesCrMemoLine.Amount;
+                                TaxFlag := true;
+                                TaxLiable := TempSalesCrMemoLine.Amount;
                             end
-                            else
-                            begin
-                                TaxFlag:=false;
-                                TaxLiable:=0;
+                            else begin
+                                TaxFlag := false;
+                                TaxLiable := 0;
                             end;
-                            AmountExclInvDisc:=TempSalesCrMemoLine.Amount + TempSalesCrMemoLine."Inv. Discount Amount";
-                            if TempSalesCrMemoLine.Quantity = 0 then UnitPriceToPrint:=0 // so it won't print
+                            AmountExclInvDisc := TempSalesCrMemoLine.Amount + TempSalesCrMemoLine."Inv. Discount Amount";
+                            if TempSalesCrMemoLine.Quantity = 0 then
+                                UnitPriceToPrint := 0 // so it won't print
                             else
-                                UnitPriceToPrint:=Round(AmountExclInvDisc / TempSalesCrMemoLine.Quantity, 0.00001);
+                                UnitPriceToPrint := Round(AmountExclInvDisc / TempSalesCrMemoLine.Quantity, 0.00001);
                             //NA0007.begin
-                            if OnLineNumber = NumberOfLines then PrintFooter:=true;
-                        //NA0007.end
+                            if OnLineNumber = NumberOfLines then PrintFooter := true;
+                            //NA0007.end
                         end;
+
                         trigger OnPreDataItem()
                         begin
                             //CurrReport.CreateTotals(TaxLiable, AmountExclInvDisc, TempSalesCrMemoLine.Amount, TempSalesCrMemoLine."Amount Including VAT");
-                            NumberOfLines:=TempSalesCrMemoLine.Count;
+                            NumberOfLines := TempSalesCrMemoLine.Count;
                             SetRange(Number, 1, NumberOfLines);
-                            OnLineNumber:=0;
-                            PrintFooter:=false;
+                            OnLineNumber := 0;
+                            PrintFooter := false;
                         end;
                     }
                 }
@@ -443,37 +445,39 @@ report 50010 "Sales Credit Memo - Original"
                         if not CurrReport.Preview then SalesCrMemoPrinted.Run("Sales Cr.Memo Header");
                         CurrReport.Break;
                     end;
-                    CopyNo:=CopyNo + 1;
+                    CopyNo := CopyNo + 1;
                     if CopyNo = 1 then // Original
- Clear(CopyTxt)
+                        Clear(CopyTxt)
                     else
-                        CopyTxt:=Text000;
+                        CopyTxt := Text000;
                 end;
+
                 trigger OnPreDataItem()
                 begin
-                    NoLoops:=1 + Abs(NoCopies);
-                    if NoLoops <= 0 then NoLoops:=1;
-                    CopyNo:=0;
+                    NoLoops := 1 + Abs(NoCopies);
+                    if NoLoops <= 0 then NoLoops := 1;
+                    CopyNo := 0;
                 end;
             }
             trigger OnAfterGetRecord()
             begin
                 if PrintCompany then begin
-                    if RespCenter.Get("Responsibility Center")then begin
+                    if RespCenter.Get("Responsibility Center") then begin
                         FormatAddress.RespCenter(CompanyAddress, RespCenter);
-                        CompanyInformation."Phone No.":=RespCenter."Phone No.";
-                        CompanyInformation."Fax No.":=RespCenter."Fax No.";
+                        CompanyInformation."Phone No." := RespCenter."Phone No.";
+                        CompanyInformation."Fax No." := RespCenter."Fax No.";
                     end;
                 end;
                 //CurrReport.Language := Language.GetLanguageID("Language Code");
-                CurrReport.Language:=Language.GetLanguageIdOrDefault("Language Code");
-                if "Salesperson Code" = '' then Clear(SalesPurchPerson)
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
+                if "Salesperson Code" = '' then
+                    Clear(SalesPurchPerson)
                 else
                     SalesPurchPerson.Get("Salesperson Code");
                 // NA0002.begin
                 if "Bill-to Customer No." = '' then begin
-                    "Bill-to Name":=Text009;
-                    "Ship-to Name":=Text009;
+                    "Bill-to Name" := Text009;
+                    "Ship-to Name" := Text009;
                 end;
                 // NA0002.end
                 FormatAddress.SalesCrMemoBillTo(BillToAddress, "Sales Cr.Memo Header");
@@ -482,48 +486,54 @@ report 50010 "Sales Credit Memo - Original"
                 Clear(BreakdownTitle);
                 Clear(BreakdownLabel);
                 Clear(BreakdownAmt);
-                TotalTaxLabel:=Text008;
-                TaxRegNo:='';
-                TaxRegLabel:='';
+                TotalTaxLabel := Text008;
+                TaxRegNo := '';
+                TaxRegLabel := '';
                 if "Tax Area Code" <> '' then begin
                     TaxArea.Get("Tax Area Code");
-                    case TaxArea."Country/Region" of TaxArea."Country/Region"::US: TotalTaxLabel:=Text005;
-                    TaxArea."Country/Region"::CA: begin
-                        TotalTaxLabel:=Text007;
-                        TaxRegNo:=CompanyInformation."VAT Registration No.";
-                        TaxRegLabel:=CompanyInformation.FieldCaption("VAT Registration No.");
-                    end;
+                    case TaxArea."Country/Region" of
+                        TaxArea."Country/Region"::US:
+                            TotalTaxLabel := Text005;
+                        TaxArea."Country/Region"::CA:
+                            begin
+                                TotalTaxLabel := Text007;
+                                TaxRegNo := CompanyInformation."VAT Registration No.";
+                                TaxRegLabel := CompanyInformation.FieldCaption("VAT Registration No.");
+                            end;
                     end;
                     SalesTaxCalc.StartSalesTaxCalculation;
                     // NA0004.begin
-                    if TaxArea."Use External Tax Engine" then SalesTaxCalc.CallExternalTaxEngineForDoc(DATABASE::"Sales Cr.Memo Header", 0, "No.")
-                    else
-                    begin
+                    if TaxArea."Use External Tax Engine" then
+                        SalesTaxCalc.CallExternalTaxEngineForDoc(DATABASE::"Sales Cr.Memo Header", 0, "No.")
+                    else begin
                         // NA0004.end
                         SalesTaxCalc.AddSalesCrMemoLines("No.");
                         SalesTaxCalc.EndSalesTaxCalculation("Posting Date");
                     end; // NA0004
                     SalesTaxCalc.GetSummarizedSalesTaxTable(TempSalesTaxAmtLine);
-                    BrkIdx:=0;
-                    PrevPrintOrder:=0;
-                    PrevTaxPercent:=0;
+                    BrkIdx := 0;
+                    PrevPrintOrder := 0;
+                    PrevTaxPercent := 0;
                     TempSalesTaxAmtLine.Reset;
                     TempSalesTaxAmtLine.SetCurrentKey("Print Order", "Tax Area Code for Key", "Tax Jurisdiction Code");
-                    if TempSalesTaxAmtLine.Find('-')then repeat if(TempSalesTaxAmtLine."Print Order" = 0) or (TempSalesTaxAmtLine."Print Order" <> PrevPrintOrder) or (TempSalesTaxAmtLine."Tax %" <> PrevTaxPercent)then begin
-                                BrkIdx:=BrkIdx + 1;
+                    if TempSalesTaxAmtLine.Find('-') then
+                        repeat
+                            if (TempSalesTaxAmtLine."Print Order" = 0) or (TempSalesTaxAmtLine."Print Order" <> PrevPrintOrder) or (TempSalesTaxAmtLine."Tax %" <> PrevTaxPercent) then begin
+                                BrkIdx := BrkIdx + 1;
                                 if BrkIdx > 1 then begin
-                                    if TaxArea."Country/Region" = TaxArea."Country/Region"::CA then BreakdownTitle:=Text006
+                                    if TaxArea."Country/Region" = TaxArea."Country/Region"::CA then
+                                        BreakdownTitle := Text006
                                     else
-                                        BreakdownTitle:=Text003;
+                                        BreakdownTitle := Text003;
                                 end;
-                                if BrkIdx > ArrayLen(BreakdownAmt)then begin
-                                    BrkIdx:=BrkIdx - 1;
-                                    BreakdownLabel[BrkIdx]:=Text004;
+                                if BrkIdx > ArrayLen(BreakdownAmt) then begin
+                                    BrkIdx := BrkIdx - 1;
+                                    BreakdownLabel[BrkIdx] := Text004;
                                 end
                                 else
-                                    BreakdownLabel[BrkIdx]:=StrSubstNo(TempSalesTaxAmtLine."Print Description", TempSalesTaxAmtLine."Tax %");
+                                    BreakdownLabel[BrkIdx] := StrSubstNo(TempSalesTaxAmtLine."Print Description", TempSalesTaxAmtLine."Tax %");
                             end;
-                            BreakdownAmt[BrkIdx]:=BreakdownAmt[BrkIdx] + TempSalesTaxAmtLine."Tax Amount";
+                            BreakdownAmt[BrkIdx] := BreakdownAmt[BrkIdx] + TempSalesTaxAmtLine."Tax Amount";
                         until TempSalesTaxAmtLine.Next = 0;
                     if BrkIdx = 1 then begin
                         Clear(BreakdownLabel);
@@ -531,15 +541,16 @@ report 50010 "Sales Credit Memo - Original"
                     end;
                 end;
             end;
+
             trigger OnPreDataItem()
             begin
-            // NA0003.begin
-            // CompanyInformation.GET('');
-            // IF PrintCompany THEN
-            // FormatAddress.Company(CompanyAddress,CompanyInformation)
-            // ELSE
-            // CLEAR(CompanyAddress);
-            // NA0003.end
+                // NA0003.begin
+                // CompanyInformation.GET('');
+                // IF PrintCompany THEN
+                // FormatAddress.Company(CompanyAddress,CompanyInformation)
+                // ELSE
+                // CLEAR(CompanyAddress);
+                // NA0003.end
             end;
         }
     }
@@ -579,12 +590,14 @@ report 50010 "Sales Credit Memo - Original"
         }
         trigger OnInit()
         begin
-            LogInteractionEnable:=true;
+            LogInteractionEnable := true;
         end;
+
         trigger OnOpenPage()
         begin
-            LogInteraction:=SegManagement.FindInteractTmplCode(6) <> '';
-            LogInteractionEnable:=LogInteraction;
+            //LogInteraction:=SegManagement.FindInteractTmplCode(6) <> '';
+            LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Cr. Memo") <> '';
+            LogInteractionEnable := LogInteraction;
         end;
     }
     labels
@@ -595,101 +608,109 @@ report 50010 "Sales Credit Memo - Original"
         // NA0003.begin
         CompanyInformation.Get;
         SalesSetup.Get;
-        case SalesSetup."Logo Position on Documents" of SalesSetup."Logo Position on Documents"::"No Logo": ;
-        SalesSetup."Logo Position on Documents"::Left: begin
-            CompanyInfo3.Get;
-            CompanyInfo3.CalcFields(Picture);
+        case SalesSetup."Logo Position on Documents" of
+            SalesSetup."Logo Position on Documents"::"No Logo":
+                ;
+            SalesSetup."Logo Position on Documents"::Left:
+                begin
+                    CompanyInfo3.Get;
+                    CompanyInfo3.CalcFields(Picture);
+                end;
+            SalesSetup."Logo Position on Documents"::Center:
+                begin
+                    CompanyInfo1.Get;
+                    CompanyInfo1.CalcFields(Picture);
+                end;
+            SalesSetup."Logo Position on Documents"::Right:
+                begin
+                    CompanyInfo2.Get;
+                    CompanyInfo2.CalcFields(Picture);
+                end;
         end;
-        SalesSetup."Logo Position on Documents"::Center: begin
-            CompanyInfo1.Get;
-            CompanyInfo1.CalcFields(Picture);
-        end;
-        SalesSetup."Logo Position on Documents"::Right: begin
-            CompanyInfo2.Get;
-            CompanyInfo2.CalcFields(Picture);
-        end;
-        end;
-        if PrintCompany then FormatAddress.Company(CompanyAddress, CompanyInformation)
+        if PrintCompany then
+            FormatAddress.Company(CompanyAddress, CompanyInformation)
         else
             Clear(CompanyAddress);
-    // NA0003.end
+        // NA0003.end
     end;
-    var TaxLiable: Decimal;
-    UnitPriceToPrint: Decimal;
-    AmountExclInvDisc: Decimal;
-    SalesPurchPerson: Record "Salesperson/Purchaser";
-    CompanyInformation: Record "Company Information";
-    CompanyInfo1: Record "Company Information";
-    CompanyInfo3: Record "Company Information";
-    CompanyInfo2: Record "Company Information";
-    SalesSetup: Record "Sales & Receivables Setup";
-    TempSalesCrMemoLine: Record "Sales Cr.Memo Line" temporary;
-    RespCenter: Record "Responsibility Center";
-    Language: Codeunit Language;
-    TempSalesTaxAmtLine: Record "Sales Tax Amount Line" temporary;
-    TaxArea: Record "Tax Area";
-    Cust: Record Customer;
-    CompanyAddress: array[8]of Text[50];
-    BillToAddress: array[8]of Text[50];
-    ShipToAddress: array[8]of Text[50];
-    CopyTxt: Text[10];
-    PrintCompany: Boolean;
-    PrintFooter: Boolean;
-    TaxFlag: Boolean;
-    NoCopies: Integer;
-    NoLoops: Integer;
-    CopyNo: Integer;
-    NumberOfLines: Integer;
-    OnLineNumber: Integer;
-    HighestLineNo: Integer;
-    SpacePointer: Integer;
-    SalesCrMemoPrinted: Codeunit "Sales Cr. Memo-Printed";
-    FormatAddress: Codeunit "Format Address";
-    SalesTaxCalc: Codeunit 398;
-    SegManagement: Codeunit SegManagement;
-    LogInteraction: Boolean;
-    Text000: Label 'COPY';
-    TaxRegNo: Text[30];
-    TaxRegLabel: Text[30];
-    TotalTaxLabel: Text[30];
-    BreakdownTitle: Text[30];
-    BreakdownLabel: array[4]of Text[30];
-    BreakdownAmt: array[4]of Decimal;
-    BrkIdx: Integer;
-    PrevPrintOrder: Integer;
-    PrevTaxPercent: Decimal;
-    Text003: Label 'Sales Tax Breakdown:';
-    Text004: Label 'Other Taxes';
-    Text005: Label 'Total Sales Tax:';
-    Text006: Label 'Tax Breakdown:';
-    Text007: Label 'Total Tax:';
-    Text008: Label 'Tax:';
-    Text009: Label 'VOID CREDIT MEMO';
-    [InDataSet]
-    LogInteractionEnable: Boolean;
-    CreditCaptionLbl: Label 'Credit';
-    ShipDateCaptionLbl: Label 'Ship Date';
-    ApplytoTypeCaptionLbl: Label 'Apply to Type';
-    ApplytoNumberCaptionLbl: Label 'Apply to Number';
-    CustomerIDCaptionLbl: Label 'Customer ID';
-    PONumberCaptionLbl: Label 'P.O. Number';
-    SalesPersonCaptionLbl: Label 'SalesPerson';
-    ShipCaptionLbl: Label 'Ship';
-    CreditMemoCaptionLbl: Label 'CREDIT MEMO';
-    CreditMemoNumberCaptionLbl: Label 'Credit Memo Number:';
-    CreditMemoDateCaptionLbl: Label 'Credit Memo Date:';
-    PageCaptionLbl: Label 'Page:';
-    TaxIdentTypeCaptionLbl: Label 'Tax Ident. Type';
-    ToCaptionLbl: Label 'To:';
-    ItemNoCaptionLbl: Label 'Item No.';
-    UnitCaptionLbl: Label 'Unit';
-    DescriptionCaptionLbl: Label 'Description';
-    QuantityCaptionLbl: Label 'Quantity';
-    UnitPriceCaptionLbl: Label 'Unit Price';
-    TotalPriceCaptionLbl: Label 'Total Price';
-    SubtotalCaptionLbl: Label 'Subtotal:';
-    InvoiceDiscountCaptionLbl: Label 'Invoice Discount:';
-    TotalCaptionLbl: Label 'Total:';
-    AmountSubjecttoSalesTaxCaptionLbl: Label 'Amount Subject to Sales Tax';
-    AmountExemptfromSalesTaxCaptionLbl: Label 'Amount Exempt from Sales Tax';
+
+    var
+        TaxLiable: Decimal;
+        UnitPriceToPrint: Decimal;
+        AmountExclInvDisc: Decimal;
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        CompanyInformation: Record "Company Information";
+        CompanyInfo1: Record "Company Information";
+        CompanyInfo3: Record "Company Information";
+        CompanyInfo2: Record "Company Information";
+        SalesSetup: Record "Sales & Receivables Setup";
+        TempSalesCrMemoLine: Record "Sales Cr.Memo Line" temporary;
+        RespCenter: Record "Responsibility Center";
+        Language: Codeunit Language;
+        TempSalesTaxAmtLine: Record "Sales Tax Amount Line" temporary;
+        TaxArea: Record "Tax Area";
+        Cust: Record Customer;
+        CompanyAddress: array[8] of Text[50];
+        BillToAddress: array[8] of Text[50];
+        ShipToAddress: array[8] of Text[50];
+        CopyTxt: Text[10];
+        PrintCompany: Boolean;
+        PrintFooter: Boolean;
+        TaxFlag: Boolean;
+        NoCopies: Integer;
+        NoLoops: Integer;
+        CopyNo: Integer;
+        NumberOfLines: Integer;
+        OnLineNumber: Integer;
+        HighestLineNo: Integer;
+        SpacePointer: Integer;
+        SalesCrMemoPrinted: Codeunit "Sales Cr. Memo-Printed";
+        FormatAddress: Codeunit "Format Address";
+        SalesTaxCalc: Codeunit 398;
+        SegManagement: Codeunit SegManagement;
+        LogInteraction: Boolean;
+        Text000: Label 'COPY';
+        TaxRegNo: Text[30];
+        TaxRegLabel: Text[30];
+        TotalTaxLabel: Text[30];
+        BreakdownTitle: Text[30];
+        BreakdownLabel: array[4] of Text[30];
+        BreakdownAmt: array[4] of Decimal;
+        BrkIdx: Integer;
+        PrevPrintOrder: Integer;
+        PrevTaxPercent: Decimal;
+        Text003: Label 'Sales Tax Breakdown:';
+        Text004: Label 'Other Taxes';
+        Text005: Label 'Total Sales Tax:';
+        Text006: Label 'Tax Breakdown:';
+        Text007: Label 'Total Tax:';
+        Text008: Label 'Tax:';
+        Text009: Label 'VOID CREDIT MEMO';
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        CreditCaptionLbl: Label 'Credit';
+        ShipDateCaptionLbl: Label 'Ship Date';
+        ApplytoTypeCaptionLbl: Label 'Apply to Type';
+        ApplytoNumberCaptionLbl: Label 'Apply to Number';
+        CustomerIDCaptionLbl: Label 'Customer ID';
+        PONumberCaptionLbl: Label 'P.O. Number';
+        SalesPersonCaptionLbl: Label 'SalesPerson';
+        ShipCaptionLbl: Label 'Ship';
+        CreditMemoCaptionLbl: Label 'CREDIT MEMO';
+        CreditMemoNumberCaptionLbl: Label 'Credit Memo Number:';
+        CreditMemoDateCaptionLbl: Label 'Credit Memo Date:';
+        PageCaptionLbl: Label 'Page:';
+        TaxIdentTypeCaptionLbl: Label 'Tax Ident. Type';
+        ToCaptionLbl: Label 'To:';
+        ItemNoCaptionLbl: Label 'Item No.';
+        UnitCaptionLbl: Label 'Unit';
+        DescriptionCaptionLbl: Label 'Description';
+        QuantityCaptionLbl: Label 'Quantity';
+        UnitPriceCaptionLbl: Label 'Unit Price';
+        TotalPriceCaptionLbl: Label 'Total Price';
+        SubtotalCaptionLbl: Label 'Subtotal:';
+        InvoiceDiscountCaptionLbl: Label 'Invoice Discount:';
+        TotalCaptionLbl: Label 'Total:';
+        AmountSubjecttoSalesTaxCaptionLbl: Label 'Amount Subject to Sales Tax';
+        AmountExemptfromSalesTaxCaptionLbl: Label 'Amount Exempt from Sales Tax';
 }

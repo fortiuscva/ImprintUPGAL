@@ -1,0 +1,16 @@
+{
+    "files.autoSave": "off",
+    "git.confirmSync": false,
+    "CRS.ObjectNamePrefix": "",    
+    "CRS.FileNamePattern": "<ObjectTypeShort><ObjectId>.<ObjectNameShort>.al",        
+    "CRS.FileNamePatternExtensions": "<ObjectTypeShort><BaseId>-Ext<ObjectId>.<ObjectNameShort>.al",
+    "CRS.RemovePrefixFromFilename": true,
+    "CRS.OnSaveAlFileAction": "Rename",
+    "al.assemblyProbingPaths": [
+        "./.netpackages",
+        "c:/Windows/assembly/"
+    ],
+    "al.packageCachePath": [
+        "./.alpackages"
+    ]
+}

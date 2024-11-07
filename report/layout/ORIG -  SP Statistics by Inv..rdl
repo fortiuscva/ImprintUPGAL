@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="FORMAT_TODAY_0_4_">
+          <DataField>FORMAT_TODAY_0_4_</DataField>
+        </Field>
+        <Field Name="TIME">
+          <DataField>TIME</DataField>
+        </Field>
+        <Field Name="CompanyInformation_Name">
+          <DataField>CompanyInformation_Name</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENO">
+          <DataField>CurrReport_PAGENO</DataField>
+        </Field>
+        <Field Name="USERID">
+          <DataField>USERID</DataField>
+        </Field>
+        <Field Name="SubTitle">
+          <DataField>SubTitle</DataField>
+        </Field>
+        <Field Name="PeriodText">
+          <DataField>PeriodText</DataField>
+        </Field>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="PrintDetail">
+          <DataField>PrintDetail</DataField>
+        </Field>
+        <Field Name="Salesperson_Purchaser_Code">
+          <DataField>Salesperson_Purchaser_Code</DataField>
+        </Field>
+        <Field Name="Salesperson_Purchaser_Name">
+          <DataField>Salesperson_Purchaser_Name</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Sales__LCY__">
+          <DataField>Cust__Ledger_Entry___Sales__LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Sales__LCY__Format">
+          <DataField>Cust__Ledger_Entry___Sales__LCY__Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Profit__LCY__">
+          <DataField>Cust__Ledger_Entry___Profit__LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Profit__LCY__Format">
+          <DataField>Cust__Ledger_Entry___Profit__LCY__Format</DataField>
+        </Field>
+        <Field Name="Profit__">
+          <DataField>Profit__</DataField>
+        </Field>
+        <Field Name="Profit__Format">
+          <DataField>Profit__Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Inv__Discount__LCY__">
+          <DataField>Cust__Ledger_Entry___Inv__Discount__LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Inv__Discount__LCY__Format">
+          <DataField>Cust__Ledger_Entry___Inv__Discount__LCY__Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Pmt__Disc__Given__LCY__">
+          <DataField>Cust__Ledger_Entry___Pmt__Disc__Given__LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Pmt__Disc__Given__LCY__Format">
+          <DataField>Cust__Ledger_Entry___Pmt__Disc__Given__LCY__Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Remaining_Amt___LCY__">
+          <DataField>Cust__Ledger_Entry___Remaining_Amt___LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry___Remaining_Amt___LCY__Format">
+          <DataField>Cust__Ledger_Entry___Remaining_Amt___LCY__Format</DataField>
+        </Field>
+        <Field Name="Salesperson_Purchaser_Date_Filter">
+          <DataField>Salesperson_Purchaser_Date_Filter</DataField>
+        </Field>
+        <Field Name="Salesperson_Statistics_by_InvoiceCaption">
+          <DataField>Salesperson_Statistics_by_InvoiceCaption</DataField>
+        </Field>
+        <Field Name="CurrReport_PAGENOCaption">
+          <DataField>CurrReport_PAGENOCaption</DataField>
+        </Field>
+        <Field Name="For_the_periodCaption">
+          <DataField>For_the_periodCaption</DataField>
+        </Field>
+        <Field Name="Salesperson_Purchaser_CodeCaption">
+          <DataField>Salesperson_Purchaser_CodeCaption</DataField>
+        </Field>
+        <Field Name="ContributionCaption">
+          <DataField>ContributionCaption</DataField>
+        </Field>
+        <Field Name="InvoiceCaption">
+          <DataField>InvoiceCaption</DataField>
+        </Field>
+        <Field Name="CashCaption">
+          <DataField>CashCaption</DataField>
+        </Field>
+        <Field Name="RemainingCaption">
+          <DataField>RemainingCaption</DataField>
+        </Field>
+        <Field Name="DateCaption">
+          <DataField>DateCaption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Document_Type_Caption">
+          <DataField>Cust__Ledger_Entry__Document_Type_Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Sales__LCY__Caption">
+          <DataField>Cust__Ledger_Entry__Sales__LCY__Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Profit__LCY__Caption">
+          <DataField>Cust__Ledger_Entry__Profit__LCY__Caption</DataField>
+        </Field>
+        <Field Name="Profit___Control48Caption">
+          <DataField>Profit___Control48Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Inv__Discount__LCY__Caption">
+          <DataField>Cust__Ledger_Entry__Inv__Discount__LCY__Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Pmt__Disc__Given__LCY__Caption">
+          <DataField>Cust__Ledger_Entry__Pmt__Disc__Given__LCY__Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Remaining_Amt___LCY__Caption">
+          <DataField>Cust__Ledger_Entry__Remaining_Amt___LCY__Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Customer_No__Caption">
+          <DataField>Cust__Ledger_Entry__Customer_No__Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Document_No__Caption">
+          <DataField>Cust__Ledger_Entry__Document_No__Caption</DataField>
+        </Field>
+        <Field Name="CodeCaption">
+          <DataField>CodeCaption</DataField>
+        </Field>
+        <Field Name="NameCaption">
+          <DataField>NameCaption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Sales__LCY___Control62Caption">
+          <DataField>Cust__Ledger_Entry__Sales__LCY___Control62Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Profit__LCY___Control63Caption">
+          <DataField>Cust__Ledger_Entry__Profit__LCY___Control63Caption</DataField>
+        </Field>
+        <Field Name="Profit___Control64Caption">
+          <DataField>Profit___Control64Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Inv__Discount__LCY___Control65Caption">
+          <DataField>Cust__Ledger_Entry__Inv__Discount__LCY___Control65Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control66Caption">
+          <DataField>Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control66Caption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Remaining_Amt___LCY___Control67Caption">
+          <DataField>Cust__Ledger_Entry__Remaining_Amt___LCY___Control67Caption</DataField>
+        </Field>
+        <Field Name="Report_TotalCaption">
+          <DataField>Report_TotalCaption</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Posting_Date_">
+          <DataField>Cust__Ledger_Entry__Posting_Date_</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Document_Type_">
+          <DataField>Cust__Ledger_Entry__Document_Type_</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Document_No__">
+          <DataField>Cust__Ledger_Entry__Document_No__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Customer_No__">
+          <DataField>Cust__Ledger_Entry__Customer_No__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Sales__LCY__">
+          <DataField>Cust__Ledger_Entry__Sales__LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Sales__LCY__Format">
+          <DataField>Cust__Ledger_Entry__Sales__LCY__Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Profit__LCY__">
+          <DataField>Cust__Ledger_Entry__Profit__LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Profit__LCY__Format">
+          <DataField>Cust__Ledger_Entry__Profit__LCY__Format</DataField>
+        </Field>
+        <Field Name="Profit___Control48">
+          <DataField>Profit___Control48</DataField>
+        </Field>
+        <Field Name="Profit___Control48Format">
+          <DataField>Profit___Control48Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Inv__Discount__LCY__">
+          <DataField>Cust__Ledger_Entry__Inv__Discount__LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Inv__Discount__LCY__Format">
+          <DataField>Cust__Ledger_Entry__Inv__Discount__LCY__Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Pmt__Disc__Given__LCY__">
+          <DataField>Cust__Ledger_Entry__Pmt__Disc__Given__LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Pmt__Disc__Given__LCY__Format">
+          <DataField>Cust__Ledger_Entry__Pmt__Disc__Given__LCY__Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Remaining_Amt___LCY__">
+          <DataField>Cust__Ledger_Entry__Remaining_Amt___LCY__</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Remaining_Amt___LCY__Format">
+          <DataField>Cust__Ledger_Entry__Remaining_Amt___LCY__Format</DataField>
+        </Field>
+        <Field Name="Salesperson_Purchaser__Code">
+          <DataField>Salesperson_Purchaser__Code</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Sales__LCY___Control53">
+          <DataField>Cust__Ledger_Entry__Sales__LCY___Control53</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Sales__LCY___Control53Format">
+          <DataField>Cust__Ledger_Entry__Sales__LCY___Control53Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Profit__LCY___Control54">
+          <DataField>Cust__Ledger_Entry__Profit__LCY___Control54</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Profit__LCY___Control54Format">
+          <DataField>Cust__Ledger_Entry__Profit__LCY___Control54Format</DataField>
+        </Field>
+        <Field Name="Profit___Control55">
+          <DataField>Profit___Control55</DataField>
+        </Field>
+        <Field Name="Profit___Control55Format">
+          <DataField>Profit___Control55Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Inv__Discount__LCY___Control56">
+          <DataField>Cust__Ledger_Entry__Inv__Discount__LCY___Control56</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Inv__Discount__LCY___Control56Format">
+          <DataField>Cust__Ledger_Entry__Inv__Discount__LCY___Control56Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control57">
+          <DataField>Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control57</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control57Format">
+          <DataField>Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control57Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Remaining_Amt___LCY___Control58">
+          <DataField>Cust__Ledger_Entry__Remaining_Amt___LCY___Control58</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Remaining_Amt___LCY___Control58Format">
+          <DataField>Cust__Ledger_Entry__Remaining_Amt___LCY___Control58Format</DataField>
+        </Field>
+        <Field Name="Salesperson_Purchaser__Code_Control60">
+          <DataField>Salesperson_Purchaser__Code_Control60</DataField>
+        </Field>
+        <Field Name="Salesperson_Purchaser__Name">
+          <DataField>Salesperson_Purchaser__Name</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Sales__LCY___Control62">
+          <DataField>Cust__Ledger_Entry__Sales__LCY___Control62</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Sales__LCY___Control62Format">
+          <DataField>Cust__Ledger_Entry__Sales__LCY___Control62Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Profit__LCY___Control63">
+          <DataField>Cust__Ledger_Entry__Profit__LCY___Control63</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Profit__LCY___Control63Format">
+          <DataField>Cust__Ledger_Entry__Profit__LCY___Control63Format</DataField>
+        </Field>
+        <Field Name="Profit___Control64">
+          <DataField>Profit___Control64</DataField>
+        </Field>
+        <Field Name="Profit___Control64Format">
+          <DataField>Profit___Control64Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Inv__Discount__LCY___Control65">
+          <DataField>Cust__Ledger_Entry__Inv__Discount__LCY___Control65</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Inv__Discount__LCY___Control65Format">
+          <DataField>Cust__Ledger_Entry__Inv__Discount__LCY___Control65Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control66">
+          <DataField>Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control66</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control66Format">
+          <DataField>Cust__Ledger_Entry__Pmt__Disc__Given__LCY___Control66Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Remaining_Amt___LCY___Control67">
+          <DataField>Cust__Ledger_Entry__Remaining_Amt___LCY___Control67</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry__Remaining_Amt___LCY___Control67Format">
+          <DataField>Cust__Ledger_Entry__Remaining_Amt___LCY___Control67Format</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry_Entry_No_">
+          <DataField>Cust__Ledger_Entry_Entry_No_</DataField>
+        </Field>
+        <Field Name="Cust__Ledger_Entry_Salesperson_Code">
+          <DataField>Cust__Ledger_Entry_Salesperson_Code</DataField>
+        </Field>
+        <Field Name="Salesperson_TotalCaption">
+          <DataField>Salesperson_TotalCaption</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

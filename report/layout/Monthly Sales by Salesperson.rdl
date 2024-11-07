@@ -1,0 +1,773 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="SPCode">
+          <DataField>SPCode</DataField>
+        </Field>
+        <Field Name="SPName">
+          <DataField>SPName</DataField>
+        </Field>
+        <Field Name="SalesY3M01">
+          <DataField>SalesY3M01</DataField>
+        </Field>
+        <Field Name="SalesY3M01Format">
+          <DataField>SalesY3M01Format</DataField>
+        </Field>
+        <Field Name="SalesY3M02">
+          <DataField>SalesY3M02</DataField>
+        </Field>
+        <Field Name="SalesY3M02Format">
+          <DataField>SalesY3M02Format</DataField>
+        </Field>
+        <Field Name="SalesY3M03">
+          <DataField>SalesY3M03</DataField>
+        </Field>
+        <Field Name="SalesY3M03Format">
+          <DataField>SalesY3M03Format</DataField>
+        </Field>
+        <Field Name="SalesY3M04">
+          <DataField>SalesY3M04</DataField>
+        </Field>
+        <Field Name="SalesY3M04Format">
+          <DataField>SalesY3M04Format</DataField>
+        </Field>
+        <Field Name="SalesY3M05">
+          <DataField>SalesY3M05</DataField>
+        </Field>
+        <Field Name="SalesY3M05Format">
+          <DataField>SalesY3M05Format</DataField>
+        </Field>
+        <Field Name="SalesY3M06">
+          <DataField>SalesY3M06</DataField>
+        </Field>
+        <Field Name="SalesY3M06Format">
+          <DataField>SalesY3M06Format</DataField>
+        </Field>
+        <Field Name="SalesY3M07">
+          <DataField>SalesY3M07</DataField>
+        </Field>
+        <Field Name="SalesY3M07Format">
+          <DataField>SalesY3M07Format</DataField>
+        </Field>
+        <Field Name="SalesY3M08">
+          <DataField>SalesY3M08</DataField>
+        </Field>
+        <Field Name="SalesY3M08Format">
+          <DataField>SalesY3M08Format</DataField>
+        </Field>
+        <Field Name="SalesY3M09">
+          <DataField>SalesY3M09</DataField>
+        </Field>
+        <Field Name="SalesY3M09Format">
+          <DataField>SalesY3M09Format</DataField>
+        </Field>
+        <Field Name="SalesY3M10">
+          <DataField>SalesY3M10</DataField>
+        </Field>
+        <Field Name="SalesY3M10Format">
+          <DataField>SalesY3M10Format</DataField>
+        </Field>
+        <Field Name="SalesY3M11">
+          <DataField>SalesY3M11</DataField>
+        </Field>
+        <Field Name="SalesY3M11Format">
+          <DataField>SalesY3M11Format</DataField>
+        </Field>
+        <Field Name="SalesY3M12">
+          <DataField>SalesY3M12</DataField>
+        </Field>
+        <Field Name="SalesY3M12Format">
+          <DataField>SalesY3M12Format</DataField>
+        </Field>
+        <Field Name="SalesY2M01">
+          <DataField>SalesY2M01</DataField>
+        </Field>
+        <Field Name="SalesY2M01Format">
+          <DataField>SalesY2M01Format</DataField>
+        </Field>
+        <Field Name="SalesY2M02">
+          <DataField>SalesY2M02</DataField>
+        </Field>
+        <Field Name="SalesY2M02Format">
+          <DataField>SalesY2M02Format</DataField>
+        </Field>
+        <Field Name="SalesY2M03">
+          <DataField>SalesY2M03</DataField>
+        </Field>
+        <Field Name="SalesY2M03Format">
+          <DataField>SalesY2M03Format</DataField>
+        </Field>
+        <Field Name="SalesY2M04">
+          <DataField>SalesY2M04</DataField>
+        </Field>
+        <Field Name="SalesY2M04Format">
+          <DataField>SalesY2M04Format</DataField>
+        </Field>
+        <Field Name="SalesY2M05">
+          <DataField>SalesY2M05</DataField>
+        </Field>
+        <Field Name="SalesY2M05Format">
+          <DataField>SalesY2M05Format</DataField>
+        </Field>
+        <Field Name="SalesY2M06">
+          <DataField>SalesY2M06</DataField>
+        </Field>
+        <Field Name="SalesY2M06Format">
+          <DataField>SalesY2M06Format</DataField>
+        </Field>
+        <Field Name="SalesY2M07">
+          <DataField>SalesY2M07</DataField>
+        </Field>
+        <Field Name="SalesY2M07Format">
+          <DataField>SalesY2M07Format</DataField>
+        </Field>
+        <Field Name="SalesY2M08">
+          <DataField>SalesY2M08</DataField>
+        </Field>
+        <Field Name="SalesY2M08Format">
+          <DataField>SalesY2M08Format</DataField>
+        </Field>
+        <Field Name="SalesY2M09">
+          <DataField>SalesY2M09</DataField>
+        </Field>
+        <Field Name="SalesY2M09Format">
+          <DataField>SalesY2M09Format</DataField>
+        </Field>
+        <Field Name="SalesY2M10">
+          <DataField>SalesY2M10</DataField>
+        </Field>
+        <Field Name="SalesY2M10Format">
+          <DataField>SalesY2M10Format</DataField>
+        </Field>
+        <Field Name="SalesY2M11">
+          <DataField>SalesY2M11</DataField>
+        </Field>
+        <Field Name="SalesY2M11Format">
+          <DataField>SalesY2M11Format</DataField>
+        </Field>
+        <Field Name="SalesY2M12">
+          <DataField>SalesY2M12</DataField>
+        </Field>
+        <Field Name="SalesY2M12Format">
+          <DataField>SalesY2M12Format</DataField>
+        </Field>
+        <Field Name="SalesY1M01">
+          <DataField>SalesY1M01</DataField>
+        </Field>
+        <Field Name="SalesY1M01Format">
+          <DataField>SalesY1M01Format</DataField>
+        </Field>
+        <Field Name="SalesY1M02">
+          <DataField>SalesY1M02</DataField>
+        </Field>
+        <Field Name="SalesY1M02Format">
+          <DataField>SalesY1M02Format</DataField>
+        </Field>
+        <Field Name="SalesY1M03">
+          <DataField>SalesY1M03</DataField>
+        </Field>
+        <Field Name="SalesY1M03Format">
+          <DataField>SalesY1M03Format</DataField>
+        </Field>
+        <Field Name="SalesY1M04">
+          <DataField>SalesY1M04</DataField>
+        </Field>
+        <Field Name="SalesY1M04Format">
+          <DataField>SalesY1M04Format</DataField>
+        </Field>
+        <Field Name="SalesY1M05">
+          <DataField>SalesY1M05</DataField>
+        </Field>
+        <Field Name="SalesY1M05Format">
+          <DataField>SalesY1M05Format</DataField>
+        </Field>
+        <Field Name="SalesY1M06">
+          <DataField>SalesY1M06</DataField>
+        </Field>
+        <Field Name="SalesY1M06Format">
+          <DataField>SalesY1M06Format</DataField>
+        </Field>
+        <Field Name="SalesY1M07">
+          <DataField>SalesY1M07</DataField>
+        </Field>
+        <Field Name="SalesY1M07Format">
+          <DataField>SalesY1M07Format</DataField>
+        </Field>
+        <Field Name="SalesY1M08">
+          <DataField>SalesY1M08</DataField>
+        </Field>
+        <Field Name="SalesY1M08Format">
+          <DataField>SalesY1M08Format</DataField>
+        </Field>
+        <Field Name="SalesY1M09">
+          <DataField>SalesY1M09</DataField>
+        </Field>
+        <Field Name="SalesY1M09Format">
+          <DataField>SalesY1M09Format</DataField>
+        </Field>
+        <Field Name="SalesY1M10">
+          <DataField>SalesY1M10</DataField>
+        </Field>
+        <Field Name="SalesY1M10Format">
+          <DataField>SalesY1M10Format</DataField>
+        </Field>
+        <Field Name="SalesY1M11">
+          <DataField>SalesY1M11</DataField>
+        </Field>
+        <Field Name="SalesY1M11Format">
+          <DataField>SalesY1M11Format</DataField>
+        </Field>
+        <Field Name="SalesY1M12">
+          <DataField>SalesY1M12</DataField>
+        </Field>
+        <Field Name="SalesY1M12Format">
+          <DataField>SalesY1M12Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M01">
+          <DataField>ProfitY3M01</DataField>
+        </Field>
+        <Field Name="ProfitY3M01Format">
+          <DataField>ProfitY3M01Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M02">
+          <DataField>ProfitY3M02</DataField>
+        </Field>
+        <Field Name="ProfitY3M02Format">
+          <DataField>ProfitY3M02Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M03">
+          <DataField>ProfitY3M03</DataField>
+        </Field>
+        <Field Name="ProfitY3M03Format">
+          <DataField>ProfitY3M03Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M04">
+          <DataField>ProfitY3M04</DataField>
+        </Field>
+        <Field Name="ProfitY3M04Format">
+          <DataField>ProfitY3M04Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M05">
+          <DataField>ProfitY3M05</DataField>
+        </Field>
+        <Field Name="ProfitY3M05Format">
+          <DataField>ProfitY3M05Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M06">
+          <DataField>ProfitY3M06</DataField>
+        </Field>
+        <Field Name="ProfitY3M06Format">
+          <DataField>ProfitY3M06Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M07">
+          <DataField>ProfitY3M07</DataField>
+        </Field>
+        <Field Name="ProfitY3M07Format">
+          <DataField>ProfitY3M07Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M08">
+          <DataField>ProfitY3M08</DataField>
+        </Field>
+        <Field Name="ProfitY3M08Format">
+          <DataField>ProfitY3M08Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M09">
+          <DataField>ProfitY3M09</DataField>
+        </Field>
+        <Field Name="ProfitY3M09Format">
+          <DataField>ProfitY3M09Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M10">
+          <DataField>ProfitY3M10</DataField>
+        </Field>
+        <Field Name="ProfitY3M10Format">
+          <DataField>ProfitY3M10Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M11">
+          <DataField>ProfitY3M11</DataField>
+        </Field>
+        <Field Name="ProfitY3M11Format">
+          <DataField>ProfitY3M11Format</DataField>
+        </Field>
+        <Field Name="ProfitY3M12">
+          <DataField>ProfitY3M12</DataField>
+        </Field>
+        <Field Name="ProfitY3M12Format">
+          <DataField>ProfitY3M12Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M01">
+          <DataField>ProfitY2M01</DataField>
+        </Field>
+        <Field Name="ProfitY2M01Format">
+          <DataField>ProfitY2M01Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M02">
+          <DataField>ProfitY2M02</DataField>
+        </Field>
+        <Field Name="ProfitY2M02Format">
+          <DataField>ProfitY2M02Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M03">
+          <DataField>ProfitY2M03</DataField>
+        </Field>
+        <Field Name="ProfitY2M03Format">
+          <DataField>ProfitY2M03Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M04">
+          <DataField>ProfitY2M04</DataField>
+        </Field>
+        <Field Name="ProfitY2M04Format">
+          <DataField>ProfitY2M04Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M05">
+          <DataField>ProfitY2M05</DataField>
+        </Field>
+        <Field Name="ProfitY2M05Format">
+          <DataField>ProfitY2M05Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M06">
+          <DataField>ProfitY2M06</DataField>
+        </Field>
+        <Field Name="ProfitY2M06Format">
+          <DataField>ProfitY2M06Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M07">
+          <DataField>ProfitY2M07</DataField>
+        </Field>
+        <Field Name="ProfitY2M07Format">
+          <DataField>ProfitY2M07Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M08">
+          <DataField>ProfitY2M08</DataField>
+        </Field>
+        <Field Name="ProfitY2M08Format">
+          <DataField>ProfitY2M08Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M09">
+          <DataField>ProfitY2M09</DataField>
+        </Field>
+        <Field Name="ProfitY2M09Format">
+          <DataField>ProfitY2M09Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M10">
+          <DataField>ProfitY2M10</DataField>
+        </Field>
+        <Field Name="ProfitY2M10Format">
+          <DataField>ProfitY2M10Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M11">
+          <DataField>ProfitY2M11</DataField>
+        </Field>
+        <Field Name="ProfitY2M11Format">
+          <DataField>ProfitY2M11Format</DataField>
+        </Field>
+        <Field Name="ProfitY2M12">
+          <DataField>ProfitY2M12</DataField>
+        </Field>
+        <Field Name="ProfitY2M12Format">
+          <DataField>ProfitY2M12Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M01">
+          <DataField>ProfitY1M01</DataField>
+        </Field>
+        <Field Name="ProfitY1M01Format">
+          <DataField>ProfitY1M01Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M02">
+          <DataField>ProfitY1M02</DataField>
+        </Field>
+        <Field Name="ProfitY1M02Format">
+          <DataField>ProfitY1M02Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M03">
+          <DataField>ProfitY1M03</DataField>
+        </Field>
+        <Field Name="ProfitY1M03Format">
+          <DataField>ProfitY1M03Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M04">
+          <DataField>ProfitY1M04</DataField>
+        </Field>
+        <Field Name="ProfitY1M04Format">
+          <DataField>ProfitY1M04Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M05">
+          <DataField>ProfitY1M05</DataField>
+        </Field>
+        <Field Name="ProfitY1M05Format">
+          <DataField>ProfitY1M05Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M06">
+          <DataField>ProfitY1M06</DataField>
+        </Field>
+        <Field Name="ProfitY1M06Format">
+          <DataField>ProfitY1M06Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M07">
+          <DataField>ProfitY1M07</DataField>
+        </Field>
+        <Field Name="ProfitY1M07Format">
+          <DataField>ProfitY1M07Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M08">
+          <DataField>ProfitY1M08</DataField>
+        </Field>
+        <Field Name="ProfitY1M08Format">
+          <DataField>ProfitY1M08Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M09">
+          <DataField>ProfitY1M09</DataField>
+        </Field>
+        <Field Name="ProfitY1M09Format">
+          <DataField>ProfitY1M09Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M10">
+          <DataField>ProfitY1M10</DataField>
+        </Field>
+        <Field Name="ProfitY1M10Format">
+          <DataField>ProfitY1M10Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M11">
+          <DataField>ProfitY1M11</DataField>
+        </Field>
+        <Field Name="ProfitY1M11Format">
+          <DataField>ProfitY1M11Format</DataField>
+        </Field>
+        <Field Name="ProfitY1M12">
+          <DataField>ProfitY1M12</DataField>
+        </Field>
+        <Field Name="ProfitY1M12Format">
+          <DataField>ProfitY1M12Format</DataField>
+        </Field>
+        <Field Name="MarginY3M01">
+          <DataField>MarginY3M01</DataField>
+        </Field>
+        <Field Name="MarginY3M01Format">
+          <DataField>MarginY3M01Format</DataField>
+        </Field>
+        <Field Name="MarginY3M02">
+          <DataField>MarginY3M02</DataField>
+        </Field>
+        <Field Name="MarginY3M02Format">
+          <DataField>MarginY3M02Format</DataField>
+        </Field>
+        <Field Name="MarginY3M03">
+          <DataField>MarginY3M03</DataField>
+        </Field>
+        <Field Name="MarginY3M03Format">
+          <DataField>MarginY3M03Format</DataField>
+        </Field>
+        <Field Name="MarginY3M04">
+          <DataField>MarginY3M04</DataField>
+        </Field>
+        <Field Name="MarginY3M04Format">
+          <DataField>MarginY3M04Format</DataField>
+        </Field>
+        <Field Name="MarginY3M05">
+          <DataField>MarginY3M05</DataField>
+        </Field>
+        <Field Name="MarginY3M05Format">
+          <DataField>MarginY3M05Format</DataField>
+        </Field>
+        <Field Name="MarginY3M06">
+          <DataField>MarginY3M06</DataField>
+        </Field>
+        <Field Name="MarginY3M06Format">
+          <DataField>MarginY3M06Format</DataField>
+        </Field>
+        <Field Name="MarginY3M07">
+          <DataField>MarginY3M07</DataField>
+        </Field>
+        <Field Name="MarginY3M07Format">
+          <DataField>MarginY3M07Format</DataField>
+        </Field>
+        <Field Name="MarginY3M08">
+          <DataField>MarginY3M08</DataField>
+        </Field>
+        <Field Name="MarginY3M08Format">
+          <DataField>MarginY3M08Format</DataField>
+        </Field>
+        <Field Name="MarginY3M09">
+          <DataField>MarginY3M09</DataField>
+        </Field>
+        <Field Name="MarginY3M09Format">
+          <DataField>MarginY3M09Format</DataField>
+        </Field>
+        <Field Name="MarginY3M10">
+          <DataField>MarginY3M10</DataField>
+        </Field>
+        <Field Name="MarginY3M10Format">
+          <DataField>MarginY3M10Format</DataField>
+        </Field>
+        <Field Name="MarginY3M11">
+          <DataField>MarginY3M11</DataField>
+        </Field>
+        <Field Name="MarginY3M11Format">
+          <DataField>MarginY3M11Format</DataField>
+        </Field>
+        <Field Name="MarginY3M12">
+          <DataField>MarginY3M12</DataField>
+        </Field>
+        <Field Name="MarginY3M12Format">
+          <DataField>MarginY3M12Format</DataField>
+        </Field>
+        <Field Name="MarginY2M01">
+          <DataField>MarginY2M01</DataField>
+        </Field>
+        <Field Name="MarginY2M01Format">
+          <DataField>MarginY2M01Format</DataField>
+        </Field>
+        <Field Name="MarginY2M02">
+          <DataField>MarginY2M02</DataField>
+        </Field>
+        <Field Name="MarginY2M02Format">
+          <DataField>MarginY2M02Format</DataField>
+        </Field>
+        <Field Name="MarginY2M03">
+          <DataField>MarginY2M03</DataField>
+        </Field>
+        <Field Name="MarginY2M03Format">
+          <DataField>MarginY2M03Format</DataField>
+        </Field>
+        <Field Name="MarginY2M04">
+          <DataField>MarginY2M04</DataField>
+        </Field>
+        <Field Name="MarginY2M04Format">
+          <DataField>MarginY2M04Format</DataField>
+        </Field>
+        <Field Name="MarginY2M05">
+          <DataField>MarginY2M05</DataField>
+        </Field>
+        <Field Name="MarginY2M05Format">
+          <DataField>MarginY2M05Format</DataField>
+        </Field>
+        <Field Name="MarginY2M06">
+          <DataField>MarginY2M06</DataField>
+        </Field>
+        <Field Name="MarginY2M06Format">
+          <DataField>MarginY2M06Format</DataField>
+        </Field>
+        <Field Name="MarginY2M07">
+          <DataField>MarginY2M07</DataField>
+        </Field>
+        <Field Name="MarginY2M07Format">
+          <DataField>MarginY2M07Format</DataField>
+        </Field>
+        <Field Name="MarginY2M08">
+          <DataField>MarginY2M08</DataField>
+        </Field>
+        <Field Name="MarginY2M08Format">
+          <DataField>MarginY2M08Format</DataField>
+        </Field>
+        <Field Name="MarginY2M09">
+          <DataField>MarginY2M09</DataField>
+        </Field>
+        <Field Name="MarginY2M09Format">
+          <DataField>MarginY2M09Format</DataField>
+        </Field>
+        <Field Name="MarginY2M10">
+          <DataField>MarginY2M10</DataField>
+        </Field>
+        <Field Name="MarginY2M10Format">
+          <DataField>MarginY2M10Format</DataField>
+        </Field>
+        <Field Name="MarginY2M11">
+          <DataField>MarginY2M11</DataField>
+        </Field>
+        <Field Name="MarginY2M11Format">
+          <DataField>MarginY2M11Format</DataField>
+        </Field>
+        <Field Name="MarginY2M12">
+          <DataField>MarginY2M12</DataField>
+        </Field>
+        <Field Name="MarginY2M12Format">
+          <DataField>MarginY2M12Format</DataField>
+        </Field>
+        <Field Name="MarginY1M01">
+          <DataField>MarginY1M01</DataField>
+        </Field>
+        <Field Name="MarginY1M01Format">
+          <DataField>MarginY1M01Format</DataField>
+        </Field>
+        <Field Name="MarginY1M02">
+          <DataField>MarginY1M02</DataField>
+        </Field>
+        <Field Name="MarginY1M02Format">
+          <DataField>MarginY1M02Format</DataField>
+        </Field>
+        <Field Name="MarginY1M03">
+          <DataField>MarginY1M03</DataField>
+        </Field>
+        <Field Name="MarginY1M03Format">
+          <DataField>MarginY1M03Format</DataField>
+        </Field>
+        <Field Name="MarginY1M04">
+          <DataField>MarginY1M04</DataField>
+        </Field>
+        <Field Name="MarginY1M04Format">
+          <DataField>MarginY1M04Format</DataField>
+        </Field>
+        <Field Name="MarginY1M05">
+          <DataField>MarginY1M05</DataField>
+        </Field>
+        <Field Name="MarginY1M05Format">
+          <DataField>MarginY1M05Format</DataField>
+        </Field>
+        <Field Name="MarginY1M06">
+          <DataField>MarginY1M06</DataField>
+        </Field>
+        <Field Name="MarginY1M06Format">
+          <DataField>MarginY1M06Format</DataField>
+        </Field>
+        <Field Name="MarginY1M07">
+          <DataField>MarginY1M07</DataField>
+        </Field>
+        <Field Name="MarginY1M07Format">
+          <DataField>MarginY1M07Format</DataField>
+        </Field>
+        <Field Name="MarginY1M08">
+          <DataField>MarginY1M08</DataField>
+        </Field>
+        <Field Name="MarginY1M08Format">
+          <DataField>MarginY1M08Format</DataField>
+        </Field>
+        <Field Name="MarginY1M09">
+          <DataField>MarginY1M09</DataField>
+        </Field>
+        <Field Name="MarginY1M09Format">
+          <DataField>MarginY1M09Format</DataField>
+        </Field>
+        <Field Name="MarginY1M10">
+          <DataField>MarginY1M10</DataField>
+        </Field>
+        <Field Name="MarginY1M10Format">
+          <DataField>MarginY1M10Format</DataField>
+        </Field>
+        <Field Name="MarginY1M11">
+          <DataField>MarginY1M11</DataField>
+        </Field>
+        <Field Name="MarginY1M11Format">
+          <DataField>MarginY1M11Format</DataField>
+        </Field>
+        <Field Name="MarginY1M12">
+          <DataField>MarginY1M12</DataField>
+        </Field>
+        <Field Name="MarginY1M12Format">
+          <DataField>MarginY1M12Format</DataField>
+        </Field>
+        <Field Name="MonthName01">
+          <DataField>MonthName01</DataField>
+        </Field>
+        <Field Name="MonthName02">
+          <DataField>MonthName02</DataField>
+        </Field>
+        <Field Name="MonthName03">
+          <DataField>MonthName03</DataField>
+        </Field>
+        <Field Name="MonthName04">
+          <DataField>MonthName04</DataField>
+        </Field>
+        <Field Name="MonthName05">
+          <DataField>MonthName05</DataField>
+        </Field>
+        <Field Name="MonthName06">
+          <DataField>MonthName06</DataField>
+        </Field>
+        <Field Name="MonthName07">
+          <DataField>MonthName07</DataField>
+        </Field>
+        <Field Name="MonthName08">
+          <DataField>MonthName08</DataField>
+        </Field>
+        <Field Name="MonthName09">
+          <DataField>MonthName09</DataField>
+        </Field>
+        <Field Name="MonthName10">
+          <DataField>MonthName10</DataField>
+        </Field>
+        <Field Name="MonthName11">
+          <DataField>MonthName11</DataField>
+        </Field>
+        <Field Name="MonthName12">
+          <DataField>MonthName12</DataField>
+        </Field>
+        <Field Name="YearName1">
+          <DataField>YearName1</DataField>
+        </Field>
+        <Field Name="YearName2">
+          <DataField>YearName2</DataField>
+        </Field>
+        <Field Name="YearName3">
+          <DataField>YearName3</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

@@ -17,7 +17,7 @@ report 60024 "Purchase Order Ext"
     {
         dataitem("Purchase Header"; "Purchase Header")
         {
-            DataItemTableView = SORTING("Document Type", "No.")WHERE("Document Type"=CONST(Order));
+            DataItemTableView = SORTING("Document Type", "No.") WHERE("Document Type" = CONST(Order));
             PrintOnlyIfDetail = true;
             RequestFilterFields = "No.", "Buy-from Vendor No.", "Pay-to Vendor No.", "No. Printed";
 
@@ -30,7 +30,7 @@ report 60024 "Purchase Order Ext"
 
                 dataitem(PageLoop; "Integer")
                 {
-                    DataItemTableView = SORTING(Number)WHERE(Number=CONST(1));
+                    DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
 
                     column(CompanyInfoPicture; CompanyInformation.Picture)
                     {
@@ -205,9 +205,9 @@ report 60024 "Purchase Order Ext"
                     }
                     dataitem("Purchase Line"; "Purchase Line")
                     {
-                        DataItemLink = "Document No."=FIELD("No.");
+                        DataItemLink = "Document No." = FIELD("No.");
                         DataItemLinkReference = "Purchase Header";
-                        DataItemTableView = SORTING("Document Type", "Document No.", "Line No.")WHERE("Document Type"=CONST(Order));
+                        DataItemTableView = SORTING("Document Type", "Document No.", "Line No.") WHERE("Document Type" = CONST(Order));
 
                         column(AmountExclInvDisc; AmountExclInvDisc)
                         {
@@ -226,7 +226,7 @@ report 60024 "Purchase Order Ext"
                         }
                         column(UnitPriceToPrint; UnitPriceToPrint)
                         {
-                        DecimalPlaces = 2: 5;
+                            DecimalPlaces = 2 : 5;
                         }
                         column(Description_PurchaseLine; Description + ' ' + "Description 2")
                         {
@@ -324,10 +324,12 @@ report 60024 "Purchase Order Ext"
                             }
                             trigger OnAfterGetRecord();
                             begin
-                                if Number = 1 then ReserEntry.FindSet
+                                if Number = 1 then
+                                    ReserEntry.FindSet
                                 else
                                     ReserEntry.Next;
                             end;
+
                             trigger OnPreDataItem();
                             begin
                                 SetRange(Number, 1, ReserEntry.Count);
@@ -335,58 +337,64 @@ report 60024 "Purchase Order Ext"
                         }
                         trigger OnAfterGetRecord();
                         begin
-                            OnLineNumber:=OnLineNumber + 1;
+                            OnLineNumber := OnLineNumber + 1;
                             Clear(AmountExclInvDisc); //IMP1.16
-                            if("Purchase Header"."Tax Area Code" <> '') and not UseExternalTaxEngine then SalesTaxCalc.AddPurchLine("Purchase Line");
-                            if "Vendor Item No." <> '' then ItemNumberToPrint:="Vendor Item No."
+                            if ("Purchase Header"."Tax Area Code" <> '') and not UseExternalTaxEngine then SalesTaxCalc.AddPurchLine("Purchase Line");
+                            if "Vendor Item No." <> '' then
+                                ItemNumberToPrint := "Vendor Item No."
                             else
-                                ItemNumberToPrint:="No.";
+                                ItemNumberToPrint := "No.";
                             // ISS2.00 11.07.13 DFP ==================================================================\
-                            if(Type = Type::Resource) and ("Vendor Resource No." <> '')then ItemNumberToPrint:="Vendor Resource No.";
+                            if (Type = Type::Resource) and ("Vendor Resource No." <> '') then ItemNumberToPrint := "Vendor Resource No.";
                             // End ===================================================================================/
                             if Type.AsInteger() = 0 then begin
-                                ItemNumberToPrint:='';
-                                "Unit of Measure":='';
-                                "Line Amount":=0;
-                                "Inv. Discount Amount":=0;
-                                Quantity:=0;
+                                ItemNumberToPrint := '';
+                                "Unit of Measure" := '';
+                                "Line Amount" := 0;
+                                "Inv. Discount Amount" := 0;
+                                Quantity := 0;
                             end;
-                            AmountExclInvDisc+="Line Amount";
-                            SubTotal+="Line Amount";
-                            InvDisc+="Inv. Discount Amount";
-                            GrandTotal+="Line Amount" + TaxAmount - "Inv. Discount Amount";
-                            if Quantity = 0 then UnitPriceToPrint:=0 // so it won't print
+                            AmountExclInvDisc += "Line Amount";
+                            SubTotal += "Line Amount";
+                            InvDisc += "Inv. Discount Amount";
+                            GrandTotal += "Line Amount" + TaxAmount - "Inv. Discount Amount";
+                            if Quantity = 0 then
+                                UnitPriceToPrint := 0 // so it won't print
                             else
-                                UnitPriceToPrint:=Round(AmountExclInvDisc / Quantity, 0.00001);
+                                UnitPriceToPrint := Round(AmountExclInvDisc / Quantity, 0.00001);
                             if OnLineNumber = NumberOfLines then begin
-                                PrintFooter:=true;
+                                PrintFooter := true;
                                 if "Purchase Header"."Tax Area Code" <> '' then begin
-                                    if UseExternalTaxEngine then SalesTaxCalc.CallExternalTaxEngineForPurch("Purchase Header", true)
+                                    if UseExternalTaxEngine then
+                                        SalesTaxCalc.CallExternalTaxEngineForPurch("Purchase Header", true)
                                     else
                                         SalesTaxCalc.EndSalesTaxCalculation(UseDate);
                                     SalesTaxCalc.GetSummarizedSalesTaxTable(TempSalesTaxAmtLine);
-                                    BrkIdx:=0;
-                                    PrevPrintOrder:=0;
-                                    PrevTaxPercent:=0;
-                                    TaxAmount:=0;
+                                    BrkIdx := 0;
+                                    PrevPrintOrder := 0;
+                                    PrevTaxPercent := 0;
+                                    TaxAmount := 0;
                                     TempSalesTaxAmtLine.Reset;
                                     TempSalesTaxAmtLine.SetCurrentKey("Print Order", "Tax Area Code for Key", "Tax Jurisdiction Code");
-                                    if TempSalesTaxAmtLine.Find('-')then repeat if(TempSalesTaxAmtLine."Print Order" = 0) or (TempSalesTaxAmtLine."Print Order" <> PrevPrintOrder) or (TempSalesTaxAmtLine."Tax %" <> PrevTaxPercent)then begin
-                                                BrkIdx:=BrkIdx + 1;
+                                    if TempSalesTaxAmtLine.Find('-') then
+                                        repeat
+                                            if (TempSalesTaxAmtLine."Print Order" = 0) or (TempSalesTaxAmtLine."Print Order" <> PrevPrintOrder) or (TempSalesTaxAmtLine."Tax %" <> PrevTaxPercent) then begin
+                                                BrkIdx := BrkIdx + 1;
                                                 if BrkIdx > 1 then begin
-                                                    if TaxArea."Country/Region" = TaxArea."Country/Region"::CA then BreakdownTitle:=Text006
+                                                    if TaxArea."Country/Region" = TaxArea."Country/Region"::CA then
+                                                        BreakdownTitle := Text006
                                                     else
-                                                        BreakdownTitle:=Text003;
+                                                        BreakdownTitle := Text003;
                                                 end;
-                                                if BrkIdx > ArrayLen(BreakdownAmt)then begin
-                                                    BrkIdx:=BrkIdx - 1;
-                                                    BreakdownLabel[BrkIdx]:=Text004;
+                                                if BrkIdx > ArrayLen(BreakdownAmt) then begin
+                                                    BrkIdx := BrkIdx - 1;
+                                                    BreakdownLabel[BrkIdx] := Text004;
                                                 end
                                                 else
-                                                    BreakdownLabel[BrkIdx]:=StrSubstNo(TempSalesTaxAmtLine."Print Description", TempSalesTaxAmtLine."Tax %");
+                                                    BreakdownLabel[BrkIdx] := StrSubstNo(TempSalesTaxAmtLine."Print Description", TempSalesTaxAmtLine."Tax %");
                                             end;
-                                            BreakdownAmt[BrkIdx]:=BreakdownAmt[BrkIdx] + TempSalesTaxAmtLine."Tax Amount";
-                                            TaxAmount:=TaxAmount + TempSalesTaxAmtLine."Tax Amount";
+                                            BreakdownAmt[BrkIdx] := BreakdownAmt[BrkIdx] + TempSalesTaxAmtLine."Tax Amount";
+                                            TaxAmount := TaxAmount + TempSalesTaxAmtLine."Tax Amount";
                                         until TempSalesTaxAmtLine.Next = 0;
                                     if BrkIdx = 1 then begin
                                         Clear(BreakdownLabel);
@@ -404,14 +412,15 @@ report 60024 "Purchase Order Ext"
                             ReserEntry.SetRange("Item No.", "No.");
                             ReserEntry.SetFilter("Serial No.", '<>%1', '');
                             if ReserEntry.FindSet then;
-                        //IMP1.01 End
+                            //IMP1.01 End
                         end;
+
                         trigger OnPreDataItem();
                         begin
                             Clear(AmountExclInvDisc);
-                            NumberOfLines:=Count;
-                            OnLineNumber:=0;
-                            PrintFooter:=false;
+                            NumberOfLines := Count;
+                            OnLineNumber := 0;
+                            PrintFooter := false;
                         end;
                     }
                 }
@@ -422,48 +431,56 @@ report 60024 "Purchase Order Ext"
                         if not CurrReport.Preview then PurchasePrinted.Run("Purchase Header");
                         CurrReport.Break;
                     end;
-                    CopyNo:=CopyNo + 1;
+                    CopyNo := CopyNo + 1;
                     if CopyNo = 1 then // Original
- Clear(CopyTxt)
+                        Clear(CopyTxt)
                     else
-                        CopyTxt:=Text000;
-                    TaxAmount:=0;
+                        CopyTxt := Text000;
+                    TaxAmount := 0;
                     Clear(BreakdownTitle);
                     Clear(BreakdownLabel);
                     Clear(BreakdownAmt);
-                    TotalTaxLabel:=Text008;
+                    TotalTaxLabel := Text008;
                     if "Purchase Header"."Tax Area Code" <> '' then begin
                         TaxArea.Get("Purchase Header"."Tax Area Code");
-                        case TaxArea."Country/Region" of TaxArea."Country/Region"::US: TotalTaxLabel:=Text005;
-                        TaxArea."Country/Region"::CA: TotalTaxLabel:=Text007;
+                        case TaxArea."Country/Region" of
+                            TaxArea."Country/Region"::US:
+                                TotalTaxLabel := Text005;
+                            TaxArea."Country/Region"::CA:
+                                TotalTaxLabel := Text007;
                         end;
-                        UseExternalTaxEngine:=TaxArea."Use External Tax Engine";
+                        UseExternalTaxEngine := TaxArea."Use External Tax Engine";
                         SalesTaxCalc.StartSalesTaxCalculation;
                     end;
                 end;
+
                 trigger OnPreDataItem();
                 begin
-                    NoLoops:=1 + Abs(NoCopies);
-                    if NoLoops <= 0 then NoLoops:=1;
-                    CopyNo:=0;
+                    NoLoops := 1 + Abs(NoCopies);
+                    if NoLoops <= 0 then NoLoops := 1;
+                    CopyNo := 0;
                 end;
             }
             trigger OnAfterGetRecord();
             begin
-                if PrintCompany then if RespCenter.Get("Responsibility Center")then begin
+                if PrintCompany then
+                    if RespCenter.Get("Responsibility Center") then begin
                         FormatAddress.RespCenter(CompanyAddress, RespCenter);
-                        CompanyInformation."Phone No.":=RespCenter."Phone No.";
-                        CompanyInformation."Fax No.":=RespCenter."Fax No.";
+                        CompanyInformation."Phone No." := RespCenter."Phone No.";
+                        CompanyInformation."Fax No." := RespCenter."Fax No.";
                     end;
                 //CurrReport.Language := Language.GetLanguageID("Language Code");
-                CurrReport.Language:=Language.GetLanguageIdOrDefault("Language Code");
-                if "Purchaser Code" = '' then Clear(SalesPurchPerson)
+                CurrReport.Language := Language.GetLanguageIdOrDefault("Language Code");
+                if "Purchaser Code" = '' then
+                    Clear(SalesPurchPerson)
                 else
                     SalesPurchPerson.Get("Purchaser Code");
-                if "Payment Terms Code" = '' then Clear(PaymentTerms)
+                if "Payment Terms Code" = '' then
+                    Clear(PaymentTerms)
                 else
                     PaymentTerms.Get("Payment Terms Code");
-                if "Shipment Method Code" = '' then Clear(ShipmentMethod)
+                if "Shipment Method Code" = '' then
+                    Clear(ShipmentMethod)
                 else
                     ShipmentMethod.Get("Shipment Method Code");
                 FormatAddress.PurchHeaderBuyFrom(BuyFromAddress, "Purchase Header");
@@ -475,9 +492,10 @@ report 60024 "Purchase Order Ext"
                         SegManagement.LogDocument(13, "No.", "Doc. No. Occurrence", "No. of Archived Versions", DATABASE::Vendor, "Buy-from Vendor No.", "Purchaser Code", '', "Posting Description", '');
                     end;
                 end;
-                if "Posting Date" <> 0D then UseDate:="Posting Date"
+                if "Posting Date" <> 0D then
+                    UseDate := "Posting Date"
                 else
-                    UseDate:=WorkDate;
+                    UseDate := WorkDate;
                 // ISSx.xx 03.05.14 DRR - Added to get the Shipping Agent ========================\
                 Clear(ShippingInfo);
                 Clear(ShippingAccount);
@@ -486,17 +504,18 @@ report 60024 "Purchase Order Ext"
                 ShippingAccount.SetRange("Ship-to Code", "Ship-to Code");
                 ShippingAccount.SetRange("Shipping Agent Code", "Shipping Agent Code");
                 if ShippingAccount.FindFirst then begin
-                    ShippingInfo:=ShippingAccount."Account No." + ' ' + ShippingAccount.Description;
+                    ShippingInfo := ShippingAccount."Account No." + ' ' + ShippingAccount.Description;
                 end
-                else
-                begin
-                    ShippingInfo:="Shipping Agent Code";
+                else begin
+                    ShippingInfo := "Shipping Agent Code";
                 end;
-            // END ===========================================================================/
+                // END ===========================================================================/
             end;
+
             trigger OnPreDataItem();
             begin
-                if PrintCompany then FormatAddress.Company(CompanyAddress, CompanyInformation)
+                if PrintCompany then
+                    FormatAddress.Company(CompanyAddress, CompanyInformation)
                 else
                     Clear(CompanyAddress);
                 //ISS1.00 10.29.13 DRR - Added to show/hide logo
@@ -537,7 +556,7 @@ report 60024 "Purchase Order Ext"
 
                         trigger OnValidate();
                         begin
-                            if not ArchiveDocument then LogInteraction:=false;
+                            if not ArchiveDocument then LogInteraction := false;
                         end;
                     }
                     field(LogInteraction; LogInteraction)
@@ -549,7 +568,7 @@ report 60024 "Purchase Order Ext"
 
                         trigger OnValidate();
                         begin
-                            if LogInteraction then ArchiveDocument:=ArchiveDocumentEnable;
+                            if LogInteraction then ArchiveDocument := ArchiveDocumentEnable;
                         end;
                     }
                     field(PrintLogo; PrintLogo)
@@ -565,15 +584,17 @@ report 60024 "Purchase Order Ext"
         }
         trigger OnInit();
         begin
-            LogInteractionEnable:=true;
-            ArchiveDocumentEnable:=true;
+            LogInteractionEnable := true;
+            ArchiveDocumentEnable := true;
         end;
+
         trigger OnOpenPage();
         begin
-            ArchiveDocument:=ArchiveManagement.PurchaseDocArchiveGranule;
-            LogInteraction:=SegManagement.FindInteractTmplCode(13) <> '';
-            ArchiveDocumentEnable:=ArchiveDocument;
-            LogInteractionEnable:=LogInteraction;
+            ArchiveDocument := ArchiveManagement.PurchaseDocArchiveGranule;
+            //LogInteraction:=SegManagement.FindInteractTmplCode(13) <> '';
+            LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Purch. Ord.") <> '';
+            ArchiveDocumentEnable := ArchiveDocument;
+            LogInteractionEnable := LogInteraction;
         end;
     }
     labels
@@ -583,105 +604,109 @@ report 60024 "Purchase Order Ext"
     begin
         CompanyInformation.Get('');
     end;
-    var UnitPriceToPrint: Decimal;
-    AmountExclInvDisc: Decimal;
-    ShipmentMethod: Record "Shipment Method";
-    PaymentTerms: Record "Payment Terms";
-    SalesPurchPerson: Record "Salesperson/Purchaser";
-    CompanyInformation: Record "Company Information";
-    RespCenter: Record "Responsibility Center";
-    Language: Codeunit Language;
-    TempSalesTaxAmtLine: Record "Sales Tax Amount Line" temporary;
-    TaxArea: Record "Tax Area";
-    Vend: Record Vendor;
-    CompanyAddress: array[8]of Text[100];
-    BuyFromAddress: array[8]of Text[100];
-    ShipToAddress: array[8]of Text[100];
-    CopyTxt: Text[10];
-    ItemNumberToPrint: Text[20];
-    PrintCompany: Boolean;
-    PrintLogo: Boolean;
-    PrintFooter: Boolean;
-    NoCopies: Integer;
-    NoLoops: Integer;
-    CopyNo: Integer;
-    NumberOfLines: Integer;
-    OnLineNumber: Integer;
-    PurchasePrinted: Codeunit "Purch.Header-Printed";
-    FormatAddress: Codeunit "Format Address";
-    SalesTaxCalc: Codeunit "Sales Tax Calculate";
-    ArchiveManagement: Codeunit ArchiveManagement;
-    SegManagement: Codeunit SegManagement;
-    ArchiveDocument: Boolean;
-    LogInteraction: Boolean;
-    TaxAmount: Decimal;
-    TotalTaxLabel: Text[30];
-    BreakdownTitle: Text[30];
-    BreakdownLabel: array[4]of Text[30];
-    BreakdownAmt: array[4]of Decimal;
-    BrkIdx: Integer;
-    PrevPrintOrder: Integer;
-    PrevTaxPercent: Decimal;
-    UseDate: Date;
-    Text000: TextConst ENU = 'COPY', ESM = 'COPIA', FRC = 'COPIER', ENC = 'COPY';
-    Text003: TextConst ENU = 'Sales Tax Breakdown:', ESM = 'Análisis impto. vtas.:', FRC = 'Ventilation taxe de vente :', ENC = 'Sales Tax Breakdown:';
-    Text004: TextConst ENU = 'Other Taxes', ESM = 'Otros impuestos', FRC = 'Autres taxes', ENC = 'Other Taxes';
-    Text005: TextConst ENU = 'Total Sales Tax:', ESM = 'Total impto. vtas.:', FRC = 'Taxes de vente totales:', ENC = 'Total Sales Tax:';
-    Text006: TextConst ENU = 'Tax Breakdown:', ESM = 'Desglose imptos.:', FRC = 'Ventilation fiscale :', ENC = 'Tax Breakdown:';
-    Text007: TextConst ENU = 'Total Tax:', ESM = 'Total impto.:', FRC = 'Taxe totale :', ENC = 'Total Tax:';
-    Text008: TextConst ENU = 'Tax:', ESM = 'Impto.:', FRC = 'Taxe :', ENC = 'Tax:';
-    UseExternalTaxEngine: Boolean;
-    [InDataSet]
-    ArchiveDocumentEnable: Boolean;
-    [InDataSet]
-    LogInteractionEnable: Boolean;
-    ToCaptionLbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
-    ReceiveByCaptionLbl: TextConst ENU = 'Receive By', ESM = 'Recibir por', FRC = 'Recevoir par', ENC = 'Receive By';
-    VendorIDCaptionLbl: TextConst ENU = 'Vendor ID', ESM = 'Id. proveedor', FRC = 'Code de fournisseur', ENC = 'Vendor ID';
-    ConfirmToCaptionLbl: TextConst ENU = 'Confirm To', ESM = 'Confirmar a', FRC = 'Confirmer à', ENC = 'Confirm To';
-    BuyerCaptionLbl: TextConst ENU = 'Buyer', ESM = 'Comprador', FRC = 'Acheteur', ENC = 'Buyer';
-    ShipCaptionLbl: TextConst ENU = 'Ship To:', ESM = 'Enviar', FRC = 'Livrer', ENC = 'Ship';
-    ToCaption1Lbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
-    PurchOrderCaptionLbl: TextConst ENU = 'PURCHASE ORDER', ESM = 'PEDIDO COMPRA', FRC = 'BON DE COMMANDE', ENC = 'PURCHASE ORDER';
-    PurchOrderNumCaptionLbl: TextConst ENU = 'Purchase Order Number:', ESM = 'Número pedido compra:', FRC = 'Numéro de bon de commande :', ENC = 'Purchase Order Number:';
-    PurchOrderDateCaptionLbl: TextConst ENU = 'Purchase Order Date:', ESM = 'Fecha pedido compra:', FRC = 'Date du bon de commande :', ENC = 'Purchase Order Date:';
-    PageCaptionLbl: TextConst ENU = 'Page:', ESM = 'Pág.:', FRC = 'Page :', ENC = 'Page:';
-    ShipViaCaptionLbl: TextConst ENU = 'Ship Via', ESM = 'Envío a través de', FRC = 'Livrer par', ENC = 'Ship Via';
-    TermsCaptionLbl: TextConst ENU = 'Terms', ESM = 'Términos', FRC = 'Modalités', ENC = 'Terms';
-    PhoneNoCaptionLbl: TextConst ENU = 'Phone No.', ESM = 'Nº teléfono', FRC = 'N° téléphone', ENC = 'Phone No.';
-    TaxIdentTypeCaptionLbl: TextConst ENU = 'Tax Ident. Type', ESM = 'Tipo de identificación fiscal', FRC = 'Type ident. taxe', ENC = 'Tax Ident. Type';
-    ItemNoCaptionLbl: TextConst ENU = 'Item No.', ESM = 'Nº producto', FRC = 'N° d''article', ENC = 'Item No.';
-    UnitCaptionLbl: TextConst ENU = 'Unit', ESM = 'Unidad', FRC = 'Unité', ENC = 'Unit';
-    DescriptionCaptionLbl: TextConst ENU = 'Description', ESM = 'Descripción', FRC = 'Description', ENC = 'Description';
-    QuantityCaptionLbl: TextConst ENU = 'Quantity', ESM = 'Cantidad', FRC = 'Quantité', ENC = 'Quantity';
-    UnitPriceCaptionLbl: TextConst ENU = 'Unit Price', ESM = 'Precio unitario', FRC = 'Prix unitaire', ENC = 'Unit Price';
-    TotalPriceCaptionLbl: TextConst ENU = 'Total Price', ESM = 'Precio total', FRC = 'Prix total', ENC = 'Total Price';
-    SubtotalCaptionLbl: TextConst ENU = 'Subtotal:', ESM = 'Subtotal:', FRC = 'Sous-total :', ENC = 'Subtotal:';
-    InvDiscCaptionLbl: TextConst ENU = 'Invoice Discount:', ESM = 'Descuento factura:', FRC = 'Escompte de la facture :', ENC = 'Invoice Discount:';
-    TotalCaptionLbl: TextConst ENU = 'Total:', ESM = 'Total:', FRC = 'Total :', ENC = 'Total:';
-    VendorOrderNoLbl: TextConst ENU = 'Vendor Order No.', ESM = 'Nº. de pedido de proveedor', FRC = 'N° commande fournisseur', ENC = 'Vendor Order No.';
-    VendorInvoiceNoLbl: TextConst ENU = 'Vendor Invoice No.', ESM = 'Nº. de factura de proveedor', FRC = 'N° facture fournisseur', ENC = 'Vendor Invoice No.';
-    ConfirmTEXT: Label 'Please confirm price and availability within 24 hours';
-    YourReferenceLbl: Label 'Customer PO No:';
-    ThirdPartyShipLbl: Label 'Shipping Instructions';
-    ShippingAgent: Record "Shipping Agent";
-    ShippingInfo: Text[250];
-    ShippingAccount: Record "Shipping Account";
-    "-IMP1.01-": Integer;
-    TrackingSpecification: Record "Tracking Specification";
-    ReserEntry: Record "Reservation Entry";
-    SubTotal: Decimal;
-    InvDisc: Decimal;
-    GrandTotal: Decimal;
+
+    var
+        UnitPriceToPrint: Decimal;
+        AmountExclInvDisc: Decimal;
+        ShipmentMethod: Record "Shipment Method";
+        PaymentTerms: Record "Payment Terms";
+        SalesPurchPerson: Record "Salesperson/Purchaser";
+        CompanyInformation: Record "Company Information";
+        RespCenter: Record "Responsibility Center";
+        Language: Codeunit Language;
+        TempSalesTaxAmtLine: Record "Sales Tax Amount Line" temporary;
+        TaxArea: Record "Tax Area";
+        Vend: Record Vendor;
+        CompanyAddress: array[8] of Text[100];
+        BuyFromAddress: array[8] of Text[100];
+        ShipToAddress: array[8] of Text[100];
+        CopyTxt: Text[10];
+        ItemNumberToPrint: Text[20];
+        PrintCompany: Boolean;
+        PrintLogo: Boolean;
+        PrintFooter: Boolean;
+        NoCopies: Integer;
+        NoLoops: Integer;
+        CopyNo: Integer;
+        NumberOfLines: Integer;
+        OnLineNumber: Integer;
+        PurchasePrinted: Codeunit "Purch.Header-Printed";
+        FormatAddress: Codeunit "Format Address";
+        SalesTaxCalc: Codeunit "Sales Tax Calculate";
+        ArchiveManagement: Codeunit ArchiveManagement;
+        SegManagement: Codeunit SegManagement;
+        ArchiveDocument: Boolean;
+        LogInteraction: Boolean;
+        TaxAmount: Decimal;
+        TotalTaxLabel: Text[30];
+        BreakdownTitle: Text[30];
+        BreakdownLabel: array[4] of Text[30];
+        BreakdownAmt: array[4] of Decimal;
+        BrkIdx: Integer;
+        PrevPrintOrder: Integer;
+        PrevTaxPercent: Decimal;
+        UseDate: Date;
+        Text000: TextConst ENU = 'COPY', ESM = 'COPIA', FRC = 'COPIER', ENC = 'COPY';
+        Text003: TextConst ENU = 'Sales Tax Breakdown:', ESM = 'Análisis impto. vtas.:', FRC = 'Ventilation taxe de vente :', ENC = 'Sales Tax Breakdown:';
+        Text004: TextConst ENU = 'Other Taxes', ESM = 'Otros impuestos', FRC = 'Autres taxes', ENC = 'Other Taxes';
+        Text005: TextConst ENU = 'Total Sales Tax:', ESM = 'Total impto. vtas.:', FRC = 'Taxes de vente totales:', ENC = 'Total Sales Tax:';
+        Text006: TextConst ENU = 'Tax Breakdown:', ESM = 'Desglose imptos.:', FRC = 'Ventilation fiscale :', ENC = 'Tax Breakdown:';
+        Text007: TextConst ENU = 'Total Tax:', ESM = 'Total impto.:', FRC = 'Taxe totale :', ENC = 'Total Tax:';
+        Text008: TextConst ENU = 'Tax:', ESM = 'Impto.:', FRC = 'Taxe :', ENC = 'Tax:';
+        UseExternalTaxEngine: Boolean;
+        [InDataSet]
+        ArchiveDocumentEnable: Boolean;
+        [InDataSet]
+        LogInteractionEnable: Boolean;
+        ToCaptionLbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
+        ReceiveByCaptionLbl: TextConst ENU = 'Receive By', ESM = 'Recibir por', FRC = 'Recevoir par', ENC = 'Receive By';
+        VendorIDCaptionLbl: TextConst ENU = 'Vendor ID', ESM = 'Id. proveedor', FRC = 'Code de fournisseur', ENC = 'Vendor ID';
+        ConfirmToCaptionLbl: TextConst ENU = 'Confirm To', ESM = 'Confirmar a', FRC = 'Confirmer à', ENC = 'Confirm To';
+        BuyerCaptionLbl: TextConst ENU = 'Buyer', ESM = 'Comprador', FRC = 'Acheteur', ENC = 'Buyer';
+        ShipCaptionLbl: TextConst ENU = 'Ship To:', ESM = 'Enviar', FRC = 'Livrer', ENC = 'Ship';
+        ToCaption1Lbl: TextConst ENU = 'To:', ESM = 'Para:', FRC = '‡ :', ENC = 'To:';
+        PurchOrderCaptionLbl: TextConst ENU = 'PURCHASE ORDER', ESM = 'PEDIDO COMPRA', FRC = 'BON DE COMMANDE', ENC = 'PURCHASE ORDER';
+        PurchOrderNumCaptionLbl: TextConst ENU = 'Purchase Order Number:', ESM = 'Número pedido compra:', FRC = 'Numéro de bon de commande :', ENC = 'Purchase Order Number:';
+        PurchOrderDateCaptionLbl: TextConst ENU = 'Purchase Order Date:', ESM = 'Fecha pedido compra:', FRC = 'Date du bon de commande :', ENC = 'Purchase Order Date:';
+        PageCaptionLbl: TextConst ENU = 'Page:', ESM = 'Pág.:', FRC = 'Page :', ENC = 'Page:';
+        ShipViaCaptionLbl: TextConst ENU = 'Ship Via', ESM = 'Envío a través de', FRC = 'Livrer par', ENC = 'Ship Via';
+        TermsCaptionLbl: TextConst ENU = 'Terms', ESM = 'Términos', FRC = 'Modalités', ENC = 'Terms';
+        PhoneNoCaptionLbl: TextConst ENU = 'Phone No.', ESM = 'Nº teléfono', FRC = 'N° téléphone', ENC = 'Phone No.';
+        TaxIdentTypeCaptionLbl: TextConst ENU = 'Tax Ident. Type', ESM = 'Tipo de identificación fiscal', FRC = 'Type ident. taxe', ENC = 'Tax Ident. Type';
+        ItemNoCaptionLbl: TextConst ENU = 'Item No.', ESM = 'Nº producto', FRC = 'N° d''article', ENC = 'Item No.';
+        UnitCaptionLbl: TextConst ENU = 'Unit', ESM = 'Unidad', FRC = 'Unité', ENC = 'Unit';
+        DescriptionCaptionLbl: TextConst ENU = 'Description', ESM = 'Descripción', FRC = 'Description', ENC = 'Description';
+        QuantityCaptionLbl: TextConst ENU = 'Quantity', ESM = 'Cantidad', FRC = 'Quantité', ENC = 'Quantity';
+        UnitPriceCaptionLbl: TextConst ENU = 'Unit Price', ESM = 'Precio unitario', FRC = 'Prix unitaire', ENC = 'Unit Price';
+        TotalPriceCaptionLbl: TextConst ENU = 'Total Price', ESM = 'Precio total', FRC = 'Prix total', ENC = 'Total Price';
+        SubtotalCaptionLbl: TextConst ENU = 'Subtotal:', ESM = 'Subtotal:', FRC = 'Sous-total :', ENC = 'Subtotal:';
+        InvDiscCaptionLbl: TextConst ENU = 'Invoice Discount:', ESM = 'Descuento factura:', FRC = 'Escompte de la facture :', ENC = 'Invoice Discount:';
+        TotalCaptionLbl: TextConst ENU = 'Total:', ESM = 'Total:', FRC = 'Total :', ENC = 'Total:';
+        VendorOrderNoLbl: TextConst ENU = 'Vendor Order No.', ESM = 'Nº. de pedido de proveedor', FRC = 'N° commande fournisseur', ENC = 'Vendor Order No.';
+        VendorInvoiceNoLbl: TextConst ENU = 'Vendor Invoice No.', ESM = 'Nº. de factura de proveedor', FRC = 'N° facture fournisseur', ENC = 'Vendor Invoice No.';
+        ConfirmTEXT: Label 'Please confirm price and availability within 24 hours';
+        YourReferenceLbl: Label 'Customer PO No:';
+        ThirdPartyShipLbl: Label 'Shipping Instructions';
+        ShippingAgent: Record "Shipping Agent";
+        ShippingInfo: Text[250];
+        ShippingAccount: Record "Shipping Account";
+        "-IMP1.01-": Integer;
+        TrackingSpecification: Record "Tracking Specification";
+        ReserEntry: Record "Reservation Entry";
+        SubTotal: Decimal;
+        InvDisc: Decimal;
+        GrandTotal: Decimal;
+
     procedure GetItemVendor(VendorNo: Code[20]; ItemNo: Code[20]): Text[20];
     var
         ItemVendor: Record "Item Vendor";
     begin
         // ISS2.00 12.12.13 DFP ========================================================================\
         // This function will return the Vendor Item No if possible, or Item No if not
-        if ItemVendor.Get(ItemNo, VendorNo)then exit(ItemVendor."Vendor Item No.")
+        if ItemVendor.Get(ItemNo, VendorNo) then
+            exit(ItemVendor."Vendor Item No.")
         else
             exit(ItemNo);
-    // End =========================================================================================/
+        // End =========================================================================================/
     end;
 }

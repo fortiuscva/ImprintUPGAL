@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="TodayFormatted">
+          <DataField>TodayFormatted</DataField>
+        </Field>
+        <Field Name="Time">
+          <DataField>Time</DataField>
+        </Field>
+        <Field Name="CompanyInfoName">
+          <DataField>CompanyInfoName</DataField>
+        </Field>
+        <Field Name="DocType_CustLedgEntry">
+          <DataField>DocType_CustLedgEntry</DataField>
+        </Field>
+        <Field Name="CustLedgerEntryFilterString">
+          <DataField>CustLedgerEntryFilterString</DataField>
+        </Field>
+        <Field Name="FilterString">
+          <DataField>FilterString</DataField>
+        </Field>
+        <Field Name="GetTotalApplied">
+          <DataField>GetTotalApplied</DataField>
+        </Field>
+        <Field Name="GetTotalAppliedFormat">
+          <DataField>GetTotalAppliedFormat</DataField>
+        </Field>
+        <Field Name="GetTotalDiscounts">
+          <DataField>GetTotalDiscounts</DataField>
+        </Field>
+        <Field Name="GetTotalDiscountsFormat">
+          <DataField>GetTotalDiscountsFormat</DataField>
+        </Field>
+        <Field Name="TotalApplied">
+          <DataField>TotalApplied</DataField>
+        </Field>
+        <Field Name="TotalAppliedFormat">
+          <DataField>TotalAppliedFormat</DataField>
+        </Field>
+        <Field Name="CustNo_CustLedgerEntry">
+          <DataField>CustNo_CustLedgerEntry</DataField>
+        </Field>
+        <Field Name="CustomerName">
+          <DataField>CustomerName</DataField>
+        </Field>
+        <Field Name="DocNo_CustLedgEntry">
+          <DataField>DocNo_CustLedgEntry</DataField>
+        </Field>
+        <Field Name="PostingDate_CustLedgEntry">
+          <DataField>PostingDate_CustLedgEntry</DataField>
+        </Field>
+        <Field Name="NegativeAmountLCY_CustLedgEntry">
+          <DataField>NegativeAmountLCY_CustLedgEntry</DataField>
+        </Field>
+        <Field Name="NegativeAmountLCY_CustLedgEntryFormat">
+          <DataField>NegativeAmountLCY_CustLedgEntryFormat</DataField>
+        </Field>
+        <Field Name="NegativeAmtLCY_CustLedgEntry">
+          <DataField>NegativeAmtLCY_CustLedgEntry</DataField>
+        </Field>
+        <Field Name="NegativeAmtLCY_CustLedgEntryFormat">
+          <DataField>NegativeAmtLCY_CustLedgEntryFormat</DataField>
+        </Field>
+        <Field Name="TotalDiscounts">
+          <DataField>TotalDiscounts</DataField>
+        </Field>
+        <Field Name="TotalDiscountsFormat">
+          <DataField>TotalDiscountsFormat</DataField>
+        </Field>
+        <Field Name="TotalApplied_CustLedgEntry">
+          <DataField>TotalApplied_CustLedgEntry</DataField>
+        </Field>
+        <Field Name="TotalApplied_CustLedgEntryFormat">
+          <DataField>TotalApplied_CustLedgEntryFormat</DataField>
+        </Field>
+        <Field Name="TotalAmountt">
+          <DataField>TotalAmountt</DataField>
+        </Field>
+        <Field Name="TotalAmounttFormat">
+          <DataField>TotalAmounttFormat</DataField>
+        </Field>
+        <Field Name="EntryNo_CustLedgEntry">
+          <DataField>EntryNo_CustLedgEntry</DataField>
+        </Field>
+        <Field Name="CashRecptAppliedCaption">
+          <DataField>CashRecptAppliedCaption</DataField>
+        </Field>
+        <Field Name="PageNoCaption">
+          <DataField>PageNoCaption</DataField>
+        </Field>
+        <Field Name="PaymentCaption">
+          <DataField>PaymentCaption</DataField>
+        </Field>
+        <Field Name="AppliedToDocCaption">
+          <DataField>AppliedToDocCaption</DataField>
+        </Field>
+        <Field Name="DiscountDateCaption">
+          <DataField>DiscountDateCaption</DataField>
+        </Field>
+        <Field Name="DiscountTakenCaption">
+          <DataField>DiscountTakenCaption</DataField>
+        </Field>
+        <Field Name="AmountAppliedCaption">
+          <DataField>AmountAppliedCaption</DataField>
+        </Field>
+        <Field Name="AmtNotYetAppliedCaption">
+          <DataField>AmtNotYetAppliedCaption</DataField>
+        </Field>
+        <Field Name="NumberCaption">
+          <DataField>NumberCaption</DataField>
+        </Field>
+        <Field Name="PostDateCaption_CustLedgEntry">
+          <DataField>PostDateCaption_CustLedgEntry</DataField>
+        </Field>
+        <Field Name="TypeCaption">
+          <DataField>TypeCaption</DataField>
+        </Field>
+        <Field Name="DueDateCaption">
+          <DataField>DueDateCaption</DataField>
+        </Field>
+        <Field Name="AmountLCYCaption">
+          <DataField>AmountLCYCaption</DataField>
+        </Field>
+        <Field Name="CustomerCaption">
+          <DataField>CustomerCaption</DataField>
+        </Field>
+        <Field Name="ReportTotalsCaption">
+          <DataField>ReportTotalsCaption</DataField>
+        </Field>
+        <Field Name="TempAppliedCustLedgEntryDocType">
+          <DataField>TempAppliedCustLedgEntryDocType</DataField>
+        </Field>
+        <Field Name="TempAppliedCustLedgEntryDocNo">
+          <DataField>TempAppliedCustLedgEntryDocNo</DataField>
+        </Field>
+        <Field Name="TempAppliedCustLedgEntryDueDate">
+          <DataField>TempAppliedCustLedgEntryDueDate</DataField>
+        </Field>
+        <Field Name="TempAppliedCustLedgEntryPmtDisDate">
+          <DataField>TempAppliedCustLedgEntryPmtDisDate</DataField>
+        </Field>
+        <Field Name="TempAppliedCustLedgEntryPmtDiscGivenLCY">
+          <DataField>TempAppliedCustLedgEntryPmtDiscGivenLCY</DataField>
+        </Field>
+        <Field Name="TempAppliedCustLedgEntryPmtDiscGivenLCYFormat">
+          <DataField>TempAppliedCustLedgEntryPmtDiscGivenLCYFormat</DataField>
+        </Field>
+        <Field Name="TempAppliedCustLedgEntryAmttoApply">
+          <DataField>TempAppliedCustLedgEntryAmttoApply</DataField>
+        </Field>
+        <Field Name="TempAppliedCustLedgEntryAmttoApplyFormat">
+          <DataField>TempAppliedCustLedgEntryAmttoApplyFormat</DataField>
+        </Field>
+        <Field Name="CustLedgerEntryAmtLCYTotalApplied">
+          <DataField>CustLedgerEntryAmtLCYTotalApplied</DataField>
+        </Field>
+        <Field Name="CustLedgerEntryAmtLCYTotalAppliedFormat">
+          <DataField>CustLedgerEntryAmtLCYTotalAppliedFormat</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

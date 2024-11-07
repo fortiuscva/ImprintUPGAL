@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
+    </DataSource>
+  </DataSources>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="TopX">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>TopX</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TopX</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Customers">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Customers</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Customers</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Name_CustomerCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Name_CustomerCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Name_CustomerCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SalesLCY_CustomerCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>SalesLCY_CustomerCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>SalesLCY_CustomerCaption</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ProfitLCY_CustomerCaption">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>ProfitLCY_CustomerCaption</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ProfitLCY_CustomerCaption</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Code>Public Function BlankZero(ByVal Value As Decimal)
+    if Value = 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankPos(ByVal Value As Decimal)
+    if Value &gt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankZeroAndPos(ByVal Value As Decimal)
+    if Value &gt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNeg(ByVal Value As Decimal)
+    if Value &lt; 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+
+Public Function BlankNegAndZero(ByVal Value As Decimal)
+    if Value &lt;= 0 then
+        Return ""
+    end if
+    Return Value
+End Function
+</Code>
+  <Language>=User!Language</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>0eeb6585-38ae-40f1-885b-8d50088d51b4</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSet_Result">
+      <Fields>
+        <Field Name="SPCode">
+          <DataField>SPCode</DataField>
+        </Field>
+        <Field Name="SPName">
+          <DataField>SPName</DataField>
+        </Field>
+        <Field Name="TopXCustomer">
+          <DataField>TopXCustomer</DataField>
+        </Field>
+        <Field Name="No_Customer">
+          <DataField>No_Customer</DataField>
+        </Field>
+        <Field Name="Name_Customer">
+          <DataField>Name_Customer</DataField>
+        </Field>
+        <Field Name="SalesLCY_Customer">
+          <DataField>SalesLCY_Customer</DataField>
+        </Field>
+        <Field Name="SalesLCY_CustomerFormat">
+          <DataField>SalesLCY_CustomerFormat</DataField>
+        </Field>
+        <Field Name="ProfitLCY_Customer">
+          <DataField>ProfitLCY_Customer</DataField>
+        </Field>
+        <Field Name="ProfitLCY_CustomerFormat">
+          <DataField>ProfitLCY_CustomerFormat</DataField>
+        </Field>
+        <Field Name="StatProfitExpected_Customer">
+          <DataField>StatProfitExpected_Customer</DataField>
+        </Field>
+        <Field Name="StatProfitExpected_CustomerFormat">
+          <DataField>StatProfitExpected_CustomerFormat</DataField>
+        </Field>
+        <Field Name="StatSalesExpected_Customer">
+          <DataField>StatSalesExpected_Customer</DataField>
+        </Field>
+        <Field Name="StatSalesExpected_CustomerFormat">
+          <DataField>StatSalesExpected_CustomerFormat</DataField>
+        </Field>
+        <Field Name="StatProfitPosted_Customer">
+          <DataField>StatProfitPosted_Customer</DataField>
+        </Field>
+        <Field Name="StatProfitPosted_CustomerFormat">
+          <DataField>StatProfitPosted_CustomerFormat</DataField>
+        </Field>
+        <Field Name="StatSalesPosted_Customer">
+          <DataField>StatSalesPosted_Customer</DataField>
+        </Field>
+        <Field Name="StatSalesPosted_CustomerFormat">
+          <DataField>StatSalesPosted_CustomerFormat</DataField>
+        </Field>
+        <Field Name="DocumentType_StatEntryPosted">
+          <DataField>DocumentType_StatEntryPosted</DataField>
+        </Field>
+        <Field Name="DocumentNo_StatEntryPosted">
+          <DataField>DocumentNo_StatEntryPosted</DataField>
+        </Field>
+        <Field Name="PostingDate_StatEntryPosted">
+          <DataField>PostingDate_StatEntryPosted</DataField>
+        </Field>
+        <Field Name="SelltoCustomerNo_StatEntryPosted">
+          <DataField>SelltoCustomerNo_StatEntryPosted</DataField>
+        </Field>
+        <Field Name="SalespersonCode_StatEntryPosted">
+          <DataField>SalespersonCode_StatEntryPosted</DataField>
+        </Field>
+        <Field Name="SalesAmount_StatEntryPosted">
+          <DataField>SalesAmount_StatEntryPosted</DataField>
+        </Field>
+        <Field Name="SalesAmount_StatEntryPostedFormat">
+          <DataField>SalesAmount_StatEntryPostedFormat</DataField>
+        </Field>
+        <Field Name="CostAmount_StatEntryPosted">
+          <DataField>CostAmount_StatEntryPosted</DataField>
+        </Field>
+        <Field Name="CostAmount_StatEntryPostedFormat">
+          <DataField>CostAmount_StatEntryPostedFormat</DataField>
+        </Field>
+        <Field Name="ProfitAmount_StatEntryPosted">
+          <DataField>ProfitAmount_StatEntryPosted</DataField>
+        </Field>
+        <Field Name="ProfitAmount_StatEntryPostedFormat">
+          <DataField>ProfitAmount_StatEntryPostedFormat</DataField>
+        </Field>
+        <Field Name="ItemCategory_StatEntryPosted">
+          <DataField>ItemCategory_StatEntryPosted</DataField>
+        </Field>
+        <Field Name="MonthName">
+          <DataField>MonthName</DataField>
+        </Field>
+        <Field Name="YearName">
+          <DataField>YearName</DataField>
+        </Field>
+        <Field Name="QuarterName">
+          <DataField>QuarterName</DataField>
+        </Field>
+        <Field Name="DocumentType_SalesStatEntryExpected">
+          <DataField>DocumentType_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="DocumentNo_SalesStatEntryExpected">
+          <DataField>DocumentNo_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="PostingDate_SalesStatEntryExpected">
+          <DataField>PostingDate_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="SelltoCustomerNo_SalesStatEntryExpected">
+          <DataField>SelltoCustomerNo_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="SalespersonCode_SalesStatEntryExpected">
+          <DataField>SalespersonCode_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="SalesAmount_SalesStatEntryExpected">
+          <DataField>SalesAmount_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="SalesAmount_SalesStatEntryExpectedFormat">
+          <DataField>SalesAmount_SalesStatEntryExpectedFormat</DataField>
+        </Field>
+        <Field Name="CostAmount_SalesStatEntryExpected">
+          <DataField>CostAmount_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="CostAmount_SalesStatEntryExpectedFormat">
+          <DataField>CostAmount_SalesStatEntryExpectedFormat</DataField>
+        </Field>
+        <Field Name="ProfitAmount_SalesStatEntryExpected">
+          <DataField>ProfitAmount_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="ProfitAmount_SalesStatEntryExpectedFormat">
+          <DataField>ProfitAmount_SalesStatEntryExpectedFormat</DataField>
+        </Field>
+        <Field Name="ItemCategory_SalesStatEntryExpected">
+          <DataField>ItemCategory_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="MonthName_SalesStatEntryExpected">
+          <DataField>MonthName_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="YearName_SalesStatEntryExpected">
+          <DataField>YearName_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="QuarterName_SalesStatEntryExpected">
+          <DataField>QuarterName_SalesStatEntryExpected</DataField>
+        </Field>
+        <Field Name="DocumentType_StatEntryItemCategory">
+          <DataField>DocumentType_StatEntryItemCategory</DataField>
+        </Field>
+        <Field Name="DocumentNo_StatEntryItemCategory">
+          <DataField>DocumentNo_StatEntryItemCategory</DataField>
+        </Field>
+        <Field Name="PostingDate_StatEntryItemCategory">
+          <DataField>PostingDate_StatEntryItemCategory</DataField>
+        </Field>
+        <Field Name="SelltoCustomerNo_StatEntryItemCategory">
+          <DataField>SelltoCustomerNo_StatEntryItemCategory</DataField>
+        </Field>
+        <Field Name="SalespersonCode_StatEntryItemCategory">
+          <DataField>SalespersonCode_StatEntryItemCategory</DataField>
+        </Field>
+        <Field Name="SalesAmount_StatEntryItemCategory">
+          <DataField>SalesAmount_StatEntryItemCategory</DataField>
+        </Field>
+        <Field Name="SalesAmount_StatEntryItemCategoryFormat">
+          <DataField>SalesAmount_StatEntryItemCategoryFormat</DataField>
+        </Field>
+        <Field Name="CostAmount_StatEntryItemCategory">
+          <DataField>CostAmount_StatEntryItemCategory</DataField>
+        </Field>
+        <Field Name="CostAmount_StatEntryItemCategoryFormat">
+          <DataField>CostAmount_StatEntryItemCategoryFormat</DataField>
+        </Field>
+        <Field Name="ProfitAmount_StatEntryItemCategory">
+          <DataField>ProfitAmount_StatEntryItemCategory</DataField>
+        </Field>
+        <Field Name="ProfitAmount_StatEntryItemCategoryFormat">
+          <DataField>ProfitAmount_StatEntryItemCategoryFormat</DataField>
+        </Field>
+        <Field Name="ItemCategory_StatEntryItemCategory">
+          <DataField>ItemCategory_StatEntryItemCategory</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+</Report>

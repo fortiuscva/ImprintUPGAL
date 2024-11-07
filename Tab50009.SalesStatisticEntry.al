@@ -12,7 +12,7 @@ table 50009 "Sales Statistic Entry"
         field(5; "Document Type"; Option)
         {
             Caption = 'Document Type';
-            OptionMembers = " ", "Order", Invoice, "Credit Memo", "Blanket Order", "Return Order", "P. Invoice", "P. Cr. Memo";
+            OptionMembers = " ","Order",Invoice,"Credit Memo","Blanket Order","Return Order","P. Invoice","P. Cr. Memo";
         }
         field(6; "Document No."; Code[20])
         {
@@ -36,7 +36,7 @@ table 50009 "Sales Statistic Entry"
         field(25; "Location Code"; Code[10])
         {
             Caption = 'Location Code';
-            TableRelation = Location WHERE("Use As In-Transit"=CONST(false));
+            TableRelation = Location WHERE("Use As In-Transit" = CONST(false));
         }
         field(30; "Salesperson Code"; Code[10])
         {
@@ -47,7 +47,7 @@ table 50009 "Sales Statistic Entry"
         {
             TableRelation = "Lead Source".Code;
         }
-        field(40; "Item Category Code"; Code[10])
+        field(40; "Item Category Code"; Code[20])
         {
             Caption = 'Item Category Code';
             TableRelation = "Item Category";

@@ -2,7 +2,7 @@ report 50018 "SP Stat. by Inv. Doc. Date"
 {
     // ISS2.00 12.10.13 DFP - Temp copy of report becuase they were changing Document Date
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/SP Stat. by Inv. Doc. Date.rdl';
+    RDLCLayout = './src/report/layout/SP Stat. by Inv. Doc. Date.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

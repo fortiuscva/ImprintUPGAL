@@ -1,7 +1,7 @@
 report 50037 "ZD-Imprint Statement v2"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/ZD-Imprint Statement v2.rdl';
+    RDLCLayout = './src/report/layout/ZD-Imprint Statement v2.rdl';
     Caption = 'Customer Statement';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

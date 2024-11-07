@@ -1,7 +1,7 @@
 report 50016 "ORIG - Customer - Order Detail"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/ORIG - Customer - Order Detail.rdl';
+    RDLCLayout = './src/report/layout/ORIG - Customer - Order Detail.rdl';
     Caption = 'Customer - Order Detail';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

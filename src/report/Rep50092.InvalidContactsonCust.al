@@ -1,7 +1,7 @@
 report 50092 "Invalid Contacts on Cust"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Invalid Contacts on Cust.rdl';
+    RDLCLayout = './src/report/layout/Invalid Contacts on Cust.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

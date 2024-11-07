@@ -2,7 +2,7 @@ report 60013 "Statistics by Inv .Ext"
 {
     // version NAVNA14.03
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Salesperson Statistics by Inv..rdl';
+    RDLCLayout = './src/report/layout/Salesperson Statistics by Inv..rdl';
     Caption = 'Statistics by Inv .Ext';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

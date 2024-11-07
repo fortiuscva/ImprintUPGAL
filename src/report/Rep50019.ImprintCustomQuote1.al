@@ -9,7 +9,7 @@ report 50019 "Imprint Custom Quote 1"
     // IM1.02,SP5169,8/17/16,OAS: Add salesperson email.
     // IM1.03,01/02/18,SK: Added code in "SalesLine - OnAfterGetRecord()".
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Custom Quote 1.rdl';
+    RDLCLayout = './src/report/layout/Imprint Custom Quote 1.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

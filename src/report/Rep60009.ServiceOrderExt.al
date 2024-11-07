@@ -2,7 +2,7 @@ report 60009 "Service Order Ext"
 {
     // version NAVW114.00,NAVNA14.00
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Service Order.rdl';
+    RDLCLayout = './src/report/layout/Service Order.rdl';
     CaptionML = ENU = 'Service Order', ESM = 'Pedido servicio', FRC = 'Commande service', ENC = 'Service Order';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

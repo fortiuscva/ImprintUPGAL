@@ -2,7 +2,7 @@ report 60019 "Sales Quote"
 {
     // version NAVNA14.08
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Sales Quote.rdl';
+    RDLCLayout = './src/report/layout/Sales Quote.rdl';
     CaptionML = ENU = 'Sales - Quote', ESM = 'Ventas - Cotización', FRC = 'Devis - Vente', ENC = 'Sales - Quote';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

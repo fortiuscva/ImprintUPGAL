@@ -1,7 +1,7 @@
 report 50093 "Standard text data moving"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Standard text data moving.rdl';
+    RDLCLayout = './src/report/layout/Standard text data moving.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

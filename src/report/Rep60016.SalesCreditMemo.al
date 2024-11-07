@@ -2,7 +2,7 @@ report 60016 "Sales Credit Memo"
 {
     // version NAVNA14.00
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Sales Credit Memo.rdlc';
+    RDLCLayout = './src/report/layout/Sales Credit Memo.rdlc';
     CaptionML = ENU = 'Sales Credit Memo', ESM = 'Nota crédito venta', FRC = 'Note de crédit de vente', ENC = 'Sales Credit Memo';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

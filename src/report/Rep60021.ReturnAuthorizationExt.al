@@ -2,7 +2,7 @@ report 60021 "Return Authorization Ext"
 {
     // version NAVNA14.00
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Return Authorization.rdl';
+    RDLCLayout = './src/report/layout/Return Authorization.rdl';
     CaptionML = ENU = 'Return Authorization', ESM = 'Autorización de dev.', FRC = 'Autorisation du retour', ENC = 'Return Authorization';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

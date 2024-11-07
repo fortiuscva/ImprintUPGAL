@@ -1,7 +1,7 @@
 report 50068 "Update Contact Details -person"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Update Contact Details -person.rdl';
+    RDLCLayout = './src/report/layout/Update Contact Details -person.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

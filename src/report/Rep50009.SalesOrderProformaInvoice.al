@@ -37,7 +37,7 @@ report 50009 "Sales Order - Proforma Invoice"
     // 
     // //IMP1.01,16-Nov-13,ST: Created new report. This is the copy of the report 10075.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Sales Order - Proforma Invoice.rdl';
+    RDLCLayout = './src/report/layout/Sales Order - Proforma Invoice.rdl';
     Caption = 'Sales Order';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

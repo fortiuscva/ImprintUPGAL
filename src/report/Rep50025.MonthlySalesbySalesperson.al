@@ -4,7 +4,7 @@ report 50025 "Monthly Sales by Salesperson"
     //   [1] is the newest month (Dec of Current Year)
     //   [36] is the oldest month (Jan of 2 Years prior)
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Monthly Sales by Salesperson.rdl';
+    RDLCLayout = './src/report/layout/Monthly Sales by Salesperson.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

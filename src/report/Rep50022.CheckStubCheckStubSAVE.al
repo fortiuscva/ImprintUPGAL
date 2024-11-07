@@ -18,7 +18,7 @@ report 50022 "Check (Stub/Check/Stub)SAVE"
     //     baseversion="NAVNA5.00.01" releaseversion="NAVNA6.00">Report Transformation - local Report Layout.</change>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Check (StubCheckStub)SAVE.rdl';
+    RDLCLayout = './src/report/layout/Check (StubCheckStub)SAVE.rdl';
     Caption = 'Check (Stub/Check/Stub)';
     Permissions = TableData "Bank Account" = m;
     ApplicationArea = all;

@@ -1,7 +1,7 @@
 report 50097 "Update Document tables"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Update Document tables.rdl';
+    RDLCLayout = './src/report/layout/Update Document tables.rdl';
     Permissions = TableData "Sales Shipment Line" = rimd,
         TableData "Sales Invoice Line" = rimd,
         TableData "Purch. Rcpt. Line" = rimd;

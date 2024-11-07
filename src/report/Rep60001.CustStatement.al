@@ -2,7 +2,7 @@ report 60001 "Cust. Statement"
 {
     // version NAVW114.13
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Cust. Statement.rdl';
+    RDLCLayout = './src/report/layout/Cust. Statement.rdl';
     CaptionML = ENU = 'Cust. Statement', ESM = 'Estado de cuenta', FRC = 'Relevé', ENC = 'Statement';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

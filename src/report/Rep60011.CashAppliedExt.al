@@ -2,7 +2,7 @@ report 60011 "Cash Applied Ext"
 {
     // version NAVNA14.00
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Cash Applied.rdl';
+    RDLCLayout = './src/report/layout/Cash Applied.rdl';
     CaptionML = ENU = 'Cash Applied', ESM = 'Efectivo aplicado', FRC = 'Montant comptant affecté', ENC = 'Cash Applied';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

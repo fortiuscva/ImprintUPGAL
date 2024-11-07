@@ -4,7 +4,7 @@ report 60026 "Availability Status Ext"
     // ISS2.00 12.18.13 DFP - Widened fields
     //                      - Added first Bin Code with Inventory
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Availability Status.rdlc';
+    RDLCLayout = './src/report/layout/Availability Status.rdlc';
     CaptionML = ENU = 'Availability Status', ESM = 'Estado disponib.', FRC = 'État des disponibilités', ENC = 'Availability Status';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

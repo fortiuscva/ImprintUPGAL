@@ -8,7 +8,7 @@ report 60024 "Purchase Order Ext"
     // IMP1.01,05/01/18,SK: Added code to get Item Tracking line in layout.
     // IMP1.02,09/07/18,SK: Added Terms & Conditions into layout.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Purchase Order.rdl';
+    RDLCLayout = './src/report/layout/Purchase Order.rdl';
     CaptionML = ENU = 'Purchase Order', ESM = 'Pedido compra', FRC = 'Bon de commande', ENC = 'Purchase Order';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

@@ -1,7 +1,7 @@
 report 50005 "ZD-Imprint Sales Invoice"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/ZD-Imprint Sales Invoice.rdl';
+    RDLCLayout = './src/report/layout/ZD-Imprint Sales Invoice.rdl';
     Caption = 'Sales - Invoice';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

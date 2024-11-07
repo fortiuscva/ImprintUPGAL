@@ -2,7 +2,7 @@ report 60020 "Sales Shipment"
 {
     // version NAVNA14.00
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Sales Shipment.rdl';
+    RDLCLayout = './src/report/layout/Sales Shipment.rdl';
     CaptionML = ENU = 'Sales Shipment', ESM = 'Remisión de venta', FRC = 'Livraison de vente', ENC = 'Sales Shipment';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

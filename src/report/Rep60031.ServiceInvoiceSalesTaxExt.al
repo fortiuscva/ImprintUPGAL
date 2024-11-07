@@ -2,7 +2,7 @@ report 60031 "Service Invoice-Sales TaxExt"
 {
     // version NAVNA14.03
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Service Invoice-Sales Tax.rdl';
+    RDLCLayout = './src/report/layout/Service Invoice-Sales Tax.rdl';
     CaptionML = ENU = 'Service - Invoice', ESM = 'Servicio - Factura', FRC = 'Service - Facture', ENC = 'Service - Invoice';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

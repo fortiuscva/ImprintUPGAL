@@ -1,7 +1,7 @@
 report 50021 "Check-SAVE"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Check-SAVE.rdl';
+    RDLCLayout = './src/report/layout/Check-SAVE.rdl';
     Caption = 'Check';
     Permissions = TableData "Bank Account" = m;
     ApplicationArea = all;

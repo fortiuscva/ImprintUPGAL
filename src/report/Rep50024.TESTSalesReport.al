@@ -1,7 +1,7 @@
 report 50024 "TEST Sales Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/TEST Sales Report.rdl';
+    RDLCLayout = './src/report/layout/TEST Sales Report.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

@@ -2,7 +2,7 @@ report 60030 "Check (Stub/Check/Stub)Ext"
 {
     // version NAVNA14.10
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Check (StubCheckStub).rdl';
+    RDLCLayout = './src/report/layout/Check (StubCheckStub).rdl';
     CaptionML = ENU = 'Check (Stub/Check/Stub)', ESM = 'Cheque (Serie/Cheque/Serie)', FRC = 'Chèque (Talon/Chèque/Talon)', ENC = 'Cheque (Stub/Cheque/Stub)';
     Permissions = TableData 270 = m;
     ApplicationArea = all;

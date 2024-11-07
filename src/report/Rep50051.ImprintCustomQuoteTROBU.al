@@ -24,7 +24,7 @@ report 50051 "Imprint Custom Quote TRO_BU"
     //     releaseversion="NA7.00">RFC and CURP data fields</add>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Custom Quote TRO_BU.rdl';
+    RDLCLayout = './src/report/layout/Imprint Custom Quote TRO_BU.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
     Caption = 'Sales - Quote';

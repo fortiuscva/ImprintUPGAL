@@ -2,7 +2,7 @@ report 60002 "Order Confirmation"
 {
     // version NAVW114.01,NAVNA14.01
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Order Confirmation.rdl';
+    RDLCLayout = './src/report/layout/Order Confirmation.rdl';
     CaptionML = ENU = 'Order Confirmation', ESM = 'Confirmación pedido', FRC = 'Confirmation de commande', ENC = 'Order Confirmation';
     PreviewMode = PrintLayout;
     ApplicationArea = all;

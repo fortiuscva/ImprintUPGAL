@@ -2,7 +2,7 @@ report 60005 "Vendor - Payment Receipt Ext"
 {
     // version NAVW114.04,NAVNA14.04
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Vendor - Payment Receipt.rdl';
+    RDLCLayout = './src/report/layout/Vendor - Payment Receipt.rdl';
     CaptionML = ENU = 'Vendor - Payment Receipt', ESM = 'Proveedor - Recepción pago', FRC = 'Fournisseur - Reçu de paiement', ENC = 'Vendor - Payment Receipt';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

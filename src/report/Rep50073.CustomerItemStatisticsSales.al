@@ -13,7 +13,7 @@ report 50073 "Customer/Item Statistics Sales"
     // IMP1.01,03/07/17,SK: Add code in OnInitReport, OnPreReport, Value Entry - OnPreDataItem().
     //                      Add new dataitem as Salesperson/Purchaser.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/CustomerItem Statistics Sales.rdl';
+    RDLCLayout = './src/report/layout/CustomerItem Statistics Sales.rdl';
     Caption = 'Customer/Item Statistics';
     UseRequestPage = false;
     ApplicationArea = all;

@@ -7,7 +7,7 @@ report 50015 "ORIG -  SP Statistics by Inv."
     //     baseversion="NAVNA4.00" releaseversion="NAVNA6.00">Report Transformation - local Report Layout.</change>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/ORIG -  SP Statistics by Inv..rdl';
+    RDLCLayout = './src/report/layout/ORIG -  SP Statistics by Inv..rdl';
     Caption = 'Salesperson Statistics by Inv.';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

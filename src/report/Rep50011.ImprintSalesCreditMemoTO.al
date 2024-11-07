@@ -24,7 +24,7 @@ report 50011 "Imprint Sales Credit Memo - TO"
     //     releaseversion="NA7.00">RFC and CURP data fields</add>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Sales Credit Memo - TO.rdl';
+    RDLCLayout = './src/report/layout/Imprint Sales Credit Memo - TO.rdl';
     Caption = 'Sales Credit Memo';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

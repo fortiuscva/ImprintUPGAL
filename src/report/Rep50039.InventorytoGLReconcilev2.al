@@ -1,7 +1,7 @@
 report 50039 "Inventory to G/L Reconcile v2"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Inventory to GL Reconcile v2.rdl';
+    RDLCLayout = './src/report/layout/Inventory to GL Reconcile v2.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

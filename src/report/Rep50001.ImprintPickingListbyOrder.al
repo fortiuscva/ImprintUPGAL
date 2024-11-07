@@ -23,7 +23,7 @@ report 50001 "Imprint Picking List by Order"
     //                        - Added code in "Sales Line - OnAfterGetRecord()".
     //                        - Modified layout.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Picking List by Order.rdl';
+    RDLCLayout = './src/report/layout/Imprint Picking List by Order.rdl';
     Caption = 'Picking List by Order';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

@@ -1,7 +1,7 @@
 report 50063 "Update Contact Details"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Update Contact Details.rdl';
+    RDLCLayout = './src/report/layout/Update Contact Details.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

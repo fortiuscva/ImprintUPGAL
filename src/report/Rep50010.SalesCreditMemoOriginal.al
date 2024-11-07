@@ -24,7 +24,7 @@ report 50010 "Sales Credit Memo - Original"
     //     releaseversion="NA7.00">RFC and CURP data fields</add>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Sales Credit Memo - Original.rdl';
+    RDLCLayout = './src/report/layout/Sales Credit Memo - Original.rdl';
     Caption = 'Sales Credit Memo';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

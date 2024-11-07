@@ -5,7 +5,7 @@ report 50035 "ZD-Sales Shipment - Copy"
     // IM1.02,SP4928,5/25/16,OAS: Print tracking #s.
     // IMP1.03, 09/01/23, SK: Added code to print External Tracking No. from Posted Packages and layout changes also.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/ZD-Sales Shipment - Copy.rdl';
+    RDLCLayout = './src/report/layout/ZD-Sales Shipment - Copy.rdl';
     Caption = 'Sales Shipment';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

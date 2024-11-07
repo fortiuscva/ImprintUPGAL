@@ -20,7 +20,7 @@ report 50053 "Aged Accounts Receivable Old"
     //     baseversion="NAVNA6.00" releaseversion="NAVNA7.00">Fixed PROC Length issue</change>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Aged Accounts Receivable Old.rdl';
+    RDLCLayout = './src/report/layout/Aged Accounts Receivable Old.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
     Caption = 'Aged Accounts Receivable';

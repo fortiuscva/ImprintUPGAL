@@ -2,7 +2,7 @@ report 60022 "Return Receipt Ext"
 {
     // version NAVNA14.00
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Return Receipt.rdl';
+    RDLCLayout = './src/report/layout/Return Receipt.rdl';
     CaptionML = ENU = 'Return Receipt', ESM = 'Recep. devolución', FRC = 'Réception de retour', ENC = 'Return Receipt';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

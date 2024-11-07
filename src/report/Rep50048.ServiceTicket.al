@@ -13,7 +13,7 @@ report 50048 "Service Ticket"
     // IMP1.03,02/28/2020,SK: Added "Salesperson" details into layout.
     //                        Added code at "Service Header - OnAfterGetRecord()" to get the value & declared global variable.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Service Ticket.rdl';
+    RDLCLayout = './src/report/layout/Service Ticket.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
     Caption = 'Service Ticket';

@@ -2,7 +2,7 @@ report 60015 "Customer Statements Ext"
 {
     // version NAVNA14.06
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Customer Statements.rdl';
+    RDLCLayout = './src/report/layout/Customer Statements.rdl';
     CaptionML = ENU = 'Customer Statements', ESM = 'Estados de cuenta de cliente', FRC = 'Relevés client', ENC = 'Customer Statements';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

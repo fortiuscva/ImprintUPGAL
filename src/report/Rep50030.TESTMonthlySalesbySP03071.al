@@ -4,7 +4,7 @@ report 50030 "TEST Monthly Sales by SP 03071"
     //   [1] is the newest month (Dec of Current Year)
     //   [36] is the oldest month (Jan of 2 Years prior)
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/TEST Monthly Sales by SP 03071.rdl';
+    RDLCLayout = './src/report/layout/TEST Monthly Sales by SP 03071.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

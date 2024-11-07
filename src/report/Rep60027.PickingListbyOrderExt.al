@@ -2,7 +2,7 @@ report 60027 "Picking List by Order Ext"
 {
     // version NAVNA14.01
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Picking List by Order.rdlc';
+    RDLCLayout = './src/report/layout/Picking List by Order.rdlc';
     CaptionML = ENU = 'Picking List by Order', ESM = 'List. picking por ped.', FRC = 'Bordereau de prélèvement par commande', ENC = 'Picking List by Order';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

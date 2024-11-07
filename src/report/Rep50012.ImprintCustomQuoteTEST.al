@@ -24,7 +24,7 @@ report 50012 "Imprint Custom Quote TEST"
     //     releaseversion="NA7.00">RFC and CURP data fields</add>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Custom Quote TEST.rdl';
+    RDLCLayout = './src/report/layout/Imprint Custom Quote TEST.rdl';
     Caption = 'Sales - Quote';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

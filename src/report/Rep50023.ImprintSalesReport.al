@@ -23,7 +23,7 @@ report 50023 "Imprint Sales Report"
     //IMP1.01,30-Oct-23,SK: -> Added code to rank the customer with new option "Profit".
     //                    -> Changed the array length to 1000 to have this report process 999 records.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Sales Report.rdl';
+    RDLCLayout = './src/report/layout/Imprint Sales Report.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
     Caption = 'IMP Customer Top 10 List';

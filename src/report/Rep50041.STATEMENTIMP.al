@@ -28,7 +28,7 @@ report 50041 "STATEMENTIMP"
     // IMP1.04,03/15/18,SK: Changed the Statement Date as Today when user ran the report.
     //         03/16/18,SK: Changed the buckets range.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/STATEMENTIMP.rdl';
+    RDLCLayout = './src/report/layout/STATEMENTIMP.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
     Caption = 'STATEMENT';

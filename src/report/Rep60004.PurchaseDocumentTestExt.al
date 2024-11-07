@@ -3,7 +3,7 @@ report 60004 "Purchase Document - Test Ext"
     // version NAVW114.00,NAVNA14.00
     // ISS2.00 02.10.14 DFP - Change to handle Sales Order already posted
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Purchase Document - Test.rdl';
+    RDLCLayout = './src/report/layout/Purchase Document - Test.rdl';
     CaptionML = ENU = 'Purchase Document - Test', ESM = 'Documento compras - Prueba', FRC = 'Document d''achat - Test', ENC = 'Purchase Document - Test';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

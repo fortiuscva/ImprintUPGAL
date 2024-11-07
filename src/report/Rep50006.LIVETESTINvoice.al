@@ -38,7 +38,7 @@ report 50006 "LIVE TEST INvoice"
     //    ode</change>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/LIVE TEST INvoice.rdl';
+    RDLCLayout = './src/report/layout/LIVE TEST INvoice.rdl';
     Caption = 'Sales - Invoice';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

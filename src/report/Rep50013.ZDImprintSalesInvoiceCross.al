@@ -46,7 +46,7 @@ report 50013 "ZD-Imprint Sales Invoice Cross"
     // IMP1.06,11/29/21,SK: Change the UnitPriceToPrint source expression to print Unit Price.
     // IMP1.07,03/06/23,SK: Added code at "Sales Invoice Line"-OnAfterGetRecord() and "Sales Invoice Header"-OnAfterGetRecord() and layout changes also.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/ZD-Imprint Sales Invoice Cross.rdl';
+    RDLCLayout = './src/report/layout/ZD-Imprint Sales Invoice Cross.rdl';
     Caption = 'Imprint Sales Invoice with Cross-Reference';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

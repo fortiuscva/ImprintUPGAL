@@ -1,7 +1,7 @@
 report 50036 "Imprint Statement"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Statement.rdl';
+    RDLCLayout = './src/report/layout/Imprint Statement.rdl';
     Caption = 'Statement';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

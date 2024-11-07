@@ -2,7 +2,7 @@ report 60023 "Payment Journal - Test Ext"
 {
     // version NAVNA14.03
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Payment Journal - Test.rdl';
+    RDLCLayout = './src/report/layout/Payment Journal - Test.rdl';
     CaptionML = ENU = 'Payment Journal - Test', ESM = 'Diario de pagos - Test', FRC = 'Journal des paiements - Test', ENC = 'Payment Journal - Test';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

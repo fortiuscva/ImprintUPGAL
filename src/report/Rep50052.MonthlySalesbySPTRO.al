@@ -4,7 +4,7 @@ report 50052 "Monthly Sales by SP - TRO"
     //   [1] is the newest month (Dec of Current Year)
     //   [36] is the oldest month (Jan of 2 Years prior)
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Monthly Sales by SP - TRO.rdl';
+    RDLCLayout = './src/report/layout/Monthly Sales by SP - TRO.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

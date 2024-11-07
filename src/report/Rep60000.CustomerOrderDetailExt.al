@@ -4,7 +4,7 @@ report 60000 "Customer - Order Detail Ext"
     // ISS2.00 12.11.13 DFP - Changed Left Margin in Layout from 1.05834 to 2.5cm
     // ISSx.xx 12.02.13 DRR - Added code from original report from LANAC EAK BEGIN
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Customer - Order Detail.rdl';
+    RDLCLayout = './src/report/layout/Customer - Order Detail.rdl';
     CaptionML = ENU = 'Customer - Order Detail', ESM = 'Cliente - Líneas pedidos', FRC = 'Client - Détail de commande', ENC = 'Customer - Order Detail';
     PreviewMode = PrintLayout;
     ApplicationArea = all;

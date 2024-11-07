@@ -2,7 +2,7 @@ report 60012 "Daily Invoicing Report Ext"
 {
     // version NAVNA13.00
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Daily Invoicing Report.rdl';
+    RDLCLayout = './src/report/layout/Daily Invoicing Report.rdl';
     CaptionML = ENU = 'Daily Invoicing Report', ESM = 'Informe fact. diario', FRC = 'Rapport facturation quotidienne', ENC = 'Daily Invoicing Report';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

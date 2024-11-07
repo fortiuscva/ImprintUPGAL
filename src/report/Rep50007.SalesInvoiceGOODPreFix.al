@@ -38,7 +38,7 @@ report 50007 "Sales Invoice GOOD PreFix"
     //    ode</change>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Sales Invoice GOOD PreFix.rdl';
+    RDLCLayout = './src/report/layout/Sales Invoice GOOD PreFix.rdl';
     Caption = 'Sales - Invoice';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

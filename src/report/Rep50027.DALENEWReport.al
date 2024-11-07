@@ -1,7 +1,7 @@
 report 50027 "DALE NEW Report"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/DALE NEW Report.rdl';
+    RDLCLayout = './src/report/layout/DALE NEW Report.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

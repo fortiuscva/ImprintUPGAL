@@ -1,7 +1,7 @@
 report 50049 "***Find Mismatch Drop Ship"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Find Mismatch Drop Ship.rdl';
+    RDLCLayout = './src/report/layout/Find Mismatch Drop Ship.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

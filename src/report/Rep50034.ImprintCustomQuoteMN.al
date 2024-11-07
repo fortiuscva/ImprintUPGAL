@@ -8,7 +8,7 @@ report 50034 "Imprint Custom Quote MN"
     // 
     // IM1.02,SP5169,8/17/16,OAS: Add salesperson email.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Custom Quote MN.rdl';
+    RDLCLayout = './src/report/layout/Imprint Custom Quote MN.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

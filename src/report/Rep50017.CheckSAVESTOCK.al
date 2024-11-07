@@ -52,7 +52,7 @@ report 50017 "Check SAVE STOCK"
     //   </change>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Check SAVE STOCK.rdl';
+    RDLCLayout = './src/report/layout/Check SAVE STOCK.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
     Caption = 'Check';

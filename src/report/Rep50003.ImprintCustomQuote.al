@@ -26,7 +26,7 @@ report 50003 "Imprint Custom Quote"
     // 
     // //IMP1.01   02-Jul-15   ST     -> Code added to "SalesLine - OnAfterGetRecord()" to print the Crosss Reference No.
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Custom Quote.rdl';
+    RDLCLayout = './src/report/layout/Imprint Custom Quote.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

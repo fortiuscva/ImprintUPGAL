@@ -1,7 +1,7 @@
 report 50081 "Check item qty  whse mismatch"
 {
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Check item qty  whse mismatch.rdl';
+    RDLCLayout = './src/report/layout/Check item qty  whse mismatch.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
 

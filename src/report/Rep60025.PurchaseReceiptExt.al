@@ -2,7 +2,7 @@ report 60025 "Purchase Receipt Ext"
 {
     // version NAVNA14.00
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Purchase Receipt.rdl';
+    RDLCLayout = './src/report/layout/Purchase Receipt.rdl';
     CaptionML = ENU = 'Purchase Receipt', ESM = 'Recepción de compra', FRC = 'Réception d''achat', ENC = 'Purchase Receipt';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

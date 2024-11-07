@@ -7,7 +7,7 @@ report 50002 "SP  Statistics by Inv. Cost"
     //     baseversion="NAVNA4.00" releaseversion="NAVNA6.00">Report Transformation - local Report Layout.</change>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/SP  Statistics by Inv. Cost.rdl';
+    RDLCLayout = './src/report/layout/SP  Statistics by Inv. Cost.rdl';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;
     Caption = 'SP Statistics by Inv. Cost';

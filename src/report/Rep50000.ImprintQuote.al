@@ -24,7 +24,7 @@ report 50000 "Imprint Quote"
     //     releaseversion="NA7.00">RFC and CURP data fields</add>
     // </changelog>
     DefaultLayout = RDLC;
-    RDLCLayout = './report/layout/Imprint Quote.rdl';
+    RDLCLayout = './src/report/layout/Imprint Quote.rdl';
     Caption = 'Sales - Quote';
     ApplicationArea = all;
     UsageCategory = ReportsAndAnalysis;

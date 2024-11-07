@@ -918,7 +918,8 @@ report 50006 "LIVE TEST INvoice"
 
     procedure InitLogInteraction()
     begin
-        LogInteraction := SegManagement.FindInteractTmplCode(4) <> '';
+        //LogInteraction := SegManagement.FindInteractTmplCode(4) <> '';
+        LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Inv.") <> '';
     end;
 
     procedure CollectAsmInformation(TempSalesInvoiceLine: Record "Sales Invoice Line" temporary)

@@ -1178,7 +1178,8 @@ report 60002 "Order Confirmation"
 
     local procedure InitLogInteraction();
     begin
-        LogInteraction := SegManagement.FindInteractTmplCode(3) <> '';
+        //LogInteraction := SegManagement.FindInteractTmplCode(3) <> '';
+        LogInteraction := SegManagement.FindInteractionTemplateCode(Enum::"Interaction Log Entry Document Type"::"Sales Ord. Cnfrmn.") <> '';
     end;
 
     local procedure FormatAddressFields(var SalesHeader: Record "Sales Header");
